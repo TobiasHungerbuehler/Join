@@ -156,8 +156,9 @@ function getCategoryArray() {
 
 
 function shwoNewCategoryItem() {
-    document.getElementById('new-category-item'). innerHTML =  `
+    document.getElementById('new-category-item'). innerHTML = /*html*/  `
         <p onclick="showNewCategoryInput()">New Category</p>
+        <img src="./Img/icon_plus_edge.svg" alt="" onclick="showNewCategoryInput()">
         `;
 }
 
@@ -242,9 +243,6 @@ function selectCategory(category, id, color) {
 /* Assign Contact to Task */
 /*********************************************************************/
 
-//let xemails = ['test@contact.com', 'bug@contact.com', 'helptest@contact.com']
-
-
 // öffnet die Contact Options
 function showContactOptions() { 
     //getEmailsFromContacts() // zu init hinzugefügt
@@ -267,7 +265,7 @@ function renderAllEmails() {
 // Erstellt Contact HTML Element
 function createContactElementHtml(email, color) {
     document.getElementById('contacts-container').innerHTML += /* html */ `
-        <div class="selection-item contact-item" onclick="">
+        <div class="selection-item contact-item">
             <p>${email}</p>
             <div class="checkbox-container">
                 <input class="email-checkbox" type="checkbox" data-email="${email}" data-color="${color}" onclick="toAddedContacts()">
@@ -308,10 +306,11 @@ function createContactIconHtml(letters, color){
 }
  
 
-
+// erstelle den new Contact Input
 function shwoNewContactItem() {
-    document.getElementById('new-contact-item'). innerHTML =  `
+    document.getElementById('new-contact-item'). innerHTML = /*html*/ `
         <p onclick="showNewContactInput()">Invite new contact</p>
+        <img src="./Img/new_contact.png" alt="" onclick="showNewContactInput()">
         `;
 }
 
@@ -320,7 +319,7 @@ function shwoNewContactItem() {
 function showNewContactInput() {
     document.getElementById('assigned-to-container').innerHTML = /*html*/ `
     <div class="new-category-wrapper">
-            <input class="category-input" id="contact-input" type="text" placeholder="Contact email">
+            <input class="category-input" type="email" id="contact-input" type="text" placeholder="Contact email">
             <img class="new-category-close-img" src="./Img/icon_close.svg" alt="" onclick="createContactContainerHTML()">
             <img class="new-category-check-img" src="./Img/check.svg" alt="" onclick="saveNewContact()">
     </div>
@@ -340,9 +339,14 @@ function createContactContainerHTML() {
     `;
 }
 
-
+// Speichere neue Email in der provisorischen Array "allEmails"
 function saveNewContact() {
-    // zu emails hizufügen?????
+    let email = document.getElementById('contact-input').value;
+    let color = 'new-email';
+    let newEmail = {"email" : email, "color" : color};
+    allEmails.push(newEmail);
+    createContactContainerHTML()
+    showContactOptions()
 }
 
 

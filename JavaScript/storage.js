@@ -136,54 +136,55 @@ async function getContacts() {
   }
 }
 
-let contacts;
-// let contacts = [
-//   {
-//     'name': 'Jonas Jonasson',
-//     'email': 'jonas@joinmail.com',
-//     'phone': '+12345678',
-//     'avatarColor': 'blue'
-//   },
-//   {
-//     'name': 'Susane Weber',
-//     'email': 'susane@joinmail.com',
-//     'phone': '+23456712',
-//     'avatarColor': 'red'
-//   },
-//   {
-//     'name': 'Stefan Brijs',
-//     'email': 'stefan@joinmail.com',
-//     'phone': '+34561234',
-//     'avatarColor': 'yellow'
-//   },
-//   {
-//     'name': 'Alex Berger',
-//     'email': 'alex@joinmail.com',
-//     'phone': '+789567456',
-//     'avatarColor': 'gold'
-//   },
-//   {
-//     'name': 'Martin Südberg',
-//     'email': 'martin@joinmail.com',
-//     'phone': '+98764567',
-//     'avatarColor': 'hell-blue'
-//   },
-//   {
-//     'name': 'Gonnsalo Martines',
-//     'email': 'gonsalo@joinmail.com',
-//     'phone': '+1324364758',
-//     'avatarColor': 'green'
-//   },
-//   {
-//     'name': 'Friedrich Schultz',
-//     'email': 'friedrich@joinmail.com',
-//     'phone': '+888666555',
-//     'avatarColor': 'purple'
-//   },
-//   {
-//     'name': 'Lynn Yo Pao',
-//     'email': 'lynn@joinmail.com',
-//     'phone': '+234345658',
-//     'avatarColor': 'orange'
-//   }
-// ];
+// let contacts = [];
+
+let contacts = [
+  {
+    'name': 'Jonas Jonasson',
+    'email': 'jonas@joinmail.com',
+    'phone': '+12345678',
+    'avatarColor': 'blue'
+  },
+  {
+    'name': 'Susane Weber',
+    'email': 'susane@joinmail.com',
+    'phone': '+23456712',
+    'avatarColor': 'red'
+  },
+  {
+    'name': 'Stefan Brijs',
+    'email': 'stefan@joinmail.com',
+    'phone': '+34561234',
+    'avatarColor': 'yellow'
+  },
+  {
+    'name': 'Alex Berger',
+    'email': 'alex@joinmail.com',
+    'phone': '+789567456',
+    'avatarColor': 'gold'
+  },
+  {
+    'name': 'Martin Südberg',
+    'email': 'martin@joinmail.com',
+    'phone': '+98764567',
+    'avatarColor': 'hell-blue'
+  },
+  {
+    'name': 'Gonnsalo Martines',
+    'email': 'gonsalo@joinmail.com',
+    'phone': '+1324364758',
+    'avatarColor': 'green'
+  },
+  {
+    'name': 'Friedrich Schultz',
+    'email': 'friedrich@joinmail.com',
+    'phone': '+888666555',
+    'avatarColor': 'purple'
+  },
+  {
+    'name': 'Lynn Yo Pao',
+    'email': 'lynn@joinmail.com',
+    'phone': '+234345658',
+    'avatarColor': 'orange'
+  }
+];
