@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join | Add Task</title>
+
+    <link rel="stylesheet" href="/Style/fonts.css">
+    <link rel="stylesheet" href="/Templates/style.css">
+    <link rel="stylesheet" href="./Style/add_task.css">
+
+    <script src="/Templates/script.js"></script>
+    <script src="./JavaScript/add_task.js"></script>
+    <script src="./JavaScript/storage.js"></script>
+
+
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    
+</head>
+<body onload=" initAddTask()">
+    
+    <div w3-include-html="/Templates/template-Web.html"></div>
+
+    <div class="page">
+        <button onclick="addTask()">addTask without vailidation</button>
+        <button onclick="saveTasksOnServer()">saveTasksOnServer</button>
+
+
+
+        <div class="title-container">
+            <h1 class="page-title">Add Task</h1>
+        </div>
+
+            <form onsubmit="addTask(); return false">
+                <div class="form-input-section">
+                    <div class="form-left">
+
+                        <label>Title</label>
+                        <div class="form-box">
+                            <input  type="text" id="title-input" placeholder="Enter a title" required>
+                        </div>
+
+                        <label>Description</label>
+                        <div class="form-box">
+                            <textarea class="description-input" id="description-input" placeholder="Enter a description"></textarea>
+                        </div>
+                        
+                        <!-- Categorie                -->
+                        <label>Category</label>
+                        <div class="form-box" id="category-container">
+                            <div class="category-input-wrapper">
+                                <input class="category-input" id="category-input" type="text" placeholder="Select your Category" readonly onclick="showCategoryOptions()" required>
+                                <div class="color-point" id="selected-color-point"></div>
+                                <img src="./Img/triangle.png" alt="" onclick="showCategoryOptions()">
+                            </div>
+                            
+                            <div class="selection-item" id="new-category-item"></div>
+                            
+                            <div class="categories-container" id="categories-container" ></div>
+
+                        </div>
+                        
+                    
+
+                        <label>Assigned to</label>
+                        <div class="form-box" id="assigned-to-container">
+
+                            <div class="category-input-wrapper">
+                                <input class="contacts-input" id="contacts-input" type="text" placeholder="Select contacts to assign" readonly onclick="showContactOptions()">
+                                <img src="./Img/triangle.png" alt="" onclick="showCategoryOptions()">
+                            </div>
+                            
+                            <div class="selection-item" id="new-contact-item"></div>
+                            <div class="categories-container" id="contacts-container"></div>
+
+
+                        </div>
+
+                        <div class="contact-icon-container" id="contact-icon-container"></div>
+
+
+                        
+                        
+                    </div>
+
+                    <div class="parting-line"></div>
+
+                    <div class="form-right">
+
+                        <label>Due date</label>
+                        <div class="form-box">
+                            <input class="due-date" type="date" id="due-date" placeholder="dd/mm/yyyy" required>
+                        </div>
+                        <label for="prio">Prio</label>
+                        <div class="prio-options">
+                            <div class="prio-buttons" id="prio-urgent" onclick="setPrio('urgent', 'prio-urgent')">
+                                <span>Urgent</span>
+                                <div class="arrow-icon-box">
+                                    <img src="./Img/arrow-up-white.png" alt="" class="layer1">
+                                    <img src="./Img/arrow-up-red.png" alt="" class="layer2" id="icon-urgent">
+                                </div>
+                            </div>
+                            <div class="prio-buttons" id="prio-medium" onclick="setPrio('medium', 'prio-medium')">
+                                <span>Medium</span>
+                                <div class="arrow-icon-box">
+                                    <img src="./Img/equal-white.png" alt="" class="layer1">
+                                    <img src="./Img/equal-orange.png" alt="" class="layer2" id="icon-medium">
+                                </div>
+                            </div>
+                            <div class="prio-buttons" id="prio-low" onclick="setPrio('low', 'prio-low')">
+                                <span>Low</span>
+                                <div class="arrow-icon-box">
+                                    <img src="./Img/arrow-down-white.png" alt="" class="layer1">
+                                    <img src="./Img/arrow-down-green.png" alt="" class="layer2" id="icon-low">
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>Subtasks</label>
+                        
+                        <div class="form-box" id="sub-task">
+                            <div class="category-input-wrapper">
+                                <input class="category-input" id="subtask-input" type="text" placeholder="Add new subtask" onclick="showSubtaskInput()">
+                                <img src="./Img/triangle.png" alt="" onclick="showSubtaskInput()">
+                            </div>
+                        </div>
+                        <div class="subtasks-container" id="subtasks-container"></div>
+                    </div>
+                </div>
+                
+                <div class="button-bar">
+                    <div class="clear-btn" onclick="clearAddTaskFormular()">Clear X</div>
+                    <button class="create-task-btn" type="submit">
+                        <span>Create Task</span> 
+                        <img src="./Img/icon_check.svg" alt="">
+                    </button>
+                </div>
+
+            </form>
+            
+
+        </div>
+
+    
+</body>
+
+</html>
+

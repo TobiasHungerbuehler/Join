@@ -1,0 +1,112 @@
+body {
+    font-family: 'Inter';
+}
+
+
+header {
+    background-color: #FFFFFF;
+    height: 89px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    
+}
+
+p {
+    font-weight: 400;
+    font-size: 21px;
+    margin-left: 350px;
+}
+
+.image-box {
+    position: absolute;
+    right: 40px;
+    top: 22px;
+    width: 120px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.avatar-header {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 1.5px;
+    border: 3px solid #2A3647;
+}
+
+/* Section with Links */
+
+.container-left{
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color:  #2A3647;
+    width: 232px;
+    height: 100vh;
+}
+
+.container-left{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.upper-cont {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 16px;
+}
+
+
+.links-cont {
+    box-sizing: border-box;
+}
+
+.immpresum-cont {
+    height: 40%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center; 
+}
+
+.links-cont-elements {
+    width: 232px;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 17px;
+    margin-bottom: 10px;
+    padding: 10px;
+    cursor: pointer;
+    color: #FFFFFF;
+    
+}
+
+.links-cont-elements:hover {
+    background-color:  #091931;
+}
+
+.links-cont-elements img {
+    width: 23px;
+    height: 22px;
+    margin-left: 34px;
+}
+.m-left{
+margin-left: 16px;
+}
+
+.data-security-icon{
+    width: 18px;
+    height: 18px;
+}
+
+.mb-30{
+    margin-bottom: 30px;
+}

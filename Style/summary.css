@@ -1,0 +1,11 @@
+
+.summary-cont {
+    position: absolute;
+    left: 232px;
+    top: 94px;
+    background-color: aquamarine;
+    width: calc(100% - 232px);
+    height: calc(100% - 95px);
+    display: flex;
+
+}
