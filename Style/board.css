@@ -1,0 +1,33 @@
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons-in-title {
+    display: flex;
+}
+
+.board-page-content {
+    width: 1100px;
+    background-color: bisque;
+    display: flex;
+    justify-content: space-between;
+}
+
+.kanban-Container {
+    min-height: 239px;
+    width: 250px;
+    background-color: azure;
+    border: 1px solid gray;
+}
+
+.title-container-board {
+    width: 1100px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.task-container {
+    background-color: cornsilk;
+}

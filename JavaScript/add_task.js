@@ -51,13 +51,14 @@ function addTask(){
    const dueDate = document.getElementById('due-date').value
    const taskPrio = newTaskPrio;
    const taskSubTasks = subTasks;
-   createNewTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks);
+   const status = 'toDo';
+   createNewTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status);
    clearAddTaskFormular();
 }
 
 
 // Create json and add to tasks 
-function createNewTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks){
+function createNewTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status){
    let newTask = {
        "title": title,
        "description": description,
@@ -65,7 +66,8 @@ function createNewTaskJson(title,description, taskCategory, taskEmails, dueDate,
        "taskEmails": [taskEmails],
        "dueDate": dueDate,
        "prio": taskPrio,
-       "subtasks": [taskSubTasks]
+       "subtasks": [taskSubTasks],
+       "status": status
    }
    tasks.push(newTask);
    console.log(newTask)

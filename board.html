@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="/Style/fonts.css">
     <link rel="stylesheet" href="/Templates/style.css">
     <link rel="stylesheet" href="./Style/add_task.css">
+    <link rel="stylesheet" href="./Style/board.css">
 
     <script src="/Templates/script.js"></script>
     <script src="./JavaScript/add_task.js"></script>
     <script src="./JavaScript/storage.js"></script>
+    <script src="./JavaScript/board.js"></script>
 
 
 
@@ -22,37 +24,50 @@
 
     
 </head>
-<body onload=" initAddTask()">
+<body onload="initBoard()">
     
     <div w3-include-html="/Templates/template-Web.html"></div>
 
     <div class="page">
-        <button onclick="">test</button>
+        <button onclick=" testTasksToServer()">test Tasks to Server</button>
 
-
-        
-        
-        <div class="title-container">
+        <div class="title-container-board flex-container">
             
             <h1 class="page-title">Board</h1>
             
-            <button class="create-task-btn" type="submit">
-                <span>Create Task</span> 
-                <img src="./Img/icon_check.svg" alt="">
-            </button>
-            
-            
-        </div>
-        
-        
-        
-        
-        
-        <div class="button-bar">
-            <div class="clear-btn">
-                <input type="text">
+            <div class="buttons-in-title">
+
+                <div class="button-bar">
+                    <div class="clear-btn">
+                        <input type="text">
+                        <img src="./Img/glass.png" alt="">
+                    </div>
+                </div>
+
+                <button class="create-task-btn" type="submit">
+                    <span>Add Task</span> 
+                    <img src="./Img/icon_plus.svg" alt="">
+                </button>
             </div>
         </div>
+        
+        
+        <div class="board-page-content">
+
+            <div class="kanban-Container" id="toDo" ondrop="moveTo('toDo')" ondragover="allowDrop(event)"></div>
+            <div class="kanban-Container" id="inProgress" ondrop="moveTo('inProgress')" ondragover="allowDrop(event)"></div>
+            <div class="kanban-Container" id="awaitingFeedback" ondrop="moveTo('awaitingFeedback')" ondragover="allowDrop(event)"></div>
+            <div class="kanban-Container" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
+
+
+
+
+
+
+        </div>
+        
+        
+        
 
 
                 

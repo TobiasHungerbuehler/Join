@@ -59,6 +59,16 @@ async function testTaskToServer() {
 
 
 // Test Tasks 
+// TestTask auf Server speichern 
+async function testTasksToServer() {
+  let key = "userTasks";
+  let value = testTasks;
+  await setItem(key, value);
+  //await getTasks(); // automatishh wieder runterladen nach upload zu test
+}
+
+
+
 let testTasks = [
   {
     "title": "Phone prospecting for new customers",
@@ -71,7 +81,8 @@ let testTasks = [
        {"title": "Create a list of potential customers", "isCompleted": "false"},
        {"title": "Research phone numbers and add them to the list", "isCompleted": "false"},
        {"title": "Perform phone prospecting and record notes in CRM system", "isCompleted": "false"}
-    ]
+    ],
+    "status": 'toDo'
   },
   {
     "title": "Launch new marketing campaign",
@@ -84,7 +95,8 @@ let testTasks = [
       {"title": "Develop campaign strategy and messaging", "isCompleted": "false"},
       {"title": "Create marketing materials (e.g. email copy, landing pages)", "isCompleted": "false"},
       {"title": "Launch campaign and track results", "isCompleted": "false"}
-    ]
+    ],
+    "status": 'inProgress'
   },
   {
     "title": "Prepare financial reports",
@@ -97,7 +109,8 @@ let testTasks = [
       {"title": "Gather financial data from relevant sources", "isCompleted": "false"},
       {"title": "Organize data and create financial reports", "isCompleted": "false"},
       {"title": "Review and finalize reports with management", "isCompleted": "false"}
-    ]
+    ],
+    "status": 'awaitingFeedback'
   }
 
 ]
