@@ -47,7 +47,7 @@ async function saveTasksOnServer() {
   let key = "userTasks";
   let value = tasks;
   await setItem(key, value);
-  await getTasks(); // automatishh wieder runterladen nach upload zu test
+  //await getTasks(); // automatishh wieder runterladen nach upload zu test
 }
 
 /// provisorische test task wieder auf server speichern 

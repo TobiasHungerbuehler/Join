@@ -47,11 +47,17 @@ async function moveTo(newStatus) {
         ev.preventDefault();
     }
 
+
+// Create Task on Board
 function generateTaskHTML(task, id, i) {
     return document.getElementById(id).innerHTML += /*html*/ `
 
         <div class="task-container" id="task${i}" draggable="true" ondragstart="startDragging(${i})">
-            <div>${task['title']}</div>
+
+            <div class="task-category-container" style="background-color: ${task['category']['color']}">${task['category']['category']}</div>
+
+            <div class="task-title-container">${task['title']}</div>
+            <div class="task-description-container">${task['description']}</div>
 
 
 

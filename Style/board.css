@@ -16,7 +16,7 @@
 }
 
 .kanban-Container {
-    min-height: 239px;
+    min-height: 400px;
     width: 250px;
     background-color: azure;
     border: 1px solid gray;
@@ -28,6 +28,42 @@
     margin-bottom: 50px;
 }
 
-.task-container {
-    background-color: cornsilk;
+/* .task-container {
+
+} */
+
+.task-category-container{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFFFFF;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 4px 25px;
+    margin-bottom: 10px;
+}
+
+.task-title-container {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 21px;
+    color: #2A3647;
+    line-height: 100%;
+}
+
+.task-description-container {
+    margin-top: 10px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    color: #A8A8A8;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
