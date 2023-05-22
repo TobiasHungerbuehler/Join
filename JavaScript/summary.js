@@ -1,6 +1,8 @@
-function loadSummary() {
+async function loadSummary() {
     init();
+    await getTasks();
     showTimeOfTheDay();
+    checkNummberOfTasks(); 
 }
 
 //die Zeit wird berechnet und der Guest wird demändsprechend begrüßt
@@ -31,4 +33,13 @@ function showTimeOfTheDay() {
         document.getElementById('greet').innerHTML = 'Good night,';
     }
     
+}
+
+// function, die über Tasks Array itteriert
+
+function checkNummberOfTasks() {
+    for (let i = 0; i < tasks.length; i++) {
+        const element = tasks[i];
+        console.log(element);
+    }
 }

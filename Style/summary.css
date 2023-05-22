@@ -60,12 +60,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    transition: transform 250ms ease-out;
 
 }
 
 .summary-task-box:hover {
     background-color: #2A3647;
     color: #FFFFFF;
+    transform: scale(1.1); 
+    transform-origin: center;
 }
 
 .summary-task-box-numm {
@@ -86,11 +90,15 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    cursor: pointer;
+    transition: transform 250ms ease-out;
 }
 
 .task-middle-line:hover {
     background-color: #2A3647;
     color: #FFFFFF;
+    transform: scale(1.1); 
+    transform-origin: center;
 }
 
 .section-urgent {
@@ -141,11 +149,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    transition: transform 250ms ease-out;
 }
 
 .summary-task-box-big:hover {
     background-color: #2A3647;
     color: #FFFFFF;
+    transform: scale(1.1); 
+    transform-origin: center;
+    
 }
 
 .summary-task-box-big-elem {
@@ -163,7 +176,7 @@
 }
 
 .summary-task-box-big image:hover {
-    background-color: #FFFFFF;
+    fill: #FFFFFF;
 }
 
 .summary-task-cont-right {
