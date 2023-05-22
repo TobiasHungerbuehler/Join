@@ -74,12 +74,12 @@ let testTasks = [
     "title": "Phone prospecting for new customers",
     "description": "Make calls to potential customers to identify new sales opportunities.",
     "category": { "category": "Sales", "color": "#29ABE2" },
-    "taskEmails": ["test@test.com", "tp@ghh.com"],
+    "taskEmails": ["jonas@joinmail.com", "susane@joinmail.com", "alex@joinmail.com"],
     "dueDate": "2023-05-18",
     "prio": "urgent",
     "subtasks": [
-       {"title": "Create a list of potential customers", "isCompleted": "false"},
-       {"title": "Research phone numbers and add them to the list", "isCompleted": "false"},
+       {"title": "Create a list of potential customers", "isCompleted": "true"},
+       {"title": "Research phone numbers and add them to the list", "isCompleted": "true"},
        {"title": "Perform phone prospecting and record notes in CRM system", "isCompleted": "false"}
     ],
     "status": 'toDo'
@@ -88,11 +88,11 @@ let testTasks = [
     "title": "Launch new marketing campaign",
     "description": "Create and execute a new marketing campaign to drive sales.",
     "category": { "category": "Marketing", "color": "#e22970" },
-    "taskEmails": ["marketing@test.com", "sales@test.com"],
+    "taskEmails": ["gonsalo@joinmail.com", "alex@joinmail.com", "friedrich@joinmail.com", "lynn@joinmail.com", "martin@joinmail.com"  ],
     "dueDate": "2023-06-01",
     "prio": "medium",
     "subtasks": [
-      {"title": "Develop campaign strategy and messaging", "isCompleted": "false"},
+      {"title": "Develop campaign strategy and messaging", "isCompleted": "true"},
       {"title": "Create marketing materials (e.g. email copy, landing pages)", "isCompleted": "false"},
       {"title": "Launch campaign and track results", "isCompleted": "false"}
     ],
@@ -102,13 +102,13 @@ let testTasks = [
     "title": "Prepare financial reports",
     "description": "Compile financial data and create reports for management.",
     "category": { "category": "Backoffice", "color": "#e27329" },
-    "taskEmails": ["finance@test.com", "management@test.com"],
+    "taskEmails": ["stefan@joinmail.com","friedrich@joinmail.com" ],
     "dueDate": "2023-05-31",
     "prio": "low",
     "subtasks": [
-      {"title": "Gather financial data from relevant sources", "isCompleted": "false"},
-      {"title": "Organize data and create financial reports", "isCompleted": "false"},
-      {"title": "Review and finalize reports with management", "isCompleted": "false"}
+      {"title": "Gather financial data from relevant sources", "isCompleted": "true"},
+      {"title": "Organize data and create financial reports", "isCompleted": "true"},
+      {"title": "Review and finalize reports with management", "isCompleted": "true"}
     ],
     "status": 'awaitingFeedback'
   }
@@ -149,9 +149,9 @@ async function getContacts() {
   }
 }
 
-// let contacts = [];
+ let contacts = [];
 
-let contacts = [
+let testContacts = [
   {
     'name': 'Jonas Jonasson',
     'email': 'jonas@joinmail.com',
