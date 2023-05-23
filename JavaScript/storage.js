@@ -115,6 +115,24 @@ let testTasks = [
 
 ]
 
+const priorityValues = {
+  urgent: {
+      color: '#FF3D00',
+      text: 'Urgent',
+      img: './Img/arrow-up-white.png'
+  },
+  medium: {
+      color: '#FFA800',
+      text: 'Medium',
+      img: './Img/equal-white.png'
+  },
+  low: {
+      color: '#7AE229',
+      text: 'Low',
+      img: './Img/arrow-down-white.png'
+  }
+};
+
 
 
 
