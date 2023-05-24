@@ -9,6 +9,12 @@ async function initBoard() {
     init() // Start Template
     await getTasks() // load tasks from server and save in "tasks"
     await getContacts() // Load Contacts from Server
+    getCategoryArray() // erstelle Array "taskCategories" aus array "tasks"
+
+    //await getContacts() // Lade die User Kontake vom Server
+    getEmailsFromContacts() // speicher alle Emails mit Color in "allEmails"
+
+    
     console.log('downloaded Contacts',contacts)
     renderTasksToKanban()
 }
@@ -147,7 +153,9 @@ function createContactPreviewItem(initials, colorClass,i){
 // Erstellt die initialen aus Name Contact
 function getInitials(email) {
     let contact = findContactByEmail(email);
+    console.log('tesssssst',contact)
     let name = contact['name'];
+    console.log('tesssssst',name)
     const nameParts = name.split(' ');
     let initials = '';
     for (let i = 0; i < nameParts.length; i++) {
@@ -205,11 +213,11 @@ function allowDrop(ev) {
 
 
 function showFullTask(i) {
-    console.log(i, tasks[i]);
+
     let task = tasks[i]
     showOverlayBoard();
 
-    renderFullTask(task);
+    renderFullTask(task, i);
     setPrioOnFullTask(task);
     showTaskContactsFull(task,i)
 
@@ -217,13 +225,12 @@ function showFullTask(i) {
 }
 
 // show task in a Fullview on Overlay
-function renderFullTask(task) {
+function renderFullTask(task,i) {
 
     document.getElementById('board-overlay').innerHTML = /*html*/ `
     
         <div class="full-task-container">
 
-                
             <div class="task-category-container-full" style="background-color: ${task['category']['color']}">${task['category']['category']}</div>
 
             <div class="task-title-container-full">${task['title']}</div>
@@ -242,8 +249,21 @@ function renderFullTask(task) {
                 <span class="smal-title">Assigned To:</span>
                 
                 <div class="contact-render-container-full" id="contact-render-container-full"></div>
-                
-                    
+                     
+            </div>
+    
+            <div class="close-button-full" onclick="closeTaskFull()">
+                <img src="./Img/icon_close.svg" alt="">
+            </div>
+    
+            <div class="options-full" >
+                <div class="delete-task-button">
+                    <img src="./Img/icon_trash.svg" alt="">
+                </div>
+    
+                <div class="edit-task-button" onclick="editTask(${i})">
+                    <img src="./Img/icon_pencil.svg" alt="">
+                </div>
             </div>
 
         </div>
@@ -312,11 +332,66 @@ function createPrioHTML(color, text, img) {
 
 
 
+//Edit Task
+function editTask(i) {
+    document.getElementById('board-overlay').innerHTML = '';
+    document.getElementById('board-overlay').innerHTML = shwoTaskForm();
+    setValuesOnForm(i);
+}
+
+
+// Setzte Task Werte in das Task Formular zur bearbeitung 
+function setValuesOnForm(i) {
+    document.getElementById('title-input').value = tasks[i]['title'];
+    document.getElementById('description-input').value = tasks[i]['description'];
+    selectCategory(tasks[i]['category']['category'], 'category-input', tasks[i]['category']['color'] )
+    showAddedTaskContacts(tasks[i]['taskEmails']);
+
+    console.log(tasks[i]['dueDate'])
+    document.getElementById('due-date').value = tasks[i]['dueDate'];
+    
+    //setDateInInput(i)
+
+}
+
+
+// 
+function setDateInInput(i) {
+    const dateObject = new Date(tasks[i]['dueDate']);
+    const day = dateObject.getDate().toString().padStart(2, '0');
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+    const year = dateObject.getFullYear().toString();
+  
+    const formattedDate = `${day}.${month}.${year}`;
+  
+    document.getElementById('due-date').value = formattedDate;
+  }
+
+
+// Zeigt die hinzugefügten Kontakte als icons an
+function showAddedTaskContacts(taskEmails){
+    addedContacts = [];
+    for (let i = 0; i < taskEmails.length; i++) {
+        const email = taskEmails[i];
+        addedContacts.push(email);   
+    }
+    renderContactIcons() // -> add_task
+}
 
 
 
 
 
+
+
+
+
+
+// Close Full Taskview
+function closeTaskFull() {
+    document.getElementById('board-overlay').innerHTML = '';
+    document.getElementById('board-overlay').classList.add('d-none')
+}
 
 
 
@@ -333,3 +408,92 @@ function closeOverlayBoard(){
 }
 
 
+function shwoTaskForm() {
+    return /*html*/ `
+                    <form onsubmit="addTask(); return false">
+                <div class="form-input-section">
+                    <div class="form-left">
+
+                        <label>Title</label>
+                        <div class="form-box">
+                            <input  type="text" id="title-input" placeholder="Enter a title" required>
+                        </div>
+                        <label>Description</label>
+                        <div class="form-box">
+                            <textarea class="description-input" id="description-input" placeholder="Enter a description"></textarea>
+                        </div>
+                        <label>Category</label>
+                        <div class="form-box" id="category-container">
+                            <div class="category-input-wrapper">
+                                <input class="category-input" id="category-input" type="text" placeholder="Select your Category" readonly onclick="showCategoryOptions()" required>
+                                <div class="color-point" id="selected-color-point"></div>
+                                <img src="./Img/triangle.png" alt="" onclick="showCategoryOptions()">
+                            </div>
+                            <div class="selection-item" id="new-category-item"></div>
+                            <div class="categories-container" id="categories-container" ></div>
+                        </div>
+                        <label>Assigned to</label>
+                        <div class="form-box" id="assigned-to-container">
+                            <div class="category-input-wrapper">
+                                <input class="contacts-input" id="contacts-input" type="text" placeholder="Select contacts to assign" readonly onclick="showContactOptions()">
+                                <img src="./Img/triangle.png" alt="" onclick="showCategoryOptions()">
+                            </div>                           
+                            <div class="selection-item" id="new-contact-item"></div>
+                            <div class="categories-container" id="contacts-container"></div>
+                        </div>
+                        <div class="contact-icon-container" id="contact-icon-container"></div>                       
+                    </div>
+                    <div class="parting-line"></div>
+                    <div class="form-right">
+                        <label>Due date</label>
+                        <div class="form-box">
+                            <input class="due-date" type="date" id="due-date" placeholder="dd/mm/yyyy" required>
+                        </div>
+                        <label for="prio">Prio</label>
+                        <div class="prio-options">
+                            <div class="prio-buttons" id="prio-urgent" onclick="setPrio('urgent', 'prio-urgent')">
+                                <span>Urgent</span>
+                                <div class="arrow-icon-box">
+                                    <img src="./Img/arrow-up-white.png" alt="" class="layer1">
+                                    <img src="./Img/arrow-up-red.png" alt="" class="layer2" id="icon-urgent">
+                                </div>
+                            </div>
+                            <div class="prio-buttons" id="prio-medium" onclick="setPrio('medium', 'prio-medium')">
+                                <span>Medium</span>
+                                <div class="arrow-icon-box">
+                                    <img src="./Img/equal-white.png" alt="" class="layer1">
+                                    <img src="./Img/equal-orange.png" alt="" class="layer2" id="icon-medium">
+                                </div>
+                            </div>
+                            <div class="prio-buttons" id="prio-low" onclick="setPrio('low', 'prio-low')">
+                                <span>Low</span>
+                                <div class="arrow-icon-box">
+                                    <img src="./Img/arrow-down-white.png" alt="" class="layer1">
+                                    <img src="./Img/arrow-down-green.png" alt="" class="layer2" id="icon-low">
+                                </div>
+                            </div>
+                        </div>
+                        <label>Subtasks</label>
+                        <div class="form-box" id="sub-task">
+                            <div class="category-input-wrapper">
+                                <input class="category-input" id="subtask-input" type="text" placeholder="Add new subtask" onclick="showSubtaskInput()">
+                                <img src="./Img/triangle.png" alt="" onclick="showSubtaskInput()">
+                            </div>
+                        </div>
+                        <div class="subtasks-container" id="subtasks-container"></div>
+                    </div>
+                </div>
+                
+                <div class="button-bar">
+                    <div class="clear-btn" onclick="clearAddTaskFormular()">Clear X</div>
+                    <button class="create-task-btn" type="submit">
+                        <span>Create Task</span> 
+                        <img src="./Img/icon_check.svg" alt="">
+                    </button>
+                </div>
+
+            </form>
+    
+    `;
+
+}

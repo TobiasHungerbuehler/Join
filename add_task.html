@@ -13,6 +13,7 @@
     <script src="/Templates/script.js"></script>
     <script src="./JavaScript/add_task.js"></script>
     <script src="./JavaScript/storage.js"></script>
+    <script src="./JavaScript/board.js"></script>
 
 
 
@@ -44,13 +45,10 @@
                         <div class="form-box">
                             <input  type="text" id="title-input" placeholder="Enter a title" required>
                         </div>
-
                         <label>Description</label>
                         <div class="form-box">
                             <textarea class="description-input" id="description-input" placeholder="Enter a description"></textarea>
                         </div>
-                        
-                        <!-- Categorie                -->
                         <label>Category</label>
                         <div class="form-box" id="category-container">
                             <div class="category-input-wrapper">
@@ -58,40 +56,22 @@
                                 <div class="color-point" id="selected-color-point"></div>
                                 <img src="./Img/triangle.png" alt="" onclick="showCategoryOptions()">
                             </div>
-                            
                             <div class="selection-item" id="new-category-item"></div>
-                            
                             <div class="categories-container" id="categories-container" ></div>
-
                         </div>
-                        
-                    
-
                         <label>Assigned to</label>
                         <div class="form-box" id="assigned-to-container">
-
                             <div class="category-input-wrapper">
                                 <input class="contacts-input" id="contacts-input" type="text" placeholder="Select contacts to assign" readonly onclick="showContactOptions()">
                                 <img src="./Img/triangle.png" alt="" onclick="showCategoryOptions()">
-                            </div>
-                            
+                            </div>                           
                             <div class="selection-item" id="new-contact-item"></div>
                             <div class="categories-container" id="contacts-container"></div>
-
-
                         </div>
-
-                        <div class="contact-icon-container" id="contact-icon-container"></div>
-
-
-                        
-                        
+                        <div class="contact-icon-container" id="contact-icon-container"></div>                       
                     </div>
-
                     <div class="parting-line"></div>
-
                     <div class="form-right">
-
                         <label>Due date</label>
                         <div class="form-box">
                             <input class="due-date" type="date" id="due-date" placeholder="dd/mm/yyyy" required>
@@ -120,9 +100,7 @@
                                 </div>
                             </div>
                         </div>
-
                         <label>Subtasks</label>
-                        
                         <div class="form-box" id="sub-task">
                             <div class="category-input-wrapper">
                                 <input class="category-input" id="subtask-input" type="text" placeholder="Add new subtask" onclick="showSubtaskInput()">

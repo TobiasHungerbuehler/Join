@@ -27,7 +27,7 @@ async function initAddTask() {
     init() //Load Html Template
     await getTasks(); // Lade die tasks vom server
     getCategoryArray() // erstelle Array "taskCategories" aus array "tasks"
-    getContacts() // Lade die User Kontake vom Server
+    await getContacts() // Lade die User Kontake vom Server
     getEmailsFromContacts() // speicher alle Emails mit Color in "allEmails"
 }
 
@@ -48,13 +48,24 @@ function addTask(){
    const description = document.getElementById('description-input').value;
    const taskCategory = setCategoryToAddTask()
    const taskEmails =  addedContacts;
-   const dueDate = document.getElementById('due-date').value
+   const dueDate = getDateFromInput();
    const taskPrio = newTaskPrio;
    const taskSubTasks = subTasks;
    const status = 'toDo';
    createNewTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status);
-   clearAddTaskFormular();
+   //console.log(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status);
+   //clearAddTaskFormular();
 }
+
+//Datum Input auslesen und in Datenformat speichern
+function getDateFromInput() {
+    const dateInput = document.getElementById('due-date').value;
+    const dateObject = new Date(dateInput);
+    isoDate = dateObject.toISOString().split('T')[0]; // Extrahieren Sie das Datumsteil "yyyy-MM-dd"
+    console.log('iso',isoDate)
+    return isoDate;
+  }
+
 
 
 // Create json and add to tasks 
@@ -62,18 +73,18 @@ function createNewTaskJson(title,description, taskCategory, taskEmails, dueDate,
    let newTask = {
        "title": title,
        "description": description,
-       "category": [taskCategory],
-       "taskEmails": [taskEmails],
+       "category": taskCategory,
+       "taskEmails": taskEmails,
        "dueDate": dueDate,
        "prio": taskPrio,
-       "subtasks": [taskSubTasks],
+       "subtasks": taskSubTasks,
        "status": status
    }
    tasks.push(newTask);
-   console.log(newTask)
 
 
-   //saveTasksOnServer(); // on --> storage.js
+   //console.log('new task json=', newTask)
+   saveTasksOnServer(); // on --> storage.js
 } 
 
 // Save Tasks on Server
@@ -135,14 +146,38 @@ function showCategoryOptions() {
 
 
 // Liest die Kategorien inkl. Color aus "tasks", speichert in taskCategories
-function getCategoryArray() {
-    for (let i = 0; i < tasks.length; i++) {
-      const category = tasks[i].category;
-      if (!taskCategories.includes(category)) {
+function getCategoryArray() {  
+    for (let i = 0; i < testTasks.length; i++) {
+      const category = testTasks[i]['category'];
+      const categoryName = category['category'];
+      let categoryExists = false;
+      for (let j = 0; j < taskCategories.length; j++) {
+        if (taskCategories[j]['category'] === categoryName) {
+          categoryExists = true;
+          break;
+        }
+      }
+      if (!categoryExists) {
         taskCategories.push(category);
       }
     }
   }
+
+/*
+function getCategoryArray() {
+    for (let i = 0; i < tasks.length; i++) {
+      const category = tasks[i]['category'];
+      const categoryName = category['category'];
+      console.log(categoryName)
+      if (!taskCategories.includes(categoryName)) {
+        //console.log('set to category=',categoryName)
+        taskCategories.push(category);
+      }
+    }
+    console.log('kategorien==', taskCategories)
+  }
+
+/*
 
 /*
 function getCategoryArray() {  
@@ -247,9 +282,9 @@ function selectCategory(category, id, color) {
 
 // öffnet die Contact Options
 function showContactOptions() { 
-    //getEmailsFromContacts() // zu init hinzugefügt
     shwoNewContactItem();
     renderAllEmails();
+    activateAddedContacts()
     changeOnClick('contacts-input', createContactContainerHTML)
 }
 
@@ -283,21 +318,40 @@ function toAddedContacts() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
     checkboxes.forEach((checkbox) => {
         const email = checkbox.getAttribute('data-email');
-        const color = checkbox.getAttribute('data-color');
-        addedContacts.push({ "email": email, "color": color });
+        //const color = checkbox.getAttribute('data-color');
+        addedContacts.push(email);
     });
     renderContactIcons();
     console.log(addedContacts)
 }
 
+//aktiviert die checkboxen der bereits hizugefügten Task Contacts
+function activateAddedContacts() {
+    for (let i = 0; i < addedContacts.length; i++) {
+      const email = addedContacts[i]['email']; // Extrahiere die E-Mail-Adresse aus dem Objekt
+      activateCheckboxByEmail(email);
+      console.log(email)
+    }
+  }
 
-// Render the added Contacts in Icon
+function activateCheckboxByEmail(email) {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+      const checkboxEmail = checkbox.getAttribute('data-email');
+      if (checkboxEmail === email) {
+        checkbox.checked = true;
+      }
+    });
+  }
+
+
+// Render the added Contacts in Icon 
 function renderContactIcons() {
     for (let i = 0; i < addedContacts.length; i++) {
-        const contacletter = addedContacts[i]['email'];
-        const firstTwoLetters = contacletter.substring(0, 1).toUpperCase();
-        const color = addedContacts[i]['color'];
-        createContactIconHtml(firstTwoLetters, color);
+        const email = addedContacts[i];
+        const initials = getInitials(email) // --> board.js
+        const color = getColorClass(email) // --> board.js
+        createContactIconHtml(initials, color);
     }
 }
 
@@ -422,7 +476,6 @@ function addSubtask() {
     let newSubtask = {"title": newSubtaskTitle, "isCompleted": "false"}
     subTasks.push(newSubtask);
     document.getElementById('subtask-input').value = '';
-    console.log(subTasks);
     renderSubtasks();
 }
 
@@ -461,7 +514,7 @@ function createSubtask(subtask) {
     document.getElementById('subtasks-container').innerHTML +=  /*html*/ `
         <div class="subtask-item">
             <div class="checkbox"></div>
-            <span>${subtask}</span>
+            <span>${subtask['title']}</span>
         </div>
     `;
 }

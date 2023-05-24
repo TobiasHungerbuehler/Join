@@ -75,7 +75,7 @@ let testTasks = [
     "description": "Make calls to potential customers to identify new sales opportunities.",
     "category": { "category": "Sales", "color": "#29ABE2" },
     "taskEmails": ["jonas@joinmail.com", "susane@joinmail.com", "alex@joinmail.com"],
-    "dueDate": "2023-05-18",
+    "dueDate": "2023-05-01",
     "prio": "urgent",
     "subtasks": [
        {"title": "Create a list of potential customers", "isCompleted": "true"},
@@ -100,6 +100,20 @@ let testTasks = [
   },
   {
     "title": "Prepare financial reports",
+    "description": "Compile financial data and create reports for management.",
+    "category": { "category": "Backoffice", "color": "#e27329" },
+    "taskEmails": ["stefan@joinmail.com","friedrich@joinmail.com" ],
+    "dueDate": "2023-05-31",
+    "prio": "low",
+    "subtasks": [
+      {"title": "Gather financial data from relevant sources", "isCompleted": "true"},
+      {"title": "Organize data and create financial reports", "isCompleted": "true"},
+      {"title": "Review and finalize reports with management", "isCompleted": "true"}
+    ],
+    "status": 'awaitingFeedback'
+  },
+  {
+    "title": "Test 4",
     "description": "Compile financial data and create reports for management.",
     "category": { "category": "Backoffice", "color": "#e27329" },
     "taskEmails": ["stefan@joinmail.com","friedrich@joinmail.com" ],
