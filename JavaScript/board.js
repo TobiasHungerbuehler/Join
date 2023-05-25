@@ -153,9 +153,7 @@ function createContactPreviewItem(initials, colorClass,i){
 // Erstellt die initialen aus Name Contact
 function getInitials(email) {
     let contact = findContactByEmail(email);
-    console.log('tesssssst',contact)
     let name = contact['name'];
-    console.log('tesssssst',name)
     const nameParts = name.split(' ');
     let initials = '';
     for (let i = 0; i < nameParts.length; i++) {

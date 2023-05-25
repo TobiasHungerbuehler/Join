@@ -62,7 +62,6 @@ function getDateFromInput() {
     const dateInput = document.getElementById('due-date').value;
     const dateObject = new Date(dateInput);
     isoDate = dateObject.toISOString().split('T')[0]; // Extrahieren Sie das Datumsteil "yyyy-MM-dd"
-    console.log('iso',isoDate)
     return isoDate;
   }
 
@@ -322,15 +321,14 @@ function toAddedContacts() {
         addedContacts.push(email);
     });
     renderContactIcons();
-    console.log(addedContacts)
+
 }
 
 //aktiviert die checkboxen der bereits hizugefügten Task Contacts
 function activateAddedContacts() {
     for (let i = 0; i < addedContacts.length; i++) {
-      const email = addedContacts[i]['email']; // Extrahiere die E-Mail-Adresse aus dem Objekt
+      const email = addedContacts[i]; // Extrahiere die E-Mail-Adresse aus dem Objekt
       activateCheckboxByEmail(email);
-      console.log(email)
     }
   }
 
