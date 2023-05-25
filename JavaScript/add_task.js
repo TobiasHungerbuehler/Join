@@ -502,20 +502,50 @@ function renderSubtasks() {
     subtasksContainer.innerHTML = '';
     for (let i = 0; i < subTasks.length; i++) {
         let subtask = subTasks[i];
-        createSubtask(subtask);
+        let isCompleted = subtaskStatus(subtask);
+        createSubtask(subtask, isCompleted);
+    }
+}
+
+// liest den isComplete wert aus
+function subtaskStatus(subtask) {
+    console.log('status====',subtask['isCompleted'])
+    let status = subtask['isCompleted'];
+    if(status == 'true'){
+        return 'checked';
+    } else {
+        return '';
     }
 }
 
 
 // Erzeugt das HTML für einen Subtask
-function createSubtask(subtask) {
+function createSubtask(subtask, isCompleted) {
     document.getElementById('subtasks-container').innerHTML +=  /*html*/ `
         <div class="subtask-item">
-            <div class="checkbox"></div>
+            <input type="checkbox" class="checkbox" onclick="checkSubtaskStates()" ${isCompleted}>
             <span>${subtask['title']}</span>
         </div>
     `;
 }
+
+
+// Prüft die checkboxen der Subtasks und speichert in "subTasks"
+function checkSubtaskStates() {
+    const subtaskItems = document.getElementsByClassName('subtask-item');
+    const subTasks = [];
+    for (let i = 0; i < subtaskItems.length; i++) {
+      const checkbox = subtaskItems[i].querySelector('.checkbox');
+      const isChecked = checkbox.checked;
+      const subtaskTitle = subtaskItems[i].querySelector('span').textContent;
+      const subtask = {
+        title: subtaskTitle,
+        isCompleted: isChecked.toString()
+      };
+      subTasks.push(subtask);
+    }
+    console.log(subTasks)
+  }
 
 
 /*********************************************************************/

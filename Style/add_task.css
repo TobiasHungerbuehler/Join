@@ -222,6 +222,8 @@ input, textarea  {
 }
 
 
+
+
 #new-contact-item img   {
     height: 18px;
     width: 18px;
@@ -411,8 +413,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
   
 .checkbox {
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     margin-right: 10px;
     border: 1px solid #ccc;
 }

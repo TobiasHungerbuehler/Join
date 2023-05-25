@@ -216,8 +216,8 @@ function showFullTask(i) {
     showOverlayBoard();
 
     renderFullTask(task, i);
-    setPrioOnFullTask(task);
     showTaskContactsFull(task,i)
+    setPrioOnFullTask(task);
 
     
 }
@@ -259,7 +259,7 @@ function renderFullTask(task,i) {
                     <img src="./Img/icon_trash.svg" alt="">
                 </div>
     
-                <div class="edit-task-button" onclick="editTask(${i})">
+                <div class="edit-task-button" onclick="editTaskWindow(${i})">
                     <img src="./Img/icon_pencil.svg" alt="">
                 </div>
             </div>
@@ -307,7 +307,7 @@ function getNameFromEmail(email) {
 }
 
 
-// ruft die Daten für die Prio Anzeige ab --> storage.js "priorityValues"
+// ladet die Daten für die Prio Anzeige ab --> storage.js "priorityValues"
 function setPrioOnFullTask(task) {
     const priority = task['prio'];
     console.log('prio=',priority)
@@ -328,42 +328,88 @@ function createPrioHTML(color, text, img) {
 `;
 }
 
+/*********************************************************************/
+/* Edit Task */
+/*********************************************************************/
 
-
-//Edit Task
-function editTask(i) {
+//Show Edit Task Window
+function editTaskWindow(i) {
     document.getElementById('board-overlay').innerHTML = '';
-    document.getElementById('board-overlay').innerHTML = shwoTaskForm();
+    document.getElementById('board-overlay').innerHTML = shwoTaskForm('editTask', i);
     setValuesOnForm(i);
+    // hier show save button(i) 
 }
 
 
 // Setzte Task Werte in das Task Formular zur bearbeitung 
 function setValuesOnForm(i) {
-    document.getElementById('title-input').value = tasks[i]['title'];
-    document.getElementById('description-input').value = tasks[i]['description'];
-    selectCategory(tasks[i]['category']['category'], 'category-input', tasks[i]['category']['color'] )
-    showAddedTaskContacts(tasks[i]['taskEmails']);
-
-    console.log(tasks[i]['dueDate'])
-    document.getElementById('due-date').value = tasks[i]['dueDate'];
-    
-    //setDateInInput(i)
+    document.getElementById('title-input').value = tasks[i]['title']; // titel to Input
+    document.getElementById('description-input').value = tasks[i]['description']; // description to input
+    selectCategory(tasks[i]['category']['category'], 'category-input', tasks[i]['category']['color'] ) // Category to input
+    showAddedTaskContacts(tasks[i]['taskEmails']); // adde Emails
+    document.getElementById('due-date').value = tasks[i]['dueDate']; // Date to Date Input
+    setTaskPrioButton(i); // setzt die Task Prio anhand des Tasks
+    showSubtasksForEdit(i)
 
 }
 
+// Zeige subtask an
+function  showSubtasksForEdit(i){
+    subTasks = [];
+    let taskSubtasks = tasks[i]['subtasks'];
+    for (let j = 0; j < taskSubtasks.length; j++) {
+        const taskSubtask = taskSubtasks[j];
+        subTasks.push(taskSubtask)
+    }
+    console.log(subTasks)
+    renderSubtasks() 
+}
 
-// 
-function setDateInInput(i) {
-    const dateObject = new Date(tasks[i]['dueDate']);
-    const day = dateObject.getDate().toString().padStart(2, '0');
-    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
-    const year = dateObject.getFullYear().toString();
-  
-    const formattedDate = `${day}.${month}.${year}`;
-  
-    document.getElementById('due-date').value = formattedDate;
-  }
+
+function setTaskPrioButton(i) {
+    let prio = tasks[i]['prio']
+    let buttonId = 'prio-'+prio 
+    setPrio(prio, buttonId);
+} 
+
+function editTask(i){
+    const title = document.getElementById('title-input').value;
+    const description = document.getElementById('description-input').value;
+    const taskCategory = setCategoryToAddTask()
+    const taskEmails =  addedContacts;
+    const dueDate = getDateFromInput();
+    const taskPrio = newTaskPrio;
+    const taskSubTasks = subTasks;
+    const status = tasks[i]['status'];
+    createEditedTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks,status, i);
+
+
+ }
+
+ function createEditedTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status, i){
+    let editedTask = {
+        "title": title,
+        "description": description,
+        "category": taskCategory,
+        "taskEmails": taskEmails,
+        "dueDate": dueDate,
+        "prio": taskPrio,
+        "subtasks": taskSubTasks,
+        "status": status
+    }
+    
+    tasks[i] = editedTask;
+    //console.log(tasks)
+    updateTasks();
+ }
+
+ async function updateTasks() {
+    await saveTasksOnServer(); // on --> storage.js
+    closeTaskFull()
+    initBoard()
+ }
+
+
 
 
 // Zeigt die hinzugefügten Kontakte als icons an
@@ -376,7 +422,7 @@ function showAddedTaskContacts(taskEmails){
     renderContactIcons() // -> add_task
 }
 
-
+// Setzt den Prio Button anhand der Task prio
 
 
 
@@ -405,10 +451,10 @@ function closeOverlayBoard(){
     document.getElementById('board-overlay').classList.add('d-none')
 }
 
-
-function shwoTaskForm() {
+// onsubmit = editTask(i)
+function shwoTaskForm(submitfunction,i) {
     return /*html*/ `
-                    <form onsubmit="addTask(); return false">
+                    <form onsubmit="${submitfunction}(${i}); return false">
                 <div class="form-input-section">
                     <div class="form-left">
 
@@ -483,9 +529,9 @@ function shwoTaskForm() {
                 </div>
                 
                 <div class="button-bar">
-                    <div class="clear-btn" onclick="clearAddTaskFormular()">Clear X</div>
+
                     <button class="create-task-btn" type="submit">
-                        <span>Create Task</span> 
+                        <span>OK</span> 
                         <img src="./Img/icon_check.svg" alt="">
                     </button>
                 </div>
