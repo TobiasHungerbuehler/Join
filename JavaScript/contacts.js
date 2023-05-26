@@ -139,7 +139,7 @@ function registerContact() {
         });
     }
 
-
+    saveContactsOnServer();
     // debugger;
     console.log(contacts);
     resetFields();
