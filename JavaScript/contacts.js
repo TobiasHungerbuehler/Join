@@ -60,11 +60,7 @@ async function loadContactPage() {
     accessContacts();
 }
 
-// async function saveContactsOnServer() {
-//     let key = "savedContacts";
-//     let value = contacts;
-//     await setItem('savedContacts', contacts);
-// }
+
 // Function zeigt Informationen von einzelnen Contacts auf der rechte Seite
 
 function showContact(k) {
@@ -112,6 +108,20 @@ function showContactDetails(k) {
 function showContactDialog() {
     clearForm();
     document.getElementById('dialogContainer').classList.remove('d-none');
+    document.getElementById('formContainer').innerhtml = dialogTemplate();
+}
+
+//Formular Add new Contacts wird angezeigt
+
+function dialogTemplate() {
+    return /*HTML*/ `
+    <form onsubmit="registerContact(); return false">
+        <div class="input-cont"><input required class="input-field-name" type="text" placeholder="Name" id="contactName"> <img src="/Img/icon_user.svg"></div>
+        <div class="input-cont"><input requiered type="email" placeholder="Email" id="contactEmail"><img src="/Img/icon_mail.svg" alt=""></div>
+        <div class="input-cont"><input required type="tel" placeholder="Phone" id="contactPhone"><img src="/Img/icon_phone.svg" alt=""></div>
+        <div class="btn-container"><button class="cancel-btn" onclick="closeContactDIalog()" id="cancelBtn">Cancel<img src="/img/icon_close.svg"></button><button class="create-contact-btn" id="createContactBtn">Create Contact<img src="/img/check.svg"></button></div>
+    </form>
+    `;
 }
 
 function closeContactDIalog() {
@@ -260,9 +270,21 @@ function renderContacts(j) {
     return someHTML;
 }
 
-//nachdem neu Kontakt erstellt wurde, info box wird angezeigt
+//nachdem neu Kontakt erstellt, ergänzt oder gelöscht wurde, info box wird angezeigt
+
 function showSuccessBox() {
     document.getElementById('successInfo').classList.add('show-success-info');
+}
+
+function showContactDeletedInfo() {
+    document.getElementById('successInfo').innerHTML = 'Contact successfully deleted';
+    document.getElementById('successInfo').classList.add('show-success-info');
+}
+
+function showContactEditedInfo() {
+    document.getElementById('successInfo').innerHTML = 'Contact successfully edited';
+    document.getElementById('successInfo').classList.add('show-success-info');
+
 }
 
 
@@ -295,31 +317,36 @@ function saveChangedContact(k) { //hier werden wir noch eine Variable brauchen d
     adressBook.innerHTML = '';
     accessContacts();
     showContact(k);
+    showContactEditedInfo();
+    console.log(contacts);
+    document.getElementById('formContainer').innerhtml = dialogTemplate();
 }
 
 function deleteContact(k) {
-    let contactName = document.getElementById('contactName').value;
-    let contactEmail = document.getElementById('contactEmail').value;
-    let contactPhone = document.getElementById('contactPhone').value;
     contacts.splice(k, 1);
     saveContactsOnServer();
     closeContactDIalog();
     adressBook.innerHTML = '';
     accessContacts();
-    showContact(k);
+    console.log(contacts);
+    document.getElementById(`contactInfoContainer`).classList.remove('show-info-dialog');
+    document.getElementById('formContainer').innerhtml = dialogTemplate();
+    showContactDeletedInfo();
 }
+
 //reseting the Dialog Box, bzw, umschalten von Edit auf AddContact
+
 function clearForm() {
 
     document.getElementById('addContactHeader').innerHTML = "Add Contact";
     document.getElementById('addContactText').innerHTML = "Tasks are better with a team! ";
-    document.getElementById('cancelBtn').innerHTML = `Cancel <img src="/img/icon_close.svg">`;
-    document.getElementById('createContactBtn').innerHTML = `Create Contact <img src="/img/check.svg">`;
 
     document.getElementById('contactName').value = "";
     document.getElementById('contactEmail').value = "";
     document.getElementById('contactPhone').value = "";
 }
+
+//Formular Edit Contact wird angezeigt
 
 function renderEditTemplate(k) {
     return /*HTML*/ `
