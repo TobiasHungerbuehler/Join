@@ -33,6 +33,7 @@ async function initAddTask() {
 
 //liest alle emails aus "contacst" und erstell array "taskEmails"
 function getEmailsFromContacts() {
+    allEmails = [];
     for (let i = 0; i < contacts.length; i++) {
       const email = contacts[i]['email'];
       const color = contacts[i]['avatarColor'];
@@ -53,8 +54,8 @@ function addTask(){
    const taskSubTasks = subTasks;
    const status = 'toDo';
    createNewTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status);
-   //console.log(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status);
-   //clearAddTaskFormular();
+   clearAddTaskFormular();
+   window.location.href = 'board.html';
 }
 
 //Datum Input auslesen und in Datenformat speichern
@@ -372,11 +373,15 @@ function shwoNewContactItem() {
 // rendert das New Contact Fenster für die Usereingabe nach klick auf Invite new contact
 function showNewContactInput() {
     document.getElementById('assigned-to-container').innerHTML = /*html*/ `
-    <div class="new-category-wrapper">
-            <input class="category-input" type="email" id="contact-input" type="text" placeholder="Contact email">
-            <img class="new-category-close-img" src="./Img/icon_close.svg" alt="" onclick="createContactContainerHTML()">
-            <img class="new-category-check-img" src="./Img/check.svg" alt="" onclick="saveNewContact()">
-    </div>
+    <form  onsubmit="saveNewContact(); return false">
+        <div class="new-category-wrapper">
+                <input class="category-input" type="email" id="contact-input" type="text" placeholder="Contact email">
+                <img class="new-category-close-img" src="./Img/icon_close.svg" alt="" onclick="submit()">
+                <img class="new-category-check-img" src="./Img/check.svg" alt="" onclick="saveNewContact()">
+        </div>
+        <input class="category-input" type="email" id="contact-name-input" type="text" placeholder="Contact name" required>
+        <input class="category-input" type="email" id="contact-phone-input" type="number" placeholder="Contact phone" required>
+    </form>
     `;
 }
 
@@ -393,16 +398,71 @@ function createContactContainerHTML() {
     `;
 }
 
-// Speichere neue Email in der provisorischen Array "allEmails"
+// Speichere neuen Kontakt
 function saveNewContact() {
     let email = document.getElementById('contact-input').value;
-    let color = 'new-email';
-    let newEmail = {"email" : email, "color" : color};
-    allEmails.push(newEmail);
-    createContactContainerHTML()
+    let name = document.getElementById('contact-name-input').value;
+    let phone = document.getElementById('contact-phone-input').value;
+    let color = randomColor();
+    checkNewContact(email, name, phone); // Input validation
+    pushNewContact(email, name, phone, color); // Save new Contact on server
+    updateContactsInput()
+    // Kontakt wurde erstellt
+}
+
+//stellt Contact Options wieder her
+async function updateContactsInput(){
+    createContactContainerHTML() // Erstellt wieder das ausgangs html von "Assign to"
     showContactOptions()
 }
 
+// new Contact Input Validatione
+function checkNewContact(email, name, phone){
+    if (email.trim() === '' || name.trim() === '' || phone.trim() === '') {
+        window.alert('Bitte füllen Sie alle Felder aus.');
+    }
+}
+
+// fügt neuen Kontakt zu "contacts",  updatet server, erstellt "allEmails" Array 
+function pushNewContact(email, name, phone, color) {
+    let newContact = {
+        "name": name,
+        "email": email,
+        "phone": phone,
+        "avatarColor": color
+    }
+    contacts.push(newContact);
+    saveContactsOnServer()// Upload Contacts
+    getContacts() //download Contacts
+    getEmailsFromContacts() // speicher alle Emails mit Color in "allEmails"// 
+    showSuccessInfo()
+}
+
+function randomColor() {
+    let colors = ["blue", "red", "yellow", "green", "hell-blue", "purple", "orange", "gold", "tomato"];
+    let randomElement = colors[Math.floor(Math.random() * colors.length)];
+    console.log(randomElement);
+    return randomElement;
+
+}
+
+// zeige Success Meldung nach erfolgreichem speicehrn des neuen Kontaktes
+function showSuccessInfo() {
+    document.getElementById('form').innerHTML = /*html*/ `
+        <div class="success-info" id="successInfo">Contact successfully created</div>
+    `;
+    setTimeout(function() {
+        removeSuccessInfo();
+    }, 2000);
+}
+
+// Remove Success Info 
+function removeSuccessInfo() {
+    const successInfo = document.getElementById('successInfo');
+    if (successInfo) {
+      successInfo.remove();
+    }
+  }
 
 /*********************************************************************/
 /* Prio */

@@ -465,3 +465,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .new-email {
     background-color: rgb(143, 143, 143);
 }
+
+
+.success-info {
+    width: 320px;
+    height: 75px;
+    background: #2A3647;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    position: absolute;
+    top: 90px;
+    left: 580px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 21px;
+    transform: translateY(250px);
+
+}

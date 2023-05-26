@@ -11,7 +11,8 @@ async function initBoard() {
     await getContacts() // Load Contacts from Server
     getCategoryArray() // erstelle Array "taskCategories" aus array "tasks"
 
-    //await getContacts() // Lade die User Kontake vom Server
+
+    
     getEmailsFromContacts() // speicher alle Emails mit Color in "allEmails"
 
     
