@@ -56,7 +56,7 @@ let letters = [];
 
 async function loadContactPage() {
     await getContacts();
-    init(); 
+    init();
     accessContacts();
 }
 
@@ -270,35 +270,43 @@ function showSuccessBox() {
 
 function editContact(k) {
 
+    document.getElementById('formContainer').innerHTML = renderEditTemplate(k);
     document.getElementById('addContactHeader').innerHTML = "Edit Contact";
     document.getElementById('addContactText').innerHTML = " ";
-    document.getElementById('cancelBtn').innerHTML = "Delete";
-    document.getElementById('createContactBtn').innerHTML = "Save";
+    // document.getElementById('cancelBtn').innerHTML = "Delete";
+    // document.getElementById('createContactBtn').innerHTML = "Save";
     document.getElementById('dialogContainer').classList.remove('d-none');
 
     document.getElementById('contactName').value = `${contacts[k]['name']}`;
     document.getElementById('contactEmail').value = `${contacts[k]['email']}`;
     document.getElementById('contactPhone').value = `${contacts[k]['phone']}`;
 
-    // To Do die Kontakte werden aus dem Array abgerufen um geändert zu werden
     //TO DO dann werden die entweder gespeichert oder gelöscht
     // clearForm(); nachdem die Function ausgeführt wurde
 
 }
 
-function SaveChangedContact(k) { //hier werden wir noch eine Variable brauchen damit wir leichter mit Werte manipulieren können
+function saveChangedContact(k) { //hier werden wir noch eine Variable brauchen damit wir leichter mit Werte manipulieren können
     contacts[k]['name'] = document.getElementById('contactName').value;
     contacts[k]['email'] = document.getElementById('contactEmail').value;
     contacts[k]['phone'] = document.getElementById('contactPhone').value;
-
+    saveContactsOnServer();
+    closeContactDIalog();
+    adressBook.innerHTML = '';
+    accessContacts();
+    showContact(k);
 }
 
 function deleteContact(k) {
     let contactName = document.getElementById('contactName').value;
     let contactEmail = document.getElementById('contactEmail').value;
     let contactPhone = document.getElementById('contactPhone').value;
-
     contacts.splice(k, 1);
+    saveContactsOnServer();
+    closeContactDIalog();
+    adressBook.innerHTML = '';
+    accessContacts();
+    showContact(k);
 }
 //reseting the Dialog Box, bzw, umschalten von Edit auf AddContact
 function clearForm() {
@@ -311,4 +319,14 @@ function clearForm() {
     document.getElementById('contactName').value = "";
     document.getElementById('contactEmail').value = "";
     document.getElementById('contactPhone').value = "";
+}
+
+function renderEditTemplate(k) {
+    return /*HTML*/ `
+    <div class="form-container">
+        <div class="input-cont"><input required class="input-field-name" type="text" placeholder="Name" id="contactName"> <img src="/Img/icon_user.svg"></div>
+        <div class="input-cont"><input requiered type="email" placeholder="Email" id="contactEmail"><img src="/Img/icon_mail.svg" alt=""></div>
+        <div class="input-cont"><input required type="tel" placeholder="Phone" id="contactPhone"><img src="/Img/icon_phone.svg" alt=""></div>
+        <div class="btn-container"><button class="cancel-btn" onclick="deleteContact(${k})" id="cancelBtn">Delete<img src="/img/icon_close.svg"></button><button class="create-contact-btn" id="createContactBtn" onclick="saveChangedContact(${k})">Save<img src="/img/check.svg"></button></div>
+    </div>`;
 }
