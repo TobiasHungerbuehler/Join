@@ -192,6 +192,7 @@ input, textarea  {
 .contact-icon-container {
     display: flex;
     justify-content: flex-start;
+    flex-wrap: wrap;
 
 }
 

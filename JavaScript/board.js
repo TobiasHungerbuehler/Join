@@ -12,11 +12,11 @@ async function initBoard() {
     getCategoryArray() // erstelle Array "taskCategories" aus array "tasks"
 
 
-    
+
     getEmailsFromContacts() // speicher alle Emails mit Color in "allEmails"
 
     
-    console.log('downloaded Contacts',contacts)
+    //console.log('downloaded Contacts',contacts)
     renderTasksToKanban()
 }
 
@@ -109,25 +109,31 @@ function showTaskPrioImage(task,i) {
 }
 
 
-function showTaskContactsPreview(task,i) {
+function showTaskContactsPreview(task, i) {
     let taskEmails = task['taskEmails'];
     for (let j = 0; j < taskEmails.length; j++) {
         const email = taskEmails[j];
-        let initials =  getInitials(email);
-        let colorClass = getColorClass(email);
-        if(j == 2){
-            initials = numberOFContacts(taskEmails);
-            createContactPreviewItem(initials, colorClass,i)
-            break
+        if (email === null) {
+            continue; // Iteration überspringen und mit dem nächsten Schleifendurchlauf fortfahren
         }
-        createContactPreviewItem(initials, colorClass,i)
+        let initials = getInitials(email);
+        let colorClass = getColorClass(email);
+        if (j === 2) {
+            initials = numberOFContacts(taskEmails);
+            createContactPreviewItem(initials, colorClass, i);
+            break;
+        }
+        createContactPreviewItem(initials, colorClass, i);
     }
 }
 
 
+
 function getColorClass(email) {
     let contact = findContactByEmail(email);
-    return contact['avatarColor'];
+    if(contact !== null){
+        return contact['avatarColor'];
+    }
 }
 
 // Gibt den ganzen Contact anhand der email adresse zurück
@@ -151,9 +157,12 @@ function createContactPreviewItem(initials, colorClass,i){
 }
 
 
-// Erstellt die initialen aus Name Contact
+// Erstellt die initialen aus Name Contact 
 function getInitials(email) {
     let contact = findContactByEmail(email);
+    if (contact === null) {
+        return ''; // Schleife abbrechen und einen leeren String zurückgeben
+    }
     let name = contact['name'];
     const nameParts = name.split(' ');
     let initials = '';
@@ -163,7 +172,7 @@ function getInitials(email) {
             initials += part[0].toUpperCase();
         }
     }
-    return initials
+    return initials;
 }
 
 // setzt den letzten Contact icon '+2'
@@ -187,7 +196,6 @@ function clearAllStatusContainers() {
 // Draggin 
 function startDragging(id) {
     currentDraggedElement = id;  // speichert die bewegende div id 
-    console.log(currentDraggedElement)
 }
 
 
@@ -227,6 +235,8 @@ function showFullTask(i) {
 function renderFullTask(task,i) {
 
     document.getElementById('board-overlay').innerHTML = /*html*/ `
+
+    <div class="board-overlay-inlay" id="board-overlay-inlay">
     
         <div class="full-task-container">
 
@@ -256,7 +266,7 @@ function renderFullTask(task,i) {
             </div>
     
             <div class="options-full" >
-                <div class="delete-task-button">
+                <div class="delete-task-button" onclick="deleteTask(${i})">
                     <img src="./Img/icon_trash.svg" alt="">
                 </div>
     
@@ -266,7 +276,7 @@ function renderFullTask(task,i) {
             </div>
 
         </div>
-    
+    </div>
     `;
 
 }
@@ -278,40 +288,40 @@ function showTaskContactsFull(task) {
     for (let j = 0; j < taskEmails.length; j++) {
         const email = taskEmails[j];
         let initials =  getInitials(email);
-        let colorClass = getColorClass(email);
-        let name = getNameFromEmail(email)
-        createContactFullHtml(initials, colorClass, name);
-        console.log('kontakt', j, initials, colorClass, name)
+        if (initials === null) { // Iteration überspringen und mit dem nächsten Schleifendurchlauf fortfahren
+            continue; 
+        } else {
+            let colorClass = getColorClass(email);
+            let name = getNameFromEmail(email)
+            createContactFullHtml(initials, colorClass, name);
+        }
     }
-
 }
 
 function createContactFullHtml(initials, colorClass, name) {
     document.getElementById('contact-render-container-full').innerHTML += /*html*/ `
-    
         <div class="task-contact-container-full">
             <div class="contact-circle ${colorClass}">
                 <span>${initials}</span>
             </div>
             <span class="name-full">${name}</span>
         </div>
-    
-    
     `;
 }
 
 
-
+// Hole den namen anhand der email
 function getNameFromEmail(email) {
     let name = findContactByEmail(email);
-    return name['name'];
+    if(name !== null) {
+        return name['name'];
+    }
 }
 
 
 // ladet die Daten für die Prio Anzeige ab --> storage.js "priorityValues"
 function setPrioOnFullTask(task) {
     const priority = task['prio'];
-    console.log('prio=',priority)
     const { color, text, img } = priorityValues[priority];
     createPrioHTML(color, text, img);
 }
@@ -325,8 +335,17 @@ function createPrioHTML(color, text, img) {
         <span  id="prio-text">${text}</span>
         <img src="${img}" alt="">
     </div>
-
 `;
+}
+
+// Delete Task
+async function deleteTask(i){
+    tasks.splice(i, 1)
+    await saveTasksOnServer()
+    await getTasks();
+    getCategoryArray()
+    closeOverlayBoard()
+    renderTasksToKanban()
 }
 
 /*********************************************************************/
@@ -362,7 +381,6 @@ function  showSubtasksForEdit(i){
         const taskSubtask = taskSubtasks[j];
         subTasks.push(taskSubtask)
     }
-    console.log(subTasks)
     renderSubtasks() 
 }
 
@@ -399,8 +417,7 @@ function editTask(i){
         "status": status
     }
     
-    tasks[i] = editedTask;
-    //console.log(tasks)
+    tasks[i] = editedTask;  
     updateTasks();
  }
 
@@ -455,6 +472,7 @@ function closeOverlayBoard(){
 // onsubmit = editTask(i)
 function shwoTaskForm(submitfunction,i) {
     return /*html*/ `
+         <div class="board-overlay-inlay" id="board-overlay-inlay">
                     <form onsubmit="${submitfunction}(${i}); return false">
                 <div class="form-input-section">
                     <div class="form-left">
@@ -538,7 +556,7 @@ function shwoTaskForm(submitfunction,i) {
                 </div>
 
             </form>
-    
+        </div>
     `;
 
 }

@@ -50,12 +50,20 @@ function addTask(){
    const taskCategory = setCategoryToAddTask()
    const taskEmails =  addedContacts;
    const dueDate = getDateFromInput();
-   const taskPrio = newTaskPrio;
+   const taskPrio = getNewTaskPrio();
    const taskSubTasks = subTasks;
    const status = 'toDo';
    createNewTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status);
    clearAddTaskFormular();
    window.location.href = 'board.html';
+}
+
+// wenn im Formular keine
+function getNewTaskPrio() {
+    if(newTaskPrio == ''){
+        newTaskPrio = 'low';
+    }
+    return newTaskPrio
 }
 
 //Datum Input auslesen und in Datenformat speichern
@@ -318,11 +326,12 @@ function toAddedContacts() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
     checkboxes.forEach((checkbox) => {
         const email = checkbox.getAttribute('data-email');
-        //const color = checkbox.getAttribute('data-color');
-        addedContacts.push(email);
+        if (email !== null) {
+            addedContacts.push(email);
+            console.log('add=', email);
+        }
     });
     renderContactIcons();
-
 }
 
 //aktiviert die checkboxen der bereits hizugefügten Task Contacts

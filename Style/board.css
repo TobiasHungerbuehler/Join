@@ -28,6 +28,9 @@
     margin-bottom: 50px;
 }
 
+.task-container{
+    margin-bottom: 54px;
+}
 
 .task-category-container{
     font-family: 'Inter';
@@ -140,19 +143,33 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgb(255, 255, 255, 0.9);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.board-overlay-inlay{
+    background-color: rgb(255, 255, 255);
+    height: 90%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    border-radius: 50px;
+}
+
+.board-overlay-inlay::-webkit-scrollbar {
+    width: 0.5em; /* Breite des Scrollbalkens anpassen */
+    background-color: transparent; /* Hintergrundfarbe des Scrollbalkens */
+}
+
 .full-task-container {
     position: relative;
-    border: 1px solid gray;
-    width: 580px;
+    width: 650px;
     font-size: 21px;
-    max-height: 95vh;
-    overflow-y: auto;
+    max-height: 100%; /* Ändern auf 100% */
+ 
 }
 
 .task-category-container-full {
@@ -172,7 +189,7 @@
 .task-title-container-full {
     font-weight: 700;
     font-size: 61px;
-    line-height: 120%;
+    line-height: 90%;
     color: #2A3647;
     margin-bottom: 25px;
 }
@@ -188,7 +205,7 @@
 .task-due-date-container {
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 25px;
+    margin-bottom: 8px;
 }
 
 .smal-title {
@@ -201,7 +218,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 8px;
 }
 
 .prio-icon-full {
@@ -230,13 +247,13 @@
 }
 
 .contact-render-container-full {
-    margin-top: 25px;
+    margin-top: 15px;
 }
 
 .task-contact-container-full {
     display: flex;
     align-items: center;
-    margin-bottom: 35px;
+    margin-bottom: 12px;
 }
 
 .contact-circle {
