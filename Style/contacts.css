@@ -21,7 +21,7 @@ body {
     /* height: 100vh; */
     /* background-color: bisque; */
     box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
@@ -34,7 +34,7 @@ body {
 
 .letter {
     height: 80px;
-    width: 350px;
+    /* width: 350px; */
     border-bottom: 1px solid #D1D1D1;
     margin-bottom: 16px;
     font-size: 21px;
@@ -43,17 +43,19 @@ body {
     align-items: center;
     padding-left: 24px;
     margin-left: 32px;
+    margin-right: 32px;
 }
 
 .contact-info {
     height: 80px;
-    width: 350px;
+    /* width: 350px; */
     /* background-color: chartreuse; */
     display: flex;
     padding-left: 20px;
     justify-content: flex-start;
     align-items: center;
-    margin-left: 32px;
+    margin-left: calc(4%);
+    margin-right: calc(4%);
     margin-bottom: 16px;
     border-radius: 14px;
 }
@@ -312,6 +314,11 @@ body {
     flex-direction: column;
 }
 
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .input-cont {
     border: 1px solid #D1D1D1;
     border-radius: 10px;
@@ -473,4 +480,24 @@ body {
     100% {
         transform: translateY(250px);
     }
+}
+
+@media(max-width: 1200px) {
+    .contacts-cont {
+        left: 128px;
+        width: calc(100% - 128px);
+}
+
+.adress-book {
+    height: unset;
+}
+
+.contact-info{
+    width: unset;
+}
+
+.letter{
+    width: unset;
+    margin-right: 32px;
+}
 }

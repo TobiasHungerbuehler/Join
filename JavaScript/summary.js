@@ -10,6 +10,9 @@ async function loadSummary() {
     showNumberOfTasksInProgress();
 }
 
+function getToBoard() {
+    window.location.href = "./board.html";
+}
 //die Zeit wird berechnet und der Guest wird demändsprechend begrüßt
 
 function showTimeOfTheDay() {
