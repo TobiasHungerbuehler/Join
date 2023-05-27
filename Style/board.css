@@ -149,6 +149,7 @@
 }
 
 .board-overlay-inlay{
+    position: relative;
     background-color: rgb(255, 255, 255);
     height: 90%;
     width: 90%;
@@ -276,6 +277,19 @@
     top: 0;
     right: 0;
     cursor: pointer;
+}
+
+.close-button-parent {
+    top: 100px;
+    width: 920px;
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.close-button-addTask {
+    cursor: pointer; 
 }
 
 

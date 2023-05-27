@@ -17,15 +17,15 @@ async function initBoard() {
 
     
     //console.log('downloaded Contacts',contacts)
-    renderTasksToKanban()
+    renderTasksToKanban(tasks)
 }
 
 
 // Rendert alle Task nach status in die gelichnamigen container im Kanban
-function renderTasksToKanban() {
-    clearAllStatusContainers();
-    for (let i = 0; i < tasks.length; i++) {
-        const task = tasks[i];
+function renderTasksToKanban(source) {
+    clearAllStatusContainers(); // alle Render Container leeren
+    for (let i = 0; i < source.length; i++) {
+        const task = source[i];
         const status = task['status'];        
         generateTaskPreviewHTML(task, status, i)
         showTaskProgress(task, i);
@@ -113,10 +113,10 @@ function showTaskContactsPreview(task, i) {
     let taskEmails = task['taskEmails'];
     for (let j = 0; j < taskEmails.length; j++) {
         const email = taskEmails[j];
-        if (email === null) {
+        let initials = getInitials(email);
+        if (initials === null) { // wenn email nicht in Kontakt vorhanden- Icon nicht anzeigen
             continue; // Iteration überspringen und mit dem nächsten Schleifendurchlauf fortfahren
         }
-        let initials = getInitials(email);
         let colorClass = getColorClass(email);
         if (j === 2) {
             initials = numberOFContacts(taskEmails);
@@ -161,18 +161,19 @@ function createContactPreviewItem(initials, colorClass,i){
 function getInitials(email) {
     let contact = findContactByEmail(email);
     if (contact === null) {
-        return ''; // Schleife abbrechen und einen leeren String zurückgeben
-    }
-    let name = contact['name'];
-    const nameParts = name.split(' ');
-    let initials = '';
-    for (let i = 0; i < nameParts.length; i++) {
-        const part = nameParts[i].trim();
-        if (part.length > 0) {
-            initials += part[0].toUpperCase();
+        return null; // Schleife abbrechen und einen leeren String zurückgeben
+    } else {
+        let name = contact['name'];
+        const nameParts = name.split(' ');
+        let initials = '';
+        for (let i = 0; i < nameParts.length; i++) {
+            const part = nameParts[i].trim();
+            if (part.length > 0) {
+                initials += part[0].toUpperCase();
+            }
         }
+        return initials;
     }
-    return initials;
 }
 
 // setzt den letzten Contact icon '+2'
@@ -212,6 +213,29 @@ async function moveTo(newStatus) {
 function allowDrop(ev) {
     ev.preventDefault();
 }
+
+/*********************************************************************/
+/* Search Tasks */
+/*********************************************************************/
+function searchTasks() {
+    const searchInput = document.getElementById('search-task-input');
+    const searchTerm = searchInput.value.toLowerCase();
+    const matchingTasks = [];
+  
+    for (let i = 0; i < tasks.length; i++) {
+      const task = tasks[i];
+      const title = task.title.toLowerCase();
+      const description = task.description.toLowerCase();
+  
+      if (title.includes(searchTerm) || description.includes(searchTerm)) {
+        matchingTasks.push(task);
+      }
+    }
+  
+    // Hier kannst du die gefundenen Aufgaben weiterverarbeiten oder ausgeben
+    console.log(matchingTasks);
+    renderTasksToKanban(matchingTasks)
+  }
 
 
 /*********************************************************************/
@@ -440,24 +464,12 @@ function showAddedTaskContacts(taskEmails){
     renderContactIcons() // -> add_task
 }
 
-// Setzt den Prio Button anhand der Task prio
-
-
-
-
-
-
-
 
 // Close Full Taskview
 function closeTaskFull() {
     document.getElementById('board-overlay').innerHTML = '';
     document.getElementById('board-overlay').classList.add('d-none')
 }
-
-
-
-
 
 
 function showOverlayBoard(){
@@ -467,6 +479,15 @@ function showOverlayBoard(){
 
 function closeOverlayBoard(){
     document.getElementById('board-overlay').classList.add('d-none')
+}
+
+
+// show Add Task Formular on Board
+function showAddTaskForm() {
+    showOverlayBoard();
+    document.getElementById('board-overlay').innerHTML = shwoTaskForm('addTask');
+    setAddTaskFormButtons()
+    setFormCloseButton(); 
 }
 
 // onsubmit = editTask(i)
@@ -547,7 +568,7 @@ function shwoTaskForm(submitfunction,i) {
                     </div>
                 </div>
                 
-                <div class="button-bar">
+                <div class="button-bar" id="button-bar">
 
                     <button class="create-task-btn" type="submit">
                         <span>OK</span> 
@@ -557,6 +578,28 @@ function shwoTaskForm(submitfunction,i) {
 
             </form>
         </div>
+    `;
+
+}
+
+// Setzt die Add Task und Clear Button auf Add Task form
+function setAddTaskFormButtons() {
+    document.getElementById('button-bar').innerHTML = /*html*/ `
+        <div class="clear-btn" onclick="clearAddTaskFormular()">Clear X</div>
+        <button class="create-task-btn" type="submit">
+            <span>Create Task</span> 
+            <img src="./Img/icon_check.svg" alt="">
+        </button>
+    `;
+}
+
+function setFormCloseButton(){
+    document.getElementById('board-overlay-inlay').innerHTML += /*html*/ `
+    <div class="close-button-parent">
+        <div class="close-button-addTask" onclick="closeTaskFull()">
+            <img src="./Img/icon_close.svg" alt="">
+        </div>
+    </div>
     `;
 
 }

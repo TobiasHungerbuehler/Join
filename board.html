@@ -32,7 +32,6 @@
        
 
     <div class="page">
-        <button onclick=" testTasksToServer()">test Tasks to Server</button>
 
         <div class="title-container-board flex-container">
             
@@ -42,12 +41,12 @@
 
                 <div class="button-bar">
                     <div class="clear-btn">
-                        <input type="text">
+                        <input type="text" id="search-task-input" oninput="searchTasks()">
                         <img src="./Img/glass.png" alt="">
                     </div>
                 </div>
 
-                <button class="create-task-btn" type="submit">
+                <button class="create-task-btn" onclick="showAddTaskForm()">
                     <span>Add Task</span> 
                     <img src="./Img/icon_plus.svg" alt="">
                 </button>
