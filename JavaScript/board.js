@@ -1,31 +1,26 @@
-
+let matchingTasks = [];
 let currentDraggedElement;
 
 /*********************************************************************/
-/* Board main functions */
+/* Board start functions */
 /*********************************************************************/
 
+// Initialisiere Seite
 async function initBoard() {
     init() // Start Template
     await getTasks() // load tasks from server and save in "tasks"
     await getContacts() // Load Contacts from Server
-    getCategoryArray() // erstelle Array "taskCategories" aus array "tasks"
-
-
-
-    getEmailsFromContacts() // speicher alle Emails mit Color in "allEmails"
-
-    
-    //console.log('downloaded Contacts',contacts)
-    renderTasksToKanban(tasks)
+    getCategoryArray() // -> addTask.html // erstelle Array "taskCategories" aus array "tasks"
+    getEmailsFromContacts() // -> addTask.html // speicher alle Emails mit Color in "allEmails"
+    renderTasksToKanban()
 }
 
 
 // Rendert alle Task nach status in die gelichnamigen container im Kanban
-function renderTasksToKanban(source) {
+function renderTasksToKanban() {
     clearAllStatusContainers(); // alle Render Container leeren
-    for (let i = 0; i < source.length; i++) {
-        const task = source[i];
+    for (let i = 0; i < tasks.length; i++) {
+        const task = tasks[i];
         const status = task['status'];        
         generateTaskPreviewHTML(task, status, i)
         showTaskProgress(task, i);
@@ -35,7 +30,7 @@ function renderTasksToKanban(source) {
 }
 
 
-// Create Task on Board
+// Create Taskelement html on Board
 function generateTaskPreviewHTML(task, status, i) {
     return document.getElementById(status).innerHTML += /*html*/ `
 
@@ -79,6 +74,26 @@ function showTaskProgress(task, i) {
 }
 
 
+// Zeige Contact Icons innerhalb des Task Preview
+function showTaskContactsPreview(task, i) {
+    let taskEmails = task['taskEmails'];
+    for (let j = 0; j < taskEmails.length; j++) {
+        const email = taskEmails[j];
+        let initials = getInitials(email);
+        if (initials === null) { // wenn email nicht in Kontakt vorhanden- Icon nicht anzeigen
+            continue; 
+        }
+        let colorClass = getColorClass(email);
+        if (j === 2) {
+            initials = numberOFContacts(taskEmails);
+            createContactPreviewItem(initials, colorClass, i);
+            break;
+        }
+        createContactPreviewItem(initials, colorClass, i);
+    }
+}
+
+
 
 // generiert das Html für die Progressbar und rendert in "progress-Container"
 function createProgressHtml(i, percent, completedSubtasks, totalSubtasks) {
@@ -92,7 +107,7 @@ function createProgressHtml(i, percent, completedSubtasks, totalSubtasks) {
     `;
 }
 
-
+// Zeigt das enteprechende Prio Icon 
 function showTaskPrioImage(task,i) {
     let prio = task['prio'];
     let prioImage = '';
@@ -109,32 +124,22 @@ function showTaskPrioImage(task,i) {
 }
 
 
-function showTaskContactsPreview(task, i) {
-    let taskEmails = task['taskEmails'];
-    for (let j = 0; j < taskEmails.length; j++) {
-        const email = taskEmails[j];
-        let initials = getInitials(email);
-        if (initials === null) { // wenn email nicht in Kontakt vorhanden- Icon nicht anzeigen
-            continue; // Iteration überspringen und mit dem nächsten Schleifendurchlauf fortfahren
-        }
-        let colorClass = getColorClass(email);
-        if (j === 2) {
-            initials = numberOFContacts(taskEmails);
-            createContactPreviewItem(initials, colorClass, i);
-            break;
-        }
-        createContactPreviewItem(initials, colorClass, i);
-    }
+// setzt den letzten Contact icon '+2'
+function numberOFContacts(taskEmails) {
+    let length = taskEmails.length;
+    let lastIcontext = length -2;
+    return '+'+lastIcontext;
 }
 
 
-
+// Gibt die Color Class aus contacts zurück
 function getColorClass(email) {
     let contact = findContactByEmail(email);
     if(contact !== null){
         return contact['avatarColor'];
     }
 }
+
 
 // Gibt den ganzen Contact anhand der email adresse zurück
 function findContactByEmail(email) {
@@ -161,7 +166,7 @@ function createContactPreviewItem(initials, colorClass,i){
 function getInitials(email) {
     let contact = findContactByEmail(email);
     if (contact === null) {
-        return null; // Schleife abbrechen und einen leeren String zurückgeben
+        return null; 
     } else {
         let name = contact['name'];
         const nameParts = name.split(' ');
@@ -176,13 +181,37 @@ function getInitials(email) {
     }
 }
 
-// setzt den letzten Contact icon '+2'
-function numberOFContacts(taskEmails) {
-    let length = taskEmails.length;
-    let lastIcontext = length -2;
-    return '+'+lastIcontext;
-}
 
+// Search task 
+function searchTasks() {
+    const searchInput = document.getElementById('search-task-input');
+    const searchTerm = searchInput.value.toLowerCase();
+    matchingTasks = [];
+    
+    for (let i = 0; i < tasks.length; i++) {
+      const task = tasks[i];
+      const title = task.title.toLowerCase();
+      const description = task.description.toLowerCase();
+      if (title.includes(searchTerm) || description.includes(searchTerm)) {
+        matchingTasks.push(task);
+      }
+    }
+    renderSearchedTasks();
+  }
+
+
+// rendert suchergebnisse
+function renderSearchedTasks() {
+    clearAllStatusContainers(); // alle Render Container leeren
+    for (let i = 0; i < matchingTasks.length; i++) {
+        const task = matchingTasks[i];
+        const status = task['status'];        
+        generateTaskPreviewHTML(task, status, i)
+        showTaskProgress(task, i);
+        showTaskContactsPreview(task,i);
+        showTaskPrioImage(task,i)
+    }
+}
 
 // Alle Container mit Task Previews leeren 
 function clearAllStatusContainers() {
@@ -193,6 +222,10 @@ function clearAllStatusContainers() {
 }
 
 
+
+/*********************************************************************/
+/* Task Preview Drag and Drop */
+/*********************************************************************/
 
 // Draggin 
 function startDragging(id) {
@@ -209,96 +242,59 @@ async function moveTo(newStatus) {
 }
 
 
-// from w3 standard
+// from w3 standard function
 function allowDrop(ev) {
     ev.preventDefault();
 }
-
-/*********************************************************************/
-/* Search Tasks */
-/*********************************************************************/
-function searchTasks() {
-    const searchInput = document.getElementById('search-task-input');
-    const searchTerm = searchInput.value.toLowerCase();
-    const matchingTasks = [];
-  
-    for (let i = 0; i < tasks.length; i++) {
-      const task = tasks[i];
-      const title = task.title.toLowerCase();
-      const description = task.description.toLowerCase();
-  
-      if (title.includes(searchTerm) || description.includes(searchTerm)) {
-        matchingTasks.push(task);
-      }
-    }
-  
-    // Hier kannst du die gefundenen Aufgaben weiterverarbeiten oder ausgeben
-    console.log(matchingTasks);
-    renderTasksToKanban(matchingTasks)
-  }
 
 
 /*********************************************************************/
 /* Task fullview */
 /*********************************************************************/
 
-
+// Show cklicked Task as Fullview
 function showFullTask(i) {
-
     let task = tasks[i]
     showOverlayBoard();
-
     renderFullTask(task, i);
     showTaskContactsFull(task,i)
-    setPrioOnFullTask(task);
-
-    
+    setPrioOnFullTask(task);  
 }
+
+//show overlay
+function showOverlayBoard(){
+    document.getElementById('board-overlay').classList.remove('d-none')
+}
+
 
 // show task in a Fullview on Overlay
 function renderFullTask(task,i) {
-
     document.getElementById('board-overlay').innerHTML = /*html*/ `
-
     <div class="board-overlay-inlay" id="board-overlay-inlay">
-    
         <div class="full-task-container">
-
             <div class="task-category-container-full" style="background-color: ${task['category']['color']}">${task['category']['category']}</div>
-
             <div class="task-title-container-full">${task['title']}</div>
-
             <div class="task-description-container-full">${task['description']}</div>
-
             <div class="task-due-date-container">
                 <span class="smal-title">Due date:</span>
                 <span class="due-date-full">${task['dueDate']}</span>
             </div>
-
             <div class="prio-container-full" id="prio-container-full"></div>
-
             <div class="task-contact-full" id="task-contact-full">
-
-                <span class="smal-title">Assigned To:</span>
-                
-                <div class="contact-render-container-full" id="contact-render-container-full"></div>
-                     
-            </div>
-    
+                <span class="smal-title">Assigned To:</span> 
+                <div class="contact-render-container-full" id="contact-render-container-full"></div>                   
+            </div>   
             <div class="close-button-full" onclick="closeTaskFull()">
                 <img src="./Img/icon_close.svg" alt="">
             </div>
-    
             <div class="options-full" >
                 <div class="delete-task-button" onclick="deleteTask(${i})">
                     <img src="./Img/icon_trash.svg" alt="">
                 </div>
-    
                 <div class="edit-task-button" onclick="editTaskWindow(${i})">
                     <img src="./Img/icon_pencil.svg" alt="">
                 </div>
             </div>
-
         </div>
     </div>
     `;
@@ -306,7 +302,7 @@ function renderFullTask(task,i) {
 }
 
 
-// render Contacts on full
+// render Contacts on fullview
 function showTaskContactsFull(task) {
     let taskEmails = task['taskEmails'];
     for (let j = 0; j < taskEmails.length; j++) {
@@ -322,6 +318,15 @@ function showTaskContactsFull(task) {
     }
 }
 
+// ladet die Daten für die Prio Anzeige ab --> storage.js "priorityValues"
+function setPrioOnFullTask(task) {
+    const priority = task['prio'];
+    const { color, text, img } = priorityValues[priority];
+    createPrioHTML(color, text, img);
+}
+
+
+// Contact Icon on Fullview
 function createContactFullHtml(initials, colorClass, name) {
     document.getElementById('contact-render-container-full').innerHTML += /*html*/ `
         <div class="task-contact-container-full">
@@ -343,14 +348,6 @@ function getNameFromEmail(email) {
 }
 
 
-// ladet die Daten für die Prio Anzeige ab --> storage.js "priorityValues"
-function setPrioOnFullTask(task) {
-    const priority = task['prio'];
-    const { color, text, img } = priorityValues[priority];
-    createPrioHTML(color, text, img);
-}
-
-
 // Setzt Prio Anzeige auf Full Task  "prio-container-full"
 function createPrioHTML(color, text, img) {
     document.getElementById('prio-container-full').innerHTML = /*html*/ `
@@ -362,15 +359,16 @@ function createPrioHTML(color, text, img) {
 `;
 }
 
+
 // Delete Task
 async function deleteTask(i){
     tasks.splice(i, 1)
     await saveTasksOnServer()
-    await getTasks();
     getCategoryArray()
     closeOverlayBoard()
     renderTasksToKanban()
 }
+
 
 /*********************************************************************/
 /* Edit Task */
@@ -381,7 +379,6 @@ function editTaskWindow(i) {
     document.getElementById('board-overlay').innerHTML = '';
     document.getElementById('board-overlay').innerHTML = shwoTaskForm('editTask', i);
     setValuesOnForm(i);
-    // hier show save button(i) 
 }
 
 
@@ -394,10 +391,10 @@ function setValuesOnForm(i) {
     document.getElementById('due-date').value = tasks[i]['dueDate']; // Date to Date Input
     setTaskPrioButton(i); // setzt die Task Prio anhand des Tasks
     showSubtasksForEdit(i)
-
 }
 
-// Zeige subtask an
+
+// Zeige subtask in Formular an
 function  showSubtasksForEdit(i){
     subTasks = [];
     let taskSubtasks = tasks[i]['subtasks'];
@@ -408,27 +405,33 @@ function  showSubtasksForEdit(i){
     renderSubtasks() 
 }
 
-
+// setzte die gespeicherte prio anhand des Buttons
 function setTaskPrioButton(i) {
     let prio = tasks[i]['prio']
     let buttonId = 'prio-'+prio 
     setPrio(prio, buttonId);
 } 
 
+
+// Read all Inputs and Variables to Save Edited Task
 function editTask(i){
+    checkSubtaskStates()
+    //console.log('edited Task =',subTasks2)
+    
     const title = document.getElementById('title-input').value;
     const description = document.getElementById('description-input').value;
     const taskCategory = setCategoryToAddTask()
     const taskEmails =  addedContacts;
     const dueDate = getDateFromInput();
     const taskPrio = newTaskPrio;
-    const taskSubTasks = subTasks;
+    const taskSubTasks = editSubTasks;
     const status = tasks[i]['status'];
+    
     createEditedTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks,status, i);
-
-
  }
 
+
+// Überscgreibe task mit neuen werten
  function createEditedTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status, i){
     let editedTask = {
         "title": title,
@@ -445,11 +448,22 @@ function editTask(i){
     updateTasks();
  }
 
+
+
  async function updateTasks() {
     await saveTasksOnServer(); // on --> storage.js
-    closeTaskFull()
-    initBoard()
+    closeTaskFull() //
+
+    /*
+    getCategoryArray() // -> addTask.html // erstelle Array "taskCategories" aus array "tasks"
+    getEmailsFromContacts() // -> addTask.html // speicher alle Emails mit Color in "allEmails"
+    renderTasksToKanban(tasks)
+    */
+    renderTasksToKanban()
+    //initBoard()
+
  }
+
 
 
 
@@ -472,9 +486,7 @@ function closeTaskFull() {
 }
 
 
-function showOverlayBoard(){
-    document.getElementById('board-overlay').classList.remove('d-none')
-}
+
 
 
 function closeOverlayBoard(){

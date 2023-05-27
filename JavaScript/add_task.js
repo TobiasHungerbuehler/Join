@@ -578,7 +578,6 @@ function renderSubtasks() {
 
 // liest den isComplete wert aus
 function subtaskStatus(subtask) {
-    console.log('status====',subtask['isCompleted'])
     let status = subtask['isCompleted'];
     if(status == 'true'){
         return 'checked';
@@ -598,7 +597,7 @@ function createSubtask(subtask, isCompleted) {
     `;
 }
 
-
+let editSubTasks = [];
 // Prüft die checkboxen der Subtasks und speichert in "subTasks"
 function checkSubtaskStates() {
     const subtaskItems = document.getElementsByClassName('subtask-item');
@@ -613,7 +612,9 @@ function checkSubtaskStates() {
       };
       subTasks.push(subtask);
     }
-    console.log(subTasks)
+    //console.log(subTasks)
+    editSubTasks = subTasks;
+    //console.log('2==',subTasks2)
   }
 
 
