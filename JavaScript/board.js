@@ -1,11 +1,21 @@
+/**
+ * Array to store the matching tasks during the search.
+ */
 let matchingTasks = [];
+
+/**
+ * Stores the currently dragged element.
+ */
 let currentDraggedElement;
 
 /*********************************************************************/
 /* Board start functions */
 /*********************************************************************/
 
-// Initialisiere Seite
+/**
+ * Initializes the board page.
+ * Calls necessary functions to set up the board.
+ */
 async function initBoard() {
     init() // Start Template
     await getTasks() // load tasks from server and save in "tasks"
@@ -227,27 +237,40 @@ function clearAllStatusContainers() {
 /* Task Preview Drag and Drop */
 /*********************************************************************/
 
-// Draggin 
+// Dragging 
 function startDragging(id) {
-    currentDraggedElement = id;  // speichert die bewegende div id 
+    currentDraggedElement = id; // Speichert die ID des bewegten Elements
 }
 
-
-// Ändert den statusus des task nach ablege bewegung auf entspechenden container 
+// Ändert den Status des Tasks nach dem Ablegen in den entsprechenden Container
 async function moveTo(newStatus) {
-    tasks[currentDraggedElement]['status'] = newStatus; 
-    await saveTasksOnServer()
-    await getTasks()
-    renderTasksToKanban()
+    tasks[currentDraggedElement]['status'] = newStatus; // Change Status in task Array
+    await saveTasksOnServer(); // save Task on Server
+    renderTasksToKanban();
+    removeAllHighlights(); 
 }
 
-
-// from w3 standard function
+// W3-Standardfunktion
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
+function highlighting(id) {
+    document.getElementById(id).classList.add('highlight');
+}
 
+function removeHighlight(id) {
+    document.getElementById(id).classList.remove('highlight');
+}
+
+function removeAllHighlights() {
+    const containers = document.getElementsByClassName('kanban-Container');
+    for (let i = 0; i < containers.length; i++) {
+        containers[i].classList.remove('highlight');
+    }
+}
+
+    
 /*********************************************************************/
 /* Task fullview */
 /*********************************************************************/
