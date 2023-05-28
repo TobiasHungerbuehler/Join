@@ -23,6 +23,8 @@ async function initBoard() {
     getCategoryArray() // -> addTask.html // erstelle Array "taskCategories" aus array "tasks"
     getEmailsFromContacts() // -> addTask.html // speicher alle Emails mit Color in "allEmails"
     renderTasksToKanban()
+()
+
 }
 
 
@@ -562,7 +564,7 @@ function shwoTaskForm(submitfunction,i) {
                         </div>
                         <div class="contact-icon-container" id="contact-icon-container"></div>                       
                     </div>
-                    <div class="parting-line"></div>
+                    <div class="parting-line" id="parting-line"></div>
                     <div class="form-right">
                         <label>Due date</label>
                         <div class="form-box">

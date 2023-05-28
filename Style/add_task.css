@@ -20,11 +20,9 @@ body {
     font-size: 61px;
 }
 
-
 .d-none {
     display: none;
 }
-
 
 .page {
     margin-left: 232px;
@@ -33,13 +31,11 @@ body {
     flex-direction: column;
 }
 
-
 form {
     min-height: 300px;
     width: 920px;    
     font-family: 'Inter', sans-serif;
 }
-
 
 .form-input-section {
     height: 100%;
@@ -48,10 +44,8 @@ form {
     justify-content: space-between;
 }
 
-
 .form-left, .form-right {
     width: 422px;
-
     display: flex;
     flex-direction: column;
 }
@@ -60,7 +54,6 @@ form {
     height: 432px;
     width: 1px;
     background-color: #D1D1D1;
-
 }
 
 label {
@@ -113,7 +106,6 @@ input, textarea  {
     flex-direction: column;
     max-height: 200px;
     overflow-y: auto;
-
 }
 
 .category-input {
@@ -181,9 +173,6 @@ input, textarea  {
     width: 90%
 }
 
-
-
-
 #selected-color-point {
     margin-right: 15px;
     background-color: white;
@@ -193,7 +182,6 @@ input, textarea  {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-
 }
 
 .contac-icon {
@@ -222,9 +210,6 @@ input, textarea  {
     margin-right: 18px;
 }
 
-
-
-
 #new-contact-item img   {
     height: 18px;
     width: 18px;
@@ -239,19 +224,13 @@ input, textarea  {
     opacity: 0.8;
 }
 
-
-
-
-
 .categies-container {
     display: flex;
     flex-direction: column;
 }
 
-
 .assigned-to {
     font-family: 'Inter', sans-serif;
-    
 }
 
 .tbox {
@@ -267,7 +246,6 @@ input, textarea  {
 input[type="date"]::-webkit-calendar-picker-indicator {
       content: url('../Img/icon_calender.svg');
 }
-   
     
 .prio-options {
     margin-bottom: 20px;
@@ -275,7 +253,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     display: flex;
     justify-content: space-between;
 }
-
 
 .prio-buttons {
     height: 55px;
@@ -305,7 +282,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.6);
 }
 
-
 .btn-urgent {
     background-color: #ff3d00;
     color: white;
@@ -330,12 +306,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     align-items: center;
 }
 
- .layer1 {
+.layer1 {
     position: absolute;
     z-index: 1;
- }
+}
 
- .layer2 {
+.layer2 {
     position: absolute;
      z-index: 2;
  }
@@ -420,8 +396,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border: 1px solid #ccc;
 }
 
-
-
 .blue {
     background-color: #29ABE2;
 }
@@ -438,26 +412,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-color: rgb(14, 155, 14);
 }
 
-
 .hell-blue {
     background-color: rgb(73, 135, 163);
 }
-
 
 .purple {
     background-color: rgb(122, 30, 158);
 }
 
-
 .orange {
     background-color: orange;
 }
 
-
 .gold {
     background-color: gold;
 }
-
 
 .tomato {
     background-color: tomato;
@@ -466,7 +435,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .new-email {
     background-color: rgb(143, 143, 143);
 }
-
 
 .success-info {
     width: 320px;
@@ -483,5 +451,42 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     align-items: center;
     font-size: 21px;
     transform: translateY(250px);
+}
 
+
+@media(max-width: 1200px) {
+    .page {
+        margin-left: 140px;
+    }
+
+    #form, .title-container, .button-bar  {
+        width: 880px;
+    }
+}
+
+@media(max-width: 1100px) {
+
+    .page {
+        margin-left: 0;
+    }
+
+    .parting-line {
+        display: none;
+    }
+
+    .form-input-section {
+        justify-content: center;
+        flex-direction: column;
+    }
+    
+    #form, .title-container {
+        width: 350px;  
+    }
+
+    .button-bar{
+        position: fixed;
+        top: 17px;
+        right: 10px;
+        width: auto;
+    }
 }
