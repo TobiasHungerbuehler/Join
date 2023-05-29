@@ -23,8 +23,6 @@ async function initBoard() {
     getCategoryArray() // -> addTask.html // erstelle Array "taskCategories" aus array "tasks"
     getEmailsFromContacts() // -> addTask.html // speicher alle Emails mit Color in "allEmails"
     renderTasksToKanban()
-()
-
 }
 
 
@@ -531,7 +529,7 @@ function showAddTaskForm() {
 function shwoTaskForm(submitfunction,i) {
     return /*html*/ `
          <div class="board-overlay-inlay" id="board-overlay-inlay">
-                    <form onsubmit="${submitfunction}(${i}); return false">
+                    <form onsubmit="${submitfunction}(${i}); return false" id="form">
                 <div class="form-input-section">
                     <div class="form-left">
 

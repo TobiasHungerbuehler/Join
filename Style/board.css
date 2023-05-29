@@ -8,19 +8,20 @@
     display: flex;
 }
 
-.board-page-top {
+/* .board-page-top {
     width: 1100px;
     height: 50px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
-}
+} */
 
 .kanban-container-titel{
     width: 245px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .kanban-container-titel span{
@@ -55,6 +56,7 @@
     width: 1100px;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .kanban-Container {
@@ -76,6 +78,7 @@
 
 .task-container{
     margin-bottom: 54px;
+    cursor: pointer;
 }
 
 .task-category-container{
@@ -207,15 +210,15 @@
 }
 
 .board-overlay-inlay::-webkit-scrollbar {
-    width: 0.5em; /* Breite des Scrollbalkens anpassen */
-    background-color: transparent; /* Hintergrundfarbe des Scrollbalkens */
+    width: 0.5em; 
+    background-color: transparent; 
 }
 
 .full-task-container {
     position: relative;
     width: 650px;
     font-size: 21px;
-    max-height: 100%; /* Ändern auf 100% */
+    max-height: 100%; 
  
 }
 
@@ -372,4 +375,99 @@
     background: #2A3647;
     border-radius: 0px 10px 10px 0px;
     cursor: pointer
+}
+
+.addTask-button-mobile-board {
+    display: none;
+    background-color: #2A3647;
+    padding: 5px;
+    border-radius: 7px;
+    transition: all 150ms ease-in-out;
+}
+
+.addTask-button-mobile-board:hover {
+    transition: all 150ms ease-in-out;
+    background-color: #29ABE2;
+}
+
+/* mobile */
+
+
+@media(max-width: 1350px){
+    .board-page-content {
+        width: 600px;
+        
+    }
+
+    .title-container-board {
+        width: 600px;
+    }
+
+    .buttons-in-title{
+        display: none;
+    }
+
+    .addTask-button-mobile-board {
+        display: inline;
+        cursor: pointer;
+    }
+
+}
+
+
+@media(max-width: 1100px) {
+    .board-overlay-inlay{
+        overflow-y: auto;
+        border-radius: 0; 
+        height: 100%;
+        width: 100%; 
+    }
+    
+    .form-input-section{
+        margin-top: 90px;
+    }
+    
+    .button-bar  {
+        background-color: white;
+        position: fixed;
+        justify-content: center;
+        top: 0px;
+        /* left: 50%;
+        transform: translateX(-50%); */
+        width: 100%;
+      }
+
+
+    .form-input-section {
+        width: fit-content;
+    }
+
+    /* .button-bar{
+        position: fixed;
+        top: 17px;
+        right: 10px;
+        width: auto;
+    } */
+
+    .title-container-board {
+        width: 252px;
+    }
+
+    .board-page-content {
+        width: 250px;
+        
+    }
+
+    .kanban-Container {
+        min-height: 250px;
+    }
+
+
+
+
+
+
+
+
+
 }
