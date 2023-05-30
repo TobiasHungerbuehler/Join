@@ -33,7 +33,7 @@ function createCategoryElementHtml(taskCategory, taskColor) {
 function showNewCategoryInput() {
     document.getElementById('category-container').innerHTML = /*html*/ `
     <div class="new-category-wrapper">
-            <input class="category-input" id="category-input" type="text" placeholder="New category name">
+            <input class="category-input" id="category-input" type="text" placeholder="New category name" required>
         <input type="color" class="color-point-selector" id="colorpicker">
         <img class="new-category-close-img" src="./Img/icon_close.svg" alt="" onclick="createCategoryContainerHTML()">
         <img class="new-category-check-img" src="./Img/check.svg" alt="" onclick="saveNewCategory()">
@@ -48,7 +48,7 @@ function showNewCategoryInput() {
 function createCategoryContainerHTML() {
     document.getElementById('category-container').innerHTML = /*html*/ `
         <div class="category-input-wrapper">
-            <input class="category-input" id="category-input" type="text" placeholder="Select your Category"  readonly onclick="showCategoryOptions()">
+            <input class="category-input" id="category-input" type="text" placeholder="Select your Category"  readonly onclick="showCategoryOptions()" required>
             <div class="color-point" id="selected-color-point"></div>
             <img src="./Img/triangle.png" alt="" onclick="showCategoryOptions()">
         </div>

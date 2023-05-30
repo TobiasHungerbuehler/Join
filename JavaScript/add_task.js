@@ -31,8 +31,8 @@ async function initAddTask() {
  * Read the categories including color from "tasks" and store them in taskCategories array
  */
 function getCategoryArray() {  
-    for (let i = 0; i < testTasks.length; i++) {
-      const category = testTasks[i]['category'];
+    for (let i = 0; i < tasks.length; i++) {
+      const category = tasks[i]['category'];
       const categoryName = category['category'];
       let categoryExists = false;
       for (let j = 0; j < taskCategories.length; j++) {
@@ -63,22 +63,45 @@ function getEmailsFromContacts() {
 
 
 /**
- * Create a task from the form
+ * Adds a task based on the form data.
  */
-function addTask(){
-   const title = document.getElementById('title-input').value;
-   const description = document.getElementById('description-input').value;
-   const taskCategory = setCategoryToAddTask()
-   const taskEmails =  addedContacts;
-   const dueDate = getDateFromInput();
-   const taskPrio = getNewTaskPrio();
-   const taskSubTasks = subTasks;
-   const status = 'toDo';
-   createNewTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status);
-   clearAddTaskFormular();
-   window.location.href = 'board.html';
+function addTask() {
+    if (!addTaskValidation()) {
+        showSuccessInfo('Please select a valid category or create a new one.')
+    } else {
+        getTaskDataFromForm()
+    }
 }
 
+
+/**
+ * Retrieves the task data from the form.
+ */
+async function getTaskDataFromForm() {
+    const title = document.getElementById('title-input').value;
+    const description = document.getElementById('description-input').value;
+    const taskCategory = await setCategoryToAddTask();
+    const taskEmails = addedContacts;
+    const dueDate = getDateFromInput();
+    const taskPrio = getNewTaskPrio();
+    const taskSubTasks = subTasks;
+    const status = 'toDo';
+    createNewTaskJson(title, description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status); 
+}
+
+
+/**
+ * Validates the task form to ensure a valid category is selected.
+ * @returns {boolean} True if the validation is successful, false otherwise.
+ */
+function addTaskValidation() {
+    let userValue = document.getElementById('category-input').value;
+    if (!userValue) {
+        return false; 
+    }
+    return true; 
+}
+  
 
 /**
  * Get the selected priority for the new task
@@ -112,7 +135,7 @@ function getDateFromInput() {
  * @param {Object} taskCategory - The category of the task (object with 'category' and 'color' properties)
  * @param {Array} taskEmails - The emails of the assigned contacts for the task
  */
-function createNewTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status){
+async function createNewTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status){
    let newTask = {
        "title": title,
        "description": description,
@@ -124,7 +147,9 @@ function createNewTaskJson(title,description, taskCategory, taskEmails, dueDate,
        "status": status
    }
    tasks.push(newTask);
-   saveTasksOnServer(); // on --> storage.js
+   await saveTasksOnServer(); // --> storage.js
+   clearAddTaskFormular();
+   window.location.href = 'board.html';
 } 
 
 /**
@@ -225,7 +250,6 @@ function saveNewCategory() {
     taskCategories.push(taskCategory);
     createCategoryContainerHTML();
     newCategorytoInput(selectedCategory, selectedColor) 
-
 }
 
 
@@ -293,7 +317,6 @@ function toAddedContacts() {
         const email = checkbox.getAttribute('data-email');
         if (email !== null) {
             addedContacts.push(email);
-            console.log('add=', email);
         }
     });
     renderContactIcons();
@@ -373,7 +396,7 @@ function saveNewContact() {
     checkNewContact(email, name, phone); // Input validation
     pushNewContact(email, name, phone, color); // Save new Contact on server
     updateContactsInput()
-    showSuccessInfo()
+    showSuccessInfo('Contact successfully created')
 }
 
 
@@ -429,17 +452,17 @@ function pushNewContact(email, name, phone, color) {
 function randomColor() {
     let colors = ["blue", "red", "yellow", "green", "hell-blue", "purple", "orange", "gold", "tomato"];
     let randomElement = colors[Math.floor(Math.random() * colors.length)];
-    console.log(randomElement);
     return randomElement;
 }
 
 
 /**
- * Displays a success message after successfully creating a new contact.
+ * Displays a success / error message 
+ * @param {string} text - error Message Text
  */
-function showSuccessInfo() {
+function showSuccessInfo(text) {
     document.getElementById('form').innerHTML += /*html*/ `
-        <div class="success-info" id="successInfo">Contact successfully created</div>
+        <div class="success-info" id="successInfo">${text}</div>
     `;
     setTimeout(function() {
         removeSuccessInfo();

@@ -34,7 +34,6 @@ async function getTasks() {
     let tasksFromServer = dataSetFromServer['data']['value'];
     let replacedData = tasksFromServer.replace(/'/g, '"'); // Replace ""
     let parsedTasks = await JSON.parse(replacedData);
-    console.log(parsedTasks)
     tasks = parsedTasks;
   } catch (error) {
     console.log('No Data Found:', error);
