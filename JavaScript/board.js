@@ -1,11 +1,4 @@
-/**
- * Array to store the matching tasks during the search.
- */
 let matchingTasks = [];
-
-/**
- * Stores the currently dragged element.
- */
 let currentDraggedElement;
 
 /*********************************************************************/
@@ -20,15 +13,17 @@ async function initBoard() {
     init() // Start Template
     await getTasks() // load tasks from server and save in "tasks"
     await getContacts() // Load Contacts from Server
-    getCategoryArray() // -> addTask.html // erstelle Array "taskCategories" aus array "tasks"
-    getEmailsFromContacts() // -> addTask.html // speicher alle Emails mit Color in "allEmails"
+    getCategoryArray() // -> addTask.html 
+    getEmailsFromContacts() // -> addTask.html 
     renderTasksToKanban()
 }
 
 
-// Rendert alle Task nach status in die gelichnamigen container im Kanban
+/**
+ * Renders all tasks to their respective status containers in the kanban board.
+ */
 function renderTasksToKanban() {
-    clearAllStatusContainers(); // alle Render Container leeren
+    clearAllStatusContainers();
     for (let i = 0; i < tasks.length; i++) {
         const task = tasks[i];
         const status = task['status'];        
@@ -40,32 +35,15 @@ function renderTasksToKanban() {
 }
 
 
-// Create Taskelement html on Board
-function generateTaskPreviewHTML(task, status, i) {
-    return document.getElementById(status).innerHTML += /*html*/ `
-
-        <div class="task-container" id="task${i}" draggable="true" ondragstart="startDragging(${i})" onclick="showFullTask(${i})">
-
-            <div class="task-category-container" style="background-color: ${task['category']['color']}">${task['category']['category']}</div>
-
-            <div class="task-title-container">${task['title']}</div>
-
-            <div class="task-description-container">${task['description']}</div>
-
-            <div class="progress-container" id="progress-container${i}"></div>
-            
-            <div class="preview-bottom-wrapper">
-                <div class="preview-task-contacts" id="preview-task-contacts${i}"></div>
-                <div class="preview-prio" id="preview-prio${i}">
-                </div>
-            </div>
-        </div>
-    
-    `;   
-}
 
 
-// errechnet eine progressbar aus den subtask und rendert in "progress-container"
+
+/**
+ * Shows the task progress by calculating a progress bar based on subtasks and renders it in the progress container.
+ * 
+ * @param {Object} task - The task object.
+ * @param {number} i - The index of the task.
+ */
 function showTaskProgress(task, i) {
     const subtasks = task.subtasks;
     let totalSubtasks = 0;
@@ -84,13 +62,18 @@ function showTaskProgress(task, i) {
 }
 
 
-// Zeige Contact Icons innerhalb des Task Preview
+/**
+ * Shows the contact icons within the task preview.
+ * 
+ * @param {Object} task - The task object.
+ * @param {number} i - The index of the task.
+ */
 function showTaskContactsPreview(task, i) {
     let taskEmails = task['taskEmails'];
     for (let j = 0; j < taskEmails.length; j++) {
         const email = taskEmails[j];
         let initials = getInitials(email);
-        if (initials === null) { // wenn email nicht in Kontakt vorhanden- Icon nicht anzeigen
+        if (initials === null) { 
             continue; 
         }
         let colorClass = getColorClass(email);
@@ -105,19 +88,12 @@ function showTaskContactsPreview(task, i) {
 
 
 
-// generiert das Html für die Progressbar und rendert in "progress-Container"
-function createProgressHtml(i, percent, completedSubtasks, totalSubtasks) {
-    document.getElementById('progress-container'+i).innerHTML = /*html*/ `
-        <div class="progress-bar-container">
-            <div class="prog-bar" style="width: ${percent}%;" id="prog-bar"></div>
-        </div>
-        <div class="progress-total">
-            <span>${completedSubtasks}/${totalSubtasks} Done</span>
-        </div>
-    `;
-}
-
-// Zeigt das enteprechende Prio Icon 
+/**
+ * Shows the corresponding priority icon for the task.
+ * 
+ * @param {Object} task - The task object.
+ * @param {number} i - The index of the task.
+ */
 function showTaskPrioImage(task,i) {
     let prio = task['prio'];
     let prioImage = '';
@@ -134,7 +110,12 @@ function showTaskPrioImage(task,i) {
 }
 
 
-// setzt den letzten Contact icon '+2'
+/**
+ * Returns the number of contacts in a task's taskEmails array.
+ * 
+ * @param {Array} taskEmails - The task's email contacts.
+ * @returns {string} - The number of contacts with a '+' prefix.
+ */
 function numberOFContacts(taskEmails) {
     let length = taskEmails.length;
     let lastIcontext = length -2;
@@ -142,7 +123,12 @@ function numberOFContacts(taskEmails) {
 }
 
 
-// Gibt die Color Class aus contacts zurück
+/**
+ * Returns the CSS color class for a contact's avatar.
+ * 
+ * @param {string} email - The contact's email.
+ * @returns {string} - The CSS color class.
+ */
 function getColorClass(email) {
     let contact = findContactByEmail(email);
     if(contact !== null){
@@ -151,18 +137,29 @@ function getColorClass(email) {
 }
 
 
-// Gibt den ganzen Contact anhand der email adresse zurück
+/**
+ * Finds a contact by email.
+ * 
+ * @param {string} email - The contact's email.
+ * @returns {Object|null} - The contact object if found, null otherwise.
+ */
 function findContactByEmail(email) {
     for (let i = 0; i < contacts.length; i++) {
         if (contacts[i].email === email) {
             return contacts[i];
         }
     }
-    return null; // Rückgabewert, falls keine Übereinstimmung gefunden wurde
+    return null; 
 }
 
 
-// Erstellt Contact Previem Item HTML
+/**
+ * Creates the HTML for a contact preview item and renders it in the task contacts preview container.
+ * 
+ * @param {string} initials - The initials of the contact.
+ * @param {string} colorClass - The CSS color class for the contact's avatar.
+ * @param {number} i - The index of the task.
+ */
 function createContactPreviewItem(initials, colorClass,i){
     document.getElementById('preview-task-contacts'+i).innerHTML += /*html*/ `
             <div class="circle-preview ${colorClass}">
@@ -172,7 +169,12 @@ function createContactPreviewItem(initials, colorClass,i){
 }
 
 
-// Erstellt die initialen aus Name Contact 
+/**
+ * Creates the initials from a contact's name.
+ * 
+ * @param {string} email - The contact's email.
+ * @returns {string|null} - The initials of the contact's name if found, null otherwise.
+ */
 function getInitials(email) {
     let contact = findContactByEmail(email);
     if (contact === null) {
@@ -192,12 +194,13 @@ function getInitials(email) {
 }
 
 
-// Search task 
+/**
+ * Searches for tasks based on the search term and renders the matching tasks.
+ */
 function searchTasks() {
     const searchInput = document.getElementById('search-task-input');
     const searchTerm = searchInput.value.toLowerCase();
     matchingTasks = [];
-    
     for (let i = 0; i < tasks.length; i++) {
       const task = tasks[i];
       const title = task.title.toLowerCase();
@@ -210,7 +213,9 @@ function searchTasks() {
   }
 
 
-// rendert suchergebnisse
+/**
+ * Renders the searched tasks.
+ */
 function renderSearchedTasks() {
     clearAllStatusContainers(); // alle Render Container leeren
     for (let i = 0; i < matchingTasks.length; i++) {
@@ -223,7 +228,10 @@ function renderSearchedTasks() {
     }
 }
 
-// Alle Container mit Task Previews leeren 
+
+/**
+ * Clears all status containers with task previews.
+ */
 function clearAllStatusContainers() {
     document.getElementById('toDo').innerHTML = '';
     document.getElementById('inProgress').innerHTML = '';
@@ -232,17 +240,25 @@ function clearAllStatusContainers() {
 }
 
 
-
 /*********************************************************************/
 /* Task Preview Drag and Drop */
 /*********************************************************************/
 
-// Dragging 
+/**
+ * Starts dragging the task preview element.
+ * 
+ * @param {string} id - The ID of the dragged element.
+ */
 function startDragging(id) {
     currentDraggedElement = id; // Speichert die ID des bewegten Elements
 }
 
-// Ändert den Status des Tasks nach dem Ablegen in den entsprechenden Container
+
+/**
+ * Changes the status of the task after it is dropped into the corresponding container.
+ * 
+ * @param {string} newStatus - The new status of the task.
+ */
 async function moveTo(newStatus) {
     tasks[currentDraggedElement]['status'] = newStatus; // Change Status in task Array
     await saveTasksOnServer(); // save Task on Server
@@ -250,19 +266,40 @@ async function moveTo(newStatus) {
     removeAllHighlights(); 
 }
 
-// W3-Standardfunktion
+
+/**
+ * W3 standard function to allow dropping.
+ * 
+ * @param {Event} ev - The drag event.
+ */
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
+
+/**
+ * Highlights the specified element.
+ * 
+ * @param {string} id - The ID of the element to highlight.
+ */
 function highlighting(id) {
     document.getElementById(id).classList.add('highlight');
 }
 
+
+/**
+ * Removes the highlight from the specified element.
+ * 
+ * @param {string} id - The ID of the element to remove the highlight from.
+ */
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('highlight');
 }
 
+
+/**
+ * Removes the highlight from all elements.
+ */
 function removeAllHighlights() {
     const containers = document.getElementsByClassName('kanban-Container');
     for (let i = 0; i < containers.length; i++) {
@@ -275,7 +312,11 @@ function removeAllHighlights() {
 /* Task fullview */
 /*********************************************************************/
 
-// Show cklicked Task as Fullview
+/**
+ * Shows the clicked task as a full view.
+ * 
+ * @param {number} i - The index of the task.
+ */
 function showFullTask(i) {
     let task = tasks[i]
     showOverlayBoard();
@@ -284,48 +325,20 @@ function showFullTask(i) {
     setPrioOnFullTask(task);  
 }
 
-//show overlay
+
+/**
+ * Shows the overlay board.
+ */
 function showOverlayBoard(){
     document.getElementById('board-overlay').classList.remove('d-none')
 }
 
 
-// show task in a Fullview on Overlay
-function renderFullTask(task,i) {
-    document.getElementById('board-overlay').innerHTML = /*html*/ `
-    <div class="board-overlay-inlay" id="board-overlay-inlay">
-        <div class="full-task-container">
-            <div class="task-category-container-full" style="background-color: ${task['category']['color']}">${task['category']['category']}</div>
-            <div class="task-title-container-full">${task['title']}</div>
-            <div class="task-description-container-full">${task['description']}</div>
-            <div class="task-due-date-container">
-                <span class="smal-title">Due date:</span>
-                <span class="due-date-full">${task['dueDate']}</span>
-            </div>
-            <div class="prio-container-full" id="prio-container-full"></div>
-            <div class="task-contact-full" id="task-contact-full">
-                <span class="smal-title">Assigned To:</span> 
-                <div class="contact-render-container-full" id="contact-render-container-full"></div>                   
-            </div>   
-            <div class="close-button-full" onclick="closeTaskFull()">
-                <img src="./Img/icon_close.svg" alt="">
-            </div>
-            <div class="options-full" >
-                <div class="delete-task-button" onclick="deleteTask(${i})">
-                    <img src="./Img/icon_trash.svg" alt="">
-                </div>
-                <div class="edit-task-button" onclick="editTaskWindow(${i})">
-                    <img src="./Img/icon_pencil.svg" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    `;
-
-}
-
-
-// render Contacts on fullview
+/**
+ * Shows the task contacts on the full view.
+ * 
+ * @param {Object} task - The task object.
+ */
 function showTaskContactsFull(task) {
     let taskEmails = task['taskEmails'];
     for (let j = 0; j < taskEmails.length; j++) {
@@ -341,7 +354,12 @@ function showTaskContactsFull(task) {
     }
 }
 
-// ladet die Daten für die Prio Anzeige ab --> storage.js "priorityValues"
+
+/**
+ * Loads the priority data and sets the priority display on the full task.
+ * 
+ * @param {Object} task - The task object.
+ */
 function setPrioOnFullTask(task) {
     const priority = task['prio'];
     const { color, text, img } = priorityValues[priority];
@@ -349,20 +367,12 @@ function setPrioOnFullTask(task) {
 }
 
 
-// Contact Icon on Fullview
-function createContactFullHtml(initials, colorClass, name) {
-    document.getElementById('contact-render-container-full').innerHTML += /*html*/ `
-        <div class="task-contact-container-full">
-            <div class="contact-circle ${colorClass}">
-                <span>${initials}</span>
-            </div>
-            <span class="name-full">${name}</span>
-        </div>
-    `;
-}
-
-
-// Hole den namen anhand der email
+/**
+ * Gets the name associated with the email.
+ * 
+ * @param {string} email - The email address.
+ * @returns {string} The name associated with the email.
+ */
 function getNameFromEmail(email) {
     let name = findContactByEmail(email);
     if(name !== null) {
@@ -383,7 +393,11 @@ function createPrioHTML(color, text, img) {
 }
 
 
-// Delete Task
+/**
+ * Deletes a task.
+ * 
+ * @param {number} i - The index of the task to delete.
+ */
 async function deleteTask(i){
     tasks.splice(i, 1)
     await saveTasksOnServer()
@@ -397,7 +411,10 @@ async function deleteTask(i){
 /* Edit Task */
 /*********************************************************************/
 
-//Show Edit Task Window
+/**
+ * Show the Edit Task Window.
+ * @param {number} i - The index of the task.
+ */
 function editTaskWindow(i) {
     document.getElementById('board-overlay').innerHTML = '';
     document.getElementById('board-overlay').innerHTML = shwoTaskForm('editTask', i);
@@ -405,7 +422,10 @@ function editTaskWindow(i) {
 }
 
 
-// Setzte Task Werte in das Task Formular zur bearbeitung 
+/**
+ * Set values in the task form for editing.
+ * @param {number} i - The index of the task.
+ */
 function setValuesOnForm(i) {
     document.getElementById('title-input').value = tasks[i]['title']; // titel to Input
     document.getElementById('description-input').value = tasks[i]['description']; // description to input
@@ -417,7 +437,10 @@ function setValuesOnForm(i) {
 }
 
 
-// Zeige subtask in Formular an
+/**
+ * Show subtasks in the form for editing.
+ * @param {number} i - The index of the task.
+ */
 function  showSubtasksForEdit(i){
     subTasks = [];
     let taskSubtasks = tasks[i]['subtasks'];
@@ -428,7 +451,10 @@ function  showSubtasksForEdit(i){
     renderSubtasks() 
 }
 
-// setzte die gespeicherte prio anhand des Buttons
+/**
+ * Set the task priority button based on the task.
+ * @param {number} i - The index of the task.
+ */
 function setTaskPrioButton(i) {
     let prio = tasks[i]['prio']
     let buttonId = 'prio-'+prio 
@@ -436,11 +462,12 @@ function setTaskPrioButton(i) {
 } 
 
 
-// Read all Inputs and Variables to Save Edited Task
+/**
+ * Read all inputs and variables to save the edited task.
+ * @param {number} i - The index of the task.
+ */
 function editTask(i){
-    checkSubtaskStates()
-    //console.log('edited Task =',subTasks2)
-    
+    checkSubtaskStates()    
     const title = document.getElementById('title-input').value;
     const description = document.getElementById('description-input').value;
     const taskCategory = setCategoryToAddTask()
@@ -449,12 +476,22 @@ function editTask(i){
     const taskPrio = newTaskPrio;
     const taskSubTasks = editSubTasks;
     const status = tasks[i]['status'];
-    
     createEditedTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks,status, i);
  }
 
 
-// Überscgreibe task mit neuen werten
+/**
+ * Create a JSON object for the edited task.
+ * @param {string} title - The title of the task.
+ * @param {string} description - The description of the task.
+ * @param {object} taskCategory - The category of the task.
+ * @param {array} taskEmails - The emails associated with the task.
+ * @param {string} dueDate - The due date of the task.
+ * @param {string} taskPrio - The priority of the task.
+ * @param {array} taskSubTasks - The subtasks of the task.
+ * @param {string} status - The status of the task.
+ * @param {number} i - The index of the task.
+ */
  function createEditedTaskJson(title,description, taskCategory, taskEmails, dueDate, taskPrio, taskSubTasks, status, i){
     let editedTask = {
         "title": title,
@@ -466,32 +503,25 @@ function editTask(i){
         "subtasks": taskSubTasks,
         "status": status
     }
-    
     tasks[i] = editedTask;  
     updateTasks();
  }
 
 
-
+/**
+ * Update the tasks and perform necessary actions.
+ */
  async function updateTasks() {
     await saveTasksOnServer(); // on --> storage.js
     closeTaskFull() //
-
-    /*
-    getCategoryArray() // -> addTask.html // erstelle Array "taskCategories" aus array "tasks"
-    getEmailsFromContacts() // -> addTask.html // speicher alle Emails mit Color in "allEmails"
-    renderTasksToKanban(tasks)
-    */
     renderTasksToKanban()
-    //initBoard()
-
  }
 
 
-
-
-
-// Zeigt die hinzugefügten Kontakte als icons an
+/**
+ * Show the added task contacts as icons.
+ * @param {array} taskEmails - The emails associated with the task.
+ */
 function showAddedTaskContacts(taskEmails){
     addedContacts = [];
     for (let i = 0; i < taskEmails.length; i++) {
@@ -502,122 +532,39 @@ function showAddedTaskContacts(taskEmails){
 }
 
 
-// Close Full Taskview
+/**
+ * Close the full task view.
+ */
 function closeTaskFull() {
     document.getElementById('board-overlay').innerHTML = '';
     document.getElementById('board-overlay').classList.add('d-none')
 }
 
 
-
-
-
+/**
+ * Close the overlay board.
+ */
 function closeOverlayBoard(){
     document.getElementById('board-overlay').classList.add('d-none')
 }
 
 
-// show Add Task Formular on Board
+/**
+ * Close the overlay board.
+ */
 function showAddTaskForm() {
+    resetVariables()
     showOverlayBoard();
     document.getElementById('board-overlay').innerHTML = shwoTaskForm('addTask');
     setAddTaskFormButtons()
     setFormCloseButton(); 
 }
 
-// onsubmit = editTask(i)
-function shwoTaskForm(submitfunction,i) {
-    return /*html*/ `
-         <div class="board-overlay-inlay" id="board-overlay-inlay">
-                    <form onsubmit="${submitfunction}(${i}); return false" id="form">
-                <div class="form-input-section">
-                    <div class="form-left">
 
-                        <label>Title</label>
-                        <div class="form-box">
-                            <input  type="text" id="title-input" placeholder="Enter a title" required>
-                        </div>
-                        <label>Description</label>
-                        <div class="form-box">
-                            <textarea class="description-input" id="description-input" placeholder="Enter a description"></textarea>
-                        </div>
-                        <label>Category</label>
-                        <div class="form-box" id="category-container">
-                            <div class="category-input-wrapper">
-                                <input class="category-input" id="category-input" type="text" placeholder="Select your Category" readonly onclick="showCategoryOptions()" required>
-                                <div class="color-point" id="selected-color-point"></div>
-                                <img src="./Img/triangle.png" alt="" onclick="showCategoryOptions()">
-                            </div>
-                            <div class="selection-item" id="new-category-item"></div>
-                            <div class="categories-container" id="categories-container" ></div>
-                        </div>
-                        <label>Assigned to</label>
-                        <div class="form-box" id="assigned-to-container">
-                            <div class="category-input-wrapper">
-                                <input class="contacts-input" id="contacts-input" type="text" placeholder="Select contacts to assign" readonly onclick="showContactOptions()">
-                                <img src="./Img/triangle.png" alt="" onclick="showCategoryOptions()">
-                            </div>                           
-                            <div class="selection-item" id="new-contact-item"></div>
-                            <div class="categories-container" id="contacts-container"></div>
-                        </div>
-                        <div class="contact-icon-container" id="contact-icon-container"></div>                       
-                    </div>
-                    <div class="parting-line" id="parting-line"></div>
-                    <div class="form-right">
-                        <label>Due date</label>
-                        <div class="form-box">
-                            <input class="due-date" type="date" id="due-date" placeholder="dd/mm/yyyy" required>
-                        </div>
-                        <label for="prio">Prio</label>
-                        <div class="prio-options">
-                            <div class="prio-buttons" id="prio-urgent" onclick="setPrio('urgent', 'prio-urgent')">
-                                <span>Urgent</span>
-                                <div class="arrow-icon-box">
-                                    <img src="./Img/arrow-up-white.png" alt="" class="layer1">
-                                    <img src="./Img/arrow-up-red.png" alt="" class="layer2" id="icon-urgent">
-                                </div>
-                            </div>
-                            <div class="prio-buttons" id="prio-medium" onclick="setPrio('medium', 'prio-medium')">
-                                <span>Medium</span>
-                                <div class="arrow-icon-box">
-                                    <img src="./Img/equal-white.png" alt="" class="layer1">
-                                    <img src="./Img/equal-orange.png" alt="" class="layer2" id="icon-medium">
-                                </div>
-                            </div>
-                            <div class="prio-buttons" id="prio-low" onclick="setPrio('low', 'prio-low')">
-                                <span>Low</span>
-                                <div class="arrow-icon-box">
-                                    <img src="./Img/arrow-down-white.png" alt="" class="layer1">
-                                    <img src="./Img/arrow-down-green.png" alt="" class="layer2" id="icon-low">
-                                </div>
-                            </div>
-                        </div>
-                        <label>Subtasks</label>
-                        <div class="form-box" id="sub-task">
-                            <div class="category-input-wrapper">
-                                <input class="category-input" id="subtask-input" type="text" placeholder="Add new subtask" onclick="showSubtaskInput()">
-                                <img src="./Img/triangle.png" alt="" onclick="showSubtaskInput()">
-                            </div>
-                        </div>
-                        <div class="subtasks-container" id="subtasks-container"></div>
-                    </div>
-                </div>
-                
-                <div class="button-bar" id="button-bar">
 
-                    <button class="create-task-btn" type="submit">
-                        <span>OK</span> 
-                        <img src="./Img/icon_check.svg" alt="">
-                    </button>
-                </div>
-
-            </form>
-        </div>
-    `;
-
-}
-
-// Setzt die Add Task und Clear Button auf Add Task form
+/**
+ * Set the buttons for the add task form.
+ */
 function setAddTaskFormButtons() {
     document.getElementById('button-bar').innerHTML = /*html*/ `
         <div class="clear-btn" onclick="clearAddTaskFormular()">Clear X</div>
@@ -628,6 +575,10 @@ function setAddTaskFormButtons() {
     `;
 }
 
+
+/**
+ * Set the close button for the form.
+ */
 function setFormCloseButton(){
     document.getElementById('board-overlay-inlay').innerHTML += /*html*/ `
     <div class="close-button-parent">

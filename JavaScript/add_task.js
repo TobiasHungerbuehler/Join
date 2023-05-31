@@ -30,20 +30,20 @@ async function initAddTask() {
 /**
  * Read the categories including color from "tasks" and store them in taskCategories array
  */
-function getCategoryArray() {  
-    for (let i = 0; i < tasks.length; i++) {
-      const category = tasks[i]['category'];
-      const categoryName = category['category'];
+function getCategoryArray() {
+    tasks.forEach(task => {
+      const category = task.category.category;
       let categoryExists = false;
-      for (let j = 0; j < taskCategories.length; j++) {
-        if (taskCategories[j]['category'] === categoryName) {
-          categoryExists = true; break;
+      taskCategories.forEach(existingCategory => {
+        if (existingCategory.category === category) {
+          categoryExists = true;
         }
-      }
+      });
+  
       if (!categoryExists) {
-        taskCategories.push(category);
+        taskCategories.push(task.category);
       }
-    }
+    });
   }
 
 
