@@ -58,17 +58,165 @@ async function loadContactPage() {
     await getContacts();
     init();
     accessContacts();
+    // myFunctionTwo();
 }
 
 
 // Function zeigt Informationen von einzelnen Contacts auf der rechte Seite
 
 function showContact(k) {
+
+
     eraseBackground();
     document.getElementById(`contactInfoContainer`).classList.add('show-info-dialog');
     document.getElementById(`contactInfo${k}`).classList.add('contact-bg');
     document.getElementById(`contactInfoContainer`).innerHTML = showContactDetails(k);
+
+    let showContactBtn = document.getElementById('showContactDialogBtn');
+    let mobileEditBtn = document.getElementById('mobileEditBtn');
+
+    // console.log('Function beeing triggert', showContactBtn);
+    // if (window.innerWidth < 1048) {
+
+    //     document.getElementById('mobileEditBtn').classList.remove('d-none');
+    //     document.getElementById('editContactBtn').classList.add('d-none');
+    //     document.getElementById('adressBook').classList.add('d-none');
+    //     // document.getElementById('contactSection').style = 'display: unset;'
+    //     showContactBtn.style = 'display: none';
+    // } else {
+    //     showContactBtn.style = 'display: unset';
+    //     mobileEditBtn.style = 'display: none';
+    //     document.getElementById('adressBook').classList.remove('d-none');
+    //     // document.getElementById('contactSection').classList.remove('d-none');
+    //     // document.getElementById('contactSection').style = 'display: none;'
+    // }   
+
+    // if (window.innerWidth > 1048) {
+    //     document.getElementById('contactSection').style = 'display: unset;' 
+    //     document.getElementById('mobileEditBtn').classList.add('d-none');
+    //     document.getElementById('editContactBtn').classList.remove('d-none');
+    //     document.getElementById('adressBook').classList.remove('d-none');
+    //     showContactBtn.style = 'display: unset';
+    // }
+
+    if (window.innerWidth > 1048) {
+        // document.getElementById('contactSection').style = 'display: unset;' //das ganze Section mit angezeigte Contacts wird wieder sichtbar
+        document.getElementById('mobileEditBtn').classList.add('d-none');// Butttons(edit/delete), die nur bei responsive Contacts erscheint
+        // showContactBtn.style = 'display: unset'; //new Contact Button, der in responsive nach oben verschoben wird, bzw. verschwunden beim Mobile
+        document.getElementById('adressBook').classList.remove('d-none'); // das Section mit Namen und Initialen wird wieder voll angezeigt
+        document.getElementById('mobileEditBtn').classList.add('d-none');
+        document.getElementById('contactSection').style = "display: inline";
+    }
+    if (window.innerWidth < 1048) {
+        document.getElementById('adressBook').classList.add('d-none');
+        document.getElementById('contactSection').style = "display: block";
+        document.getElementById('contactSection').classList.remove('d-none');
+
+        document.getElementById('contactBtnResponsiveCont').classList.add('d-none');
+        document.getElementById('mobileEditBtn').classList.remove('d-none');
+
+    }
+
+    if (window.innerWidth < 900) {
+        document.getElementById('editContactBtn').classList.add('d-none');
+        document.getElementById('adressBook').classList.add('d-none');
+    }
+
+    // if(window.innerWidth < 500) {
+    //     document.getElementById('adressBook').classList.remove('d-none');
+    // }
+
 }
+
+// ovaj deo sam dodao
+
+// function myFunctionTwo() {
+//     let width = screen.availWidth;
+//     if(width < 900){
+//         myFunction();
+//     }
+// }
+
+window.addEventListener('resize', myFunction);
+
+
+function myFunction() {
+
+    if (innerWidth > 900) {
+        document.getElementById('contactSection').style = "display: inline";
+        document.getElementById('contactSection').classList.remove('d-none');
+        document.getElementById('adressBook').classList.remove('d-none');
+
+    }
+
+    if (innerWidth < 900) {
+        document.getElementById('contactSection').style = "display: none";
+    }
+    if (window.innerWidth < 1048) {
+        document.getElementById('contactSection').style = "display: none";
+
+
+    }
+}
+
+//     if(innerWidth < 900){
+//         document.getElementById('closeNewContactBtnRight').classList.add('d-none');
+//         document.getElementById('closeNewContactBtnLeft').classList.remove('d-none');
+//         document.getElementById('underlineContactDiv').classList.remove('d-none');
+//         document.getElementById('kanbanText').classList.remove('d-none');
+//         // document.getElementById('editContactBtn').classList.add('d-none');
+
+
+
+//     }
+//     if(innerWidth > 900){
+//         document.getElementById('closeNewContactBtnRight').classList.remove('d-none');
+//         document.getElementById('closeNewContactBtnLeft').classList.add('d-none');
+//         document.getElementById('underlineContactDiv').classList.add('d-none');
+//         document.getElementById('kanbanText').classList.add('d-none');
+//         document.getElementById('contactBtnResponsiveCont').classList.add('d-none'); 
+//     }
+
+
+//     if (window.innerWidth < 1048) {
+
+//         document.getElementById('adressBook').classList.add('d-none');
+//         document.getElementById('showContactDialogBtn').classList.add('d-none');
+//         document.getElementById('closeInfoMobile').classList.remove('d-none');
+//         document.getElementById('editContactBtn').classList.add('d-none');
+//         document.getElementById('mobileEditBtn').classList.remove('d-none');
+
+
+
+//     }
+//     if (window.innerWidth > 1048) {
+//         document.getElementById('adressBook').classList.remove('d-none'); 
+//         document.getElementById('contactSection').classList.remove('d-none');
+//         document.getElementById('showContactDialogBtn').classList.remove('d-none');
+//         document.getElementById('closeInfoMobile').classList.add('d-none'); 
+//         document.getElementById('editContactBtn').classList.remove('d-none');
+//         document.getElementById('mobileEditBtn').classList.add('d-none');
+
+//     }
+
+//     if(window.innerWidth < 500) {
+//         document.getElementById('adressBook').classList.add('d-none');
+//     }
+
+//   }
+
+function closeContactInfoMobile() {
+    document.getElementById('contactSection').classList.add('d-none');
+    document.getElementById('adressBook').classList.remove('d-none');
+    document.getElementById('contactBtnResponsiveCont').classList.remove('d-none');
+
+}
+// function checkWidthSize() {
+
+
+//     window.addEventListener("resize", checkWidthSize);
+// }
+
 
 //Background vom früherangeclikten Elementen werden gelöscht
 
@@ -86,11 +234,11 @@ function showContactDetails(k) {
                 <div class="contact-name-cont">
                 <div class="big-initial ${contacts[k]['avatarColor']}">${checkInitial(k)}</div>
                 <div class="contact-name">
-                <span style="font-size: 47px;">${contacts[k]['name']}</span>
-                <span class="link-add-task">+ Add Task</span></div>
+                <span>${contacts[k]['name']}</span>
+                <div class="link-add-task" onclick="showAddTaskForm()">+ Add Task</div></div>
                 </div>
                 <div style="margin-top: 24px;"><span style="font-size: 21px;">Contact Information</span>
-                <span class="edit-contact-link" onclick="editContact(${k})"><img class="pencil-logo" src="/Img/pencil_icon.svg"> Edit Contact</span></div>
+                <span class="edit-contact-link" onclick="editContact(${k})" id="editContactBtn"><img class="pencil-logo" src="/Img/pencil_icon.svg"> Edit Contact</span></div>
             
             <div class="rest-info">
             <span><b>Email</b></span>
@@ -98,6 +246,11 @@ function showContactDetails(k) {
             <span><b>Phone</b></span>
             <span>${contacts[k]['phone']}</span>
         </div>
+        <div class="mobile-edit-btn d-none" id="mobileEditBtn">
+            <div class="mobile-edit-btn-link trash-btn" onclick="deleteContact(${k})"><img src="/Img/icon_trash.svg"></div>
+            <div class="mobile-edit-btn-link pencil-btn" onclick="editContact(${k})"><img src="/Img/icon_pencil.svg"></div></div>
+        </div>
+        
         
     `;
 }
@@ -106,9 +259,11 @@ function showContactDetails(k) {
 // Function, die füs Aufmachen des Fensters 'Add contacts Section' zuständig ist
 
 function showContactDialog() {
-    clearForm();
+
     document.getElementById('dialogContainer').classList.remove('d-none');
-    document.getElementById('formContainer').innerhtml = dialogTemplate();
+    document.getElementById('formContainer').innerHTML = dialogTemplate();
+    clearForm();
+
 }
 
 //Formular Add new Contacts wird angezeigt
@@ -357,3 +512,5 @@ function renderEditTemplate(k) {
         <div class="btn-container"><button class="cancel-btn" onclick="deleteContact(${k})" id="cancelBtn">Delete<img src="/img/icon_close.svg"></button><button class="create-contact-btn" id="createContactBtn" onclick="saveChangedContact(${k})">Save<img src="/img/check.svg"></button></div>
     </div>`;
 }
+
+// checkWidthSize();

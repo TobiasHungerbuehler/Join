@@ -10,20 +10,27 @@
     <link rel="stylesheet" href="/Style/fonts.css">
     <link rel="stylesheet" href="/Templates/style.css">
     <link rel="stylesheet" href="/Style/contacts.css">
+    <!-- <link rel="stylesheet" href="/Style/board.css">
+    <link rel="stylesheet" href="/Style/add_task.css"> -->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    
+
+    <script src="/JavaScript/board.js"></script>
+    <script src="/JavaScript/add_task.js"></script>
     <script src="/Templates/script.js"></script>
     <script src="/JavaScript/contacts.js"></script>
     <script src="/JavaScript/storage.js"></script>
-    
+
+
 
 <body onload="loadContactPage()">
     <div w3-include-html="/Templates/template-Web.html"></div>
     <div class="contacts-cont">
         <div class="adress-book" id="adressBook">
-
+            <div class="contact-btn-responsive-cont" id="contactBtnResponsiveCont"><button
+                    class="new-contact-responsive-btn" onclick="showContactDialog()">New Contact <img
+                        src="/Img/new_contact_icon.svg"></button></div>
             <!-- <div class="letter"><span>A</span></div>
              <div class="contact-info"  onclick="showContact()">
                 <div class="initial">AS</div>
@@ -55,15 +62,19 @@
         </div> -->
 
         </div>
-        <div class="contact-section">
+        <div class="contact-section" id="contactSection">
+            <p class="kanban-contacts" id="kanbanText">Kanban Project Management Tool</p>
             <div class="contact-section-header-cont">
                 <span class="contact-section-header">Contacts</span>
-                <div class="contact-section-message"><span class="contact-section-message-elem">Better with a team</span></div>
-                
-                
+                <div class="contact-section-message"><span class="contact-section-message-elem">Better with a
+                        team</span></div>
+                <div class="underline-contact" id="underlineContactDiv"></div>
+
+                <div class="close-Contact-Info-Mobile" onclick="closeContactInfoMobile()" id="closeInfoMobile"><img
+                        src="Img/arrow-left-line.svg"></div>
             </div>
-           <div class="contact-info-container" id="contactInfoContainer">
-             <!--     <div class="contact-name-cont"><div class="big-initial">AS</div><div class="contact-name"><span style="font-size: 47px;">Anja Schultz</span><span class="link-add-task">+ Add Task</span></div></div>
+            <div class="contact-info-container" id="contactInfoContainer">
+                <!--     <div class="contact-name-cont"><div class="big-initial">AS</div><div class="contact-name"><span style="font-size: 47px;">Anja Schultz</span><span class="link-add-task">+ Add Task</span></div></div>
                 <div style="margin-top: 24px;"><span style="font-size: 21px;">Contact Information</span><span class="margin-left"><img class="pencil-logo" src="/Img/pencil_icon.svg"> Edit Contact</span></div>
             
             <div class="rest-info">
@@ -72,38 +83,47 @@
             <span><b>Phone</b></span>
             <span>+1234567889</span>
         </div> -->
+            </div>
+            <!-- '<div class="mobile-edit-btn d-none" id="mobileEditBtn">
+            <div class="mobile-edit-btn-link trash-btn"><img src="/Img/icon_trash.svg"></div>
+            <div class="mobile-edit-btn-link pencil-btn"><img src="/Img/icon_pencil.svg"></div></div>
+        </div>' -->
+
         </div>
-        <button class="new-contact-btn" onclick="showContactDialog()">New Contact <img src="/Img/new_contact_icon.svg"></button>
+        <button class="new-contact-btn" onclick="showContactDialog()" id="showContactDialogBtn">New Contact <img
+                src="/Img/new_contact_icon.svg"></button>
+        <div class="dialog-container d-none" id="dialogContainer">
+            <div class="dialog-box ">
+                <div class="section-left">
+                    <div class="close-btn-sec-left" onclick="closeContactDIalog()" id="closeNewContactBtnLeft"><img
+                            src="/Img/close_icon_white.svg"></div>
+                    <img class="dialog-box-logo" src="/Img/logo-header.svg">
+                    <div class="dialog-text-cont">
+                        <span class="dialog-text1"><b id="addContactHeader">Add Contact</b></span>
+                        <span class="dialog-text2" id="addContactText">Tasks are better with a team!</span>
+                        <div class="underline"></div>
+                    </div>
+                </div>
+                <div class="section-right">
+                    <div class="big-initial-contacts-info"><img src="/Img/user-line.svg"></div>
+                    <div>
+                        <div class="close-btn" onclick="closeContactDIalog()" id="closeNewContactBtnRight"><img
+                                src="/Img/icon_close.svg"></div>
+                        <div class="form-container" id="formContainer">
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
+        <div class="success-info" id="successInfo">Contact successfully created</div>
 
-    </div>
-    <div class="dialog-container d-none" id="dialogContainer">
-        <div class="dialog-box ">
-            <div class="section-left">
-                <img class="dialog-box-logo" src="/Img/logo-header.svg">
-                <span  class="dialog-text1"><b id="addContactHeader">Add Contact</b></span>
-                <span class="dialog-text2" id="addContactText">Tasks are better with a team!</span>
-                <div class="underline"></div>
-            </div>
-            <div class="section-right">
-                <div class="big-initial"><img src="/Img/user-line.svg"></div>
-                <div>
-                    <div class="close-btn" onclick="closeContactDIalog()"><img src="/Img/icon_close.svg"></div>
-                    <div class="form-container" id="formContainer">
-            </div>
-            </div>
-            </div>
-            
-            
-        </div>
-    </div>
-    <div class="success-info" id="successInfo">Contact successfully created</div>
+        </head>
 
-    </head>
+        <body>
 
-    <body>
-
-    </body>
+        </body>
 
 </html>
 
