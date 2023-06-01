@@ -553,7 +553,7 @@ body {
 
 /* Succses-button Section */
 
-.success-info {
+.success-info-box {
     width: 320px;
     height: 75px;
     background: #2A3647;
@@ -791,7 +791,7 @@ body {
         display: block;
     }
 
-    .success-info {
+    .success-info-box {
         left: 58px;
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,42 +14,70 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    
+
     <script src="/Templates/script.js"></script>
     <script src="/JavaScript/summary.js"></script>
     <script src="/JavaScript/storage.js"></script>
     <script src="/JavaScript/board.js"></script>
 </head>
+
 <body onload="loadSummary()">
     <div w3-include-html="/Templates/template-Web.html"></div>
     <div class="summary-cont">
+        <p class="kanban-contacts" id="kanbanText">Kanban Project Management Tool</p>
         <div class="header-cont">
-            <span class="contact-section-header">Summary</span>
-            <div class="header-cont-elem-right"><span class="contact-section-message-elem">Everything in a nutshell!</span></div>    
+            <span class="contact-section-header"><b>Summary</b></span>
+            <div class="header-cont-elem-right"><span class="contact-section-message-elem">Everything in a
+                    nutshell!</span></div>
+            <div class="underline-contact"></div>
         </div>
         <div class="summary-task-cont">
             <div class="summary-task-cont-left">
                 <div class="tasks-first-line">
-                    <div onclick="getToBoard()" class="summary-task-box"><span class="summary-task-box-numm"><b id="numberOfTasks">1</b></span><span class="summary-task-box-text">Tasks in Board</span></div>
-                    <div onclick="getToBoard()" class="summary-task-box"><span class="summary-task-box-numm"><b id="tasksInProgress">2</b></span><span class="summary-task-box-text">Tasks in Progress</span></div>
-                    <div onclick="getToBoard()" class="summary-task-box"><span class="summary-task-box-numm"><b id="awaitingFeedback">3</b></span><span class="summary-task-box-text">Awaiting Feedback</span></div>
+                    <div onclick="getToBoard()" class="summary-task-box"><span class="summary-task-box-numm"><b
+                                id="numberOfTasks">1</b></span><span class="summary-task-box-text-top">Tasks in
+                            Board</span></div>
+                    <div onclick="getToBoard()" class="summary-task-box"><span class="summary-task-box-numm"><b
+                                id="tasksInProgress">2</b></span><span class="summary-task-box-text-top">Tasks in
+                            Progress</span></div>
+                    <div onclick="getToBoard()" class="summary-task-box"><span class="summary-task-box-numm"><b
+                                id="awaitingFeedback">3</b></span><span class="summary-task-box-text-top">Awaiting
+                            Feedback</span></div>
                 </div>
                 <div class="task-middle-line">
-                    <div onclick="getToBoard()" class="section-urgent"><img src="/Img/urgent_icon_summary.svg"><div class="section-urgent-text"><span style="font-size: 47px;"><b>1</b></span><span>Urgent</span></div></div>
-                    <div class="section-date"><span style="font-size: 21px;">October 16, 2022</span><span>Upcomming Deadline</span></div>
+                    <div onclick="getToBoard()" class="section-urgent"><img src="/Img/urgent_icon_summary.svg">
+                        <div class="section-urgent-text"><span
+                                class="section-urgent-text-elem"><b>1</b></span><span>Urgent</span></div>
+                    </div>
+                    <div class="section-date"><span class="date-text"><b>October 16, 2022</b></span><span>Upcomming
+                            Deadline</span></div>
                 </div>
                 <div class="tasks-bottom-line">
-                    <div onclick="getToBoard()"class="summary-task-box-big"><img src="/Img/summary_pencil_icon.svg"><div class="summary-task-box-big-elem"><span class="summary-task-box-numm"><b id="numberOfTodos">1</b></span><span class="summary-task-box-text">To-Do</span></div></div>
-                    <div onclick="getToBoard()"class="summary-task-box-big"><img src="/Img/summary_check_icon.svg"><div class="summary-task-box-big-elem"><span class="summary-task-box-numm"><b id="doneTasks">1</b></span><span class="summary-task-box-text">Done</span></div></div>
+                    <div onclick="getToBoard()" class="summary-task-box-big"><img src="/Img/summary_pencil_icon.svg">
+                        <div class="summary-task-box-big-elem"><span class="summary-task-box-numm"><b
+                                    id="numberOfTodos">3</b></span><span class="summary-task-box-text">To-Do</span>
+                        </div>
+                    </div>
+                    <div onclick="getToBoard()" class="summary-task-box-big"><img src="/Img/summary_check_icon.svg">
+                        <div class="summary-task-box-big-elem"><span class="summary-task-box-numm"><b
+                                    id="doneTasks">4</b></span><span class="summary-task-box-text">Done</span></div>
+                    </div>
                 </div>
             </div>
             <div class="summary-task-cont-right">
                 <div class="summary-task-cont-right-elem">
                     <span class="time-of-day" id="greet">Good Afternoon,</span>
-                    <span class="visitor">Guest</span></div>
+                    <span class="visitor">Guest</span>
+                </div>
             </div>
         </div>
     </div>
-    
+    <div class="overlay-container" id="overlayContainer">
+        <span class="time-of-day" id="greet">Good Afternoon,</span>
+        <span class="visitor">Guest</span>
+    </div>
+    </div>
+
 </body>
+
 </html>

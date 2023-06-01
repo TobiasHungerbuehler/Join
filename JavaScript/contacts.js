@@ -55,8 +55,8 @@ let temporaryContacts = [];
 let letters = [];
 
 async function loadContactPage() {
-    await getContacts();
     init();
+    await getContacts();
     accessContacts();
     // myFunctionTwo();
 }

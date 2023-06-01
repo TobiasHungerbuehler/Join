@@ -1,18 +1,17 @@
 async function loadSummary() {
     init();
     await getTasks();
+    checkWidth();
     showTimeOfTheDay();
+    showNumbers();
     checkNummberOfTasks();
-    showNumberOfTasks()
-    showNumberOfTodo();
-    showNumberOfDoneTasks();
-    showNumberOfAwaitingFeedback();
-    showNumberOfTasksInProgress();
+
 }
 
 function getToBoard() {
     window.location.href = "./board.html";
 }
+
 //die Zeit wird berechnet und der Guest wird demändsprechend begrüßt
 
 function showTimeOfTheDay() {
@@ -41,6 +40,14 @@ function showTimeOfTheDay() {
         document.getElementById('greet').innerHTML = 'Good night,';
     }
 
+}
+
+function showNumbers() {
+    showNumberOfTasks()
+    showNumberOfTodo();
+    showNumberOfDoneTasks();
+    showNumberOfAwaitingFeedback();
+    showNumberOfTasksInProgress();
 }
 
 // function, die über Tasks Array itteriert
@@ -94,6 +101,29 @@ function searchForPrio() {
     let priority = tasks.filter(t => t['status'] == 'prio');
     document.getElementById('priorityNumber').innerHTML = `${priority.length}`;
 }
-tasks['prio']
-tasks['dueDate']
+// tasks['prio']
+// tasks['dueDate']
 
+
+// Animation in mobile Version
+
+
+function checkWidth() {
+
+    if(innerWidth < 550){
+       fadeOut();
+       console.log(innerWidth);
+       setTimeout(removeOverlay, 6000);
+    } else {
+        removeOverlay();
+    }
+   
+}
+
+function fadeOut() {
+    document.getElementById('overlayContainer').classList.add('fade-out');
+}
+
+function removeOverlay() {
+    document.getElementById('overlayContainer').classList.add('d-none');
+}
