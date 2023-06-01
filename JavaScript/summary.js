@@ -26,18 +26,22 @@ function showTimeOfTheDay() {
     if (hour < noon && hour > sunrise) {
         console.log('Its Morning');
         document.getElementById('greet').innerHTML = 'Good Morning,';
+        document.getElementById('greetMobile').innerHTML = 'Good Morning,';
 
     } else if (hour >= noon && hour <= afternoon) {
         console.log('Its Afternoon');
         document.getElementById('greet').innerHTML = 'Good Afternoon,';
+        document.getElementById('greetMobile').innerHTML = 'Good Afternoon,';
 
     } else if (hour >= afternoon && hour <= evening) {
         console.log('Its Evening');
         document.getElementById('greet').innerHTML = 'Good Evening,';
+        document.getElementById('greetMobile').innerHTML = 'Good Evening,';
     }
     else if (hour >= evening && hour <= sunrise) {
         console.log('Its night');
         document.getElementById('greet').innerHTML = 'Good night,';
+        document.getElementById('greetMobile').innerHTML = 'Good night,';
     }
 
 }
