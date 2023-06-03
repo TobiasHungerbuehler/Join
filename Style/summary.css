@@ -412,7 +412,7 @@
 
     .summary-task-box-text {
         font-size: 14px;
-        width: 64%;
+        width: unset;
         margin-top: -12px;
 
     }
@@ -438,5 +438,9 @@
     .section-urgent {
         height: 70px;
         min-width: 120px;
+    }
+
+    .section-urgent-text-elem {
+        font-size: 32px;
     }
 }
