@@ -1,9 +1,11 @@
 let users = [];
 
 
-function init() {
-    loadUsers();
+async function init() {
+    await loadUsers();
     showLoginDialog();
+    // showUsers(); 
+    
 }
 
 // die Daten werden vom server heruntergeladen und zum Users hinzugefügt
@@ -12,38 +14,73 @@ async function loadUsers() {
     try {
         users = JSON.parse(await getItem('users'));
         console.log('This is loaded', users);
-    } catch(e){
+    } catch (e) {
         console.error('Loading error:', e);
     }
-
 }
 
 
-//die neue User wird erstellt 
+//////users werden nur vorübergehend gerendert
 
+// function showUsers() {
+//     // debugger;
+//     for (let k = 0; k < users.length; k++) {
+        
+//         document.getElementById('temorarlyUsers').innerHTML += showUsersTemplate(k);
+        
+//     }
+
+// }
+//  function showUsersTemplate(k) {
+//     return /*HTML*/ `
+//     <div>
+//     <span>${users[k]['email']}</span>
+//     <span>${users[k]['passwort']}</span>
+//     <a onclick="removeUser(${k})">delete</a>
+//     </div>`;
+//  }
+
+
+//  function removeUser(k){
+//     users.splice(k, 1);
+//     saveUsersOnServer();
+    
+//  }
+
+//der neue User wird erstellt 
 
 async function register() {
-registerBtn.disabled = true;
-let name = document.getElementById('userName').value;
-let email = document.getElementById('userEmail').value;
-let passwort = document.getElementById('userPasswort').value;
+    registerBtn.disabled = true;
+    let name = document.getElementById('userName').value;
+    let email = document.getElementById('userEmail').value;
+    let passwort = document.getElementById('userPasswort').value;
+    //To Do hier fehlt Bedingung, falls der User schon existiert!!
+    users.push({
+        "userId": assignId(),
+        "name": name,
+        "email": email,
+        "passwort": passwort
+    });
 
-users.push({
-    name : name,
-    email : email,
-    passwort : passwort
-});
 
-
-await setItem('users', JSON.stringify(users));
-resetFields();
-showLoginDialog();
+    await setItem('users', JSON.stringify(users));
+    resetFields();
+    showLoginDialog();
 
 }
 
+////// eine 5stellige Nummer wird zurückgegeben
+function assignId() {
+    let number = users.length + 1;
+    let result = number.toString().padStart(5, '0'); //
+    return result;
+}
 
-// die Flederinhalt werden gelöscht
-function resetFields(){
+
+
+// die Felderinhalt werden gelöscht
+
+function resetFields() {
     registerBtn.disabled = false;
     document.getElementById('userName').value = '';
     document.getElementById('userEmail').value = '';
@@ -72,8 +109,8 @@ function showLoginDialog() {
 
 // Dialog Forgot my Passwort wird angezeigt
 
-function showForgotMyPasswort(){
-    document.getElementById('header').innerHTML = 'I forgot my passwort'; 
+function showForgotMyPasswort() {
+    document.getElementById('header').innerHTML = 'I forgot my passwort';
     document.getElementById('arrowImg').classList.remove('d-none');
     document.getElementById('infoBoxRight').classList.add('d-none');
     forgotMyPasswortTemplate();
@@ -86,7 +123,7 @@ function resetPasswort() {
     resetPasswortTemplate();
 }
 
-// Templates Login, Sign up, forgot/reset Passwort
+// Templates für Login, Sign up, forgot/reset Passwort
 
 function logInTemplate() {
     document.getElementById('formContainer').innerHTML = `
@@ -96,9 +133,9 @@ function logInTemplate() {
                 <div class="dialog-links-cont">
                     <span class="remember-link"><img src="">Remember me</span><span class="forgot-passwort" onclick="showForgotMyPasswort()">Forgot my passwort</span>
                 </div>
-                <div class="button-cont">
-                    <button class="blue-btn" id="loginBtn">Log in</button>
-                    <button class="white-btn" id="guestLogIn">Guest Log in</button>
+                <div class="button-cont" id="loginButtons">
+                    <button class="blue-btn" id="loginBtn" value="newLogIn">Log in</button>
+                    <div onclick="showGuestProfile()" class="white-btn" id="guestLogIn"  value="guestLogIn">Guest Log in</div>
                 </div>
 
             </form>
@@ -116,12 +153,12 @@ function signUpTemplate() {
 }
 
 
-function forgotMyPasswortTemplate(){
+function forgotMyPasswortTemplate() {
     document.getElementById('formContainer').innerHTML = `
     <div class="forgot-passwort-text">Don't worry! We will send you an email with the instructions to reset your passwort.</div>
     <div class="input-cont"><input requiered type="email" placeholder="Email" id="resetEmail"><img src="/Img/icon_mail.svg"></div>
     <div class="button-cont"><button class="blue-btn passwort-btn" id="resetEmailBtn" onclick="resetPasswort()">Send me the email</button></div> 
-    `; 
+    `;
 }
 
 
@@ -131,34 +168,50 @@ function resetPasswortTemplate() {
     <div class="input-cont"><input required type="passwort" placeholder="New passwort" id="newPasswort"><img src="/Img/icon_lock.svg" alt=""></div>
     <div class="input-cont"><input required type="passwort" placeholder="Confirm passwort" id="confirmPasswort"><img src="/Img/icon_lock.svg" alt=""></div>
     <div class="button-cont"><button class="blue-btn passwort-btn" id="resetPasswortBtn" onclick="resetPasswort()">Continue</button></div> 
-`;   
+`;
 }
-    //  <button>Forgot Passwort?</button>
+//  <button>Forgot Passwort?</button>
 
 // To Do  nachdem registrierte User Log in button druckt
 
-function logIn(){
-    debugger;
+
+function logIn() {
     let email = document.getElementById('email').value;
     let passwort = document.getElementById('passwort').value;
     console.log(email, passwort);
     searchForMatch(email, passwort);
     resetSignInFields();
-
 }
 
+///////wenn man an Guest Login button druckt, wird Guest Account gestartet
 
-//To Do - User der in Log In Felder Daten eingegeben hat sollen mit Inhalt aus Array Users vergliechen werden
+function showGuestProfile() {
+    let emailGuest = 'guest@join.de';
+    let passwortGuest = 'guest123';
+    searchForMatch(emailGuest, passwortGuest);
+}
+
+//User der in Log In Felder Daten eingegeben hat sollen mit Inhalt aus Array Users vergliechen werden
 
 function searchForMatch(email, passwort) {
     for (let i = 0; i < users.length; i++) {
-        const element = users[i];
-        searchEmail = users.filter(u => u.email == 'email');
-        console.log(searchEmail);
+        if (users[i]['email'] == email && users[i]['passwort'] == passwort) {
+            let userIdLogIn = users[i]['userId'];
+            let userName = users[i]['name'];
+            const url = "/summary.html?" + userIdLogIn + '?=' + userName;
+            console.log('gefunden');
+            window.location.href = url;
+        }else {
+            // To Do was passiert wenn email oder passwort nicht überreinstimmen
+            console.log('Fehler');
+        }
+       
     }
 
-   
+
 }
+
+
 
 // Inhalt von Log in Felder wird gelöscht
 

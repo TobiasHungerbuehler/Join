@@ -1,5 +1,11 @@
+let userName;
+let userIdLogIn;
+
+
 async function loadSummary() {
     init();
+    loadUserNameAndId();
+    greet();
     await getTasks();
     checkWidth();
     showTimeOfTheDay();
@@ -11,6 +17,22 @@ async function loadSummary() {
 function getToBoard() {
     window.location.href = "./board.html";
 }
+
+/////////die Parameter aus Login seite werden aus Link übergenommen
+
+function loadUserNameAndId() {
+    userName = location.href.split('=')[1].replace("%20" , " ");;
+    userIdLogIn = location.href.split('?')[1];
+    console.log('Ergebniss ist ',userName, userIdLogIn);
+}
+
+
+function greet() {
+    document.getElementById('visitor').innerHTML = `${userName}`;
+    document.getElementById('visitorMobile').innerHTML = `${userName}`;
+
+}
+
 
 //die Zeit wird berechnet und der Guest wird demändsprechend begrüßt
 
@@ -101,10 +123,13 @@ function showNumberOfDoneTasks() {
 //     }
 // }
 
+
+/////////////////To do nach Urgent suchen und anzeigen lassen//////////////
 function searchForPrio() {
     let priority = tasks.filter(t => t['status'] == 'prio');
     document.getElementById('priorityNumber').innerHTML = `${priority.length}`;
 }
+
 // tasks['prio']
 // tasks['dueDate']
 

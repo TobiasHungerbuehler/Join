@@ -1,4 +1,5 @@
-let LOGIN_TOKEN  =  '8UPQOCJMCAP96ATK964I1LUZ079Q30TFOXVG50G3';
+// let LOGIN_TOKEN  =  '8UPQOCJMCAP96ATK964I1LUZ079Q30TFOXVG50G3';
+let LOGIN_TOKEN = '77LWTBN88B7QWW9FMFCY7VQP4HJRV8B7ZS5ETSUN';
 let STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 
@@ -17,3 +18,40 @@ async function getItem(key) {
         } throw `Could not find data with key "${key}".`;
     });
 }
+
+///////////////////////////////////////////////////////////////
+async function saveUsersOnServer() {
+    let key = "usersData";
+    let value = users;
+    await setItem(key, value);
+}
+
+
+async function testUsersToServer() {
+    let key = "usersData";
+    let value = testUsers;
+    await setItem(key, value);
+}
+
+
+let testUsers = [
+    {
+        "userId" : 00001,
+        "name" : "guest",
+        "email" : "guest@join.de",
+        "passwort" :" guest123"
+    },
+    {
+        "userId" : 00002,
+        "name" : "test1",
+        "email" : "test1@join.de",
+        "passwort" :" test123"
+    },
+    {
+        "userId" : 00003,
+        "name" : "Max Mustermann",
+        "email" : "max@join.de",
+        "passwort" :" max123"
+    }
+
+];

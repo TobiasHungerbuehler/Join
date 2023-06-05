@@ -139,6 +139,8 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid #2A3647;
+    cursor: pointer;
 }
 
 .info-box-right {
