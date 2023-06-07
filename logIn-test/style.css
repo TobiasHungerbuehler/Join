@@ -181,3 +181,7 @@ form {
 .remember-link {
     text-decoration: none;
 }
+
+.danger a {
+    background-color: rgb(204, 57, 57);
+}

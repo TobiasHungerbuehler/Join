@@ -21,9 +21,16 @@ function getToBoard() {
 /////////die Parameter aus Login seite werden aus Link übergenommen
 
 function loadUserNameAndId() {
-    userName = location.href.split('=')[1].replace("%20" , " ");;
-    userIdLogIn = location.href.split('?')[1];
-    console.log('Ergebniss ist ',userName, userIdLogIn);
+    // debugger;
+    if (window.location.toString().includes("?=")) {
+        userName = location.href.split('=')[1].replace("%20" , " ");
+        userIdLogIn = location.href.split('?')[1];  
+        console.log('Ergebniss ist ',userName, userIdLogIn);
+    } else {
+        console.log('loaded more than once')
+    }
+    
+    
 }
 
 
