@@ -3,7 +3,7 @@
 /* All App Data */
 /*********************************************************************/
 let contacts = [];
-const userId = 00001; // Wird nach dem Login gesetzt
+const userId = 00003; // Wird nach dem Login gesetzt
 const STORAGE_TOKEN = 'VME58G2KX9RYXPBTN6UKEQ0E5HVP3P7Q5CR6TE8W';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
@@ -34,6 +34,18 @@ async function setItem(key, value) {
   const payload = { key, value, token: STORAGE_TOKEN };
   return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
     .then(res => res.json());
+}
+
+
+function newUserIdtoAppData(){
+  const newAppData =   {
+    "userId": userId,
+    "data": {
+      "tasks": [],
+      "contacts": []
+    }
+  }
+  appData.push(newAppData);
 }
 
 // Speichrestruktur
