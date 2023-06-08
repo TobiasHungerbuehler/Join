@@ -49,7 +49,6 @@ function newUserIdtoAppData(){
 }
 
 // Speichrestruktur
-
 let appData = [
   {
     "userId": 00001,
@@ -95,50 +94,28 @@ async function saveTasksOnServer() {
   let key = "appData";
   let value = appData;
   await setItem(key, value);  
-  //let key = "userTasks";
-  //let value = tasks;
-  //await setItem(key, value);
-  //await getTasks(); // automatishh wieder runterladen nach upload zu test
 }
 
 /*********************************************************************/
 /* Contacts */
 /*********************************************************************/
 //saving Contatcs on Server
-
-
 async function saveContactsOnServer() {
   const userDataSet = appData.find(user => user.userId === userId);
   userDataSet.data.contacts = contacts;
   let key = "appData";
   let value = appData;
   await setItem(key, value);
-
-
-  //let key = "savedContacts";
-  //let value = contacts;
-  //await setItem(key, value);
-
 }
 
 //Loading Contatcs from Server
 async function getContacts() {
   try {
-
     const allAppData = await getAllAppData()
     const userData = allAppData.find(item => item.userId === userId);
     const userContacts = userData.data.contacts;
     contacts = userContacts;
     console.log('get tasks 2=',tasks)
-
-
-
-    //let dataFromServer = await getItem('savedContacts');
-    //contactsFromServer = dataFromServer['data']['value'];
-    //let replacedData = contactsFromServer.replace(/'/g, '"'); // Replace ""
-    //let contactsAsJSON = await JSON.parse(replacedData);
-    //console.log(contactsAsJSON);
-    //contacts = contactsAsJSON;
   }
   catch (error) {
     console.log('No Data Found:', error);
