@@ -1,5 +1,6 @@
 let users = [];
 let firstCheck;
+let result; //forübergehend um assigned Id herauszufinden
 
 
 async function init() {
@@ -56,11 +57,13 @@ async function register() {
     let name = document.getElementById('userName').value;
     let email = document.getElementById('userEmail').value;
     let passwort = document.getElementById('userPasswort').value;
+
+
     //To Do hier fehlt Bedingung, falls der User schon existiert!!
-    
-    
-    let findName = testUsers.filter(t => t['name'] == name);
-    let findEmail = testUsers.filter(t => t['email'] == email);
+
+    let findName = users.filter(u => u['name'] == name);
+    let findEmail = users.filter(u => u['email'] == email);
+
     if(findName.length > 0 ) {
         alert(`It seems that the User with the Name ${name} allready exists, please try again`);
     } else if(findEmail.length > 0 ) {
@@ -73,13 +76,15 @@ async function register() {
         "email": email,
         "passwort": passwort
     });
-
+    // userId = result;//forübergehend um assigned Id herauszufinden
 
     await setItem('users', JSON.stringify(users));
+    // newUserIdtoAppData(userId);// neuer User wird in appData gespeichert
     resetFields();
     showLoginDialog();
    
 }
+resetFields();
 findName = [];
 findEmail = [];
 
@@ -109,7 +114,7 @@ function returnCheckedUser(element, name, email) {
 ////// eine 5-stellige Nummer wird zurückgegeben
 function assignId() {
     let number = users.length + 1;
-    let result = number.toString().padStart(5, '0'); //
+    result = number.toString().padStart(5, '0'); 
     return result;
 }
 
@@ -290,7 +295,7 @@ function loadFromLocalStorage() {
 ///////wenn man an Guest Login button druckt, wird Guest Account gestartet
 
 function showGuestProfile() {
-    debugger;
+    // debugger;
     let emailGuest = 'guest@join.de';
     let passwortGuest = 'guest123';
     searchForMatch(emailGuest, passwortGuest);
@@ -300,7 +305,7 @@ function showGuestProfile() {
 
 function searchForMatch(email, passwort) {
     for (let i = 0; i < users.length; i++) {
-        let 
+    
         if (users[i]['email'] == email && users[i]['passwort'] == passwort) {
             let userIdLogIn = users[i]['userId'];
             let userName = users[i]['name'];
@@ -309,7 +314,7 @@ function searchForMatch(email, passwort) {
             window.location.href = url;
         } else {
             // To Do was passiert wenn email oder passwort nicht überreinstimmen
-            alert('Fehler');
+            console.log('Fehler');
         }
 
     }
