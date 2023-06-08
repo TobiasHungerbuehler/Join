@@ -301,3 +301,62 @@ let testContacts = [
     'avatarColor': 'orange'
   }
 ];
+
+
+/*********************************************************************/
+/* Users Data */
+/*********************************************************************/
+
+async function getUsers() {
+    try {
+      let usersFromServer = await getItem('usersData');
+      let usersArray = usersFromServer['data']['value'];
+      let replacedDataUsers = usersArray.replace(/'/g, '"'); // Replace ""
+      let parsedUsers = await JSON.parse(replacedDataUsers);
+      console.log(parsedUsers);
+      users =  parsedUsers;
+
+    } catch (error) {
+      console.log('No Data Found:', error);
+    }
+  }
+
+
+  
+async function saveUsersOnServer() {
+  let key = "usersData";
+  let value = users;
+  await setItem(key, value);
+}
+
+
+
+
+async function testUsersToServer() {
+  let key = "usersData";
+  let value = testUsers;
+  await setItem(key, value);
+}
+
+
+let testUsers = [
+  {
+      "userId" : 00001,
+      "name" : "guest",
+      "email" : "guest@join.de",
+      "passwort" :"guest123"
+  },
+  {
+      "userId" : 00002,
+      "name" : "test1",
+      "email" : "test1@join.de",
+      "passwort" :"test123"
+  },
+  {
+      "userId" : 00003,
+      "name" : "Max Mustermann",
+      "email" : "max@join.de",
+      "passwort" :"max123"
+  }
+
+];

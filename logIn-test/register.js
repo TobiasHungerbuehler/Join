@@ -4,56 +4,20 @@ let result; //forübergehend um assigned Id herauszufinden
 
 
 async function init() {
-    await loadUsers();
+    // debugger;
+    // await testUsersToServer();
+    await getUsers();
     showLoginDialog();
     // showUsers();
     loadFromLocalStorage();
 
 }
 
-// die Daten werden vom server heruntergeladen und zum Users hinzugefügt
-
-async function loadUsers() {
-    try {
-        users = JSON.parse(await getItem('users'));
-        console.log('This is loaded', users);
-    } catch (e) {
-        console.error('Loading error:', e);
-    }
-}
-
-
-//////users werden nur vorübergehend gerendert
-
-// function showUsers() {
-//     // debugger;
-//     for (let k = 0; k < users.length; k++) {
-
-//         document.getElementById('temorarlyUsers').innerHTML += showUsersTemplate(k);
-
-//     }
-
-// }
-//  function showUsersTemplate(k) {
-//     return /*HTML*/ `
-//     <div>
-//     <span>${users[k]['email']}</span>
-//     <span>${users[k]['passwort']}</span>
-//     <a onclick="removeUser(${k})">delete</a>
-//     </div>`;
-//  }
-
-
-//  function removeUser(k){
-//     users.splice(k, 1);
-//     saveUsersOnServer();
-
-//  }
 
 //der neue User wird erstellt 
 
 async function register() {
-    registerBtn.disabled = true;
+    document.getElementById('registerBtn').disabled = true;
     let name = document.getElementById('userName').value;
     let email = document.getElementById('userEmail').value;
     let passwort = document.getElementById('userPasswort').value;
@@ -64,40 +28,41 @@ async function register() {
     let findName = users.filter(u => u['name'] == name);
     let findEmail = users.filter(u => u['email'] == email);
 
-    if(findName.length > 0 ) {
-        alert(`It seems that the User with the Name ${name} allready exists, please try again`);
-    } else if(findEmail.length > 0 ) {
+    if (findName.length > 0) {
+        alert(`It seems that the User with the Name ${name} allready exists, please check your spelling and try again`);
+    } else if (findEmail.length > 0) {
         alert(`It seems that the User with the following email ${email} allready exists, please try again or if you are allready a User reset your password`);
     } else {
-        
-    users.push({
-        "userId": assignId(),
-        "name": name,
-        "email": email,
-        "passwort": passwort
-    });
-    // userId = result;//forübergehend um assigned Id herauszufinden
 
-    await setItem('users', JSON.stringify(users));
-    // newUserIdtoAppData(userId);// neuer User wird in appData gespeichert
+        users.push({
+            "userId": assignId(),
+            "name": name,
+            "email": email,
+            "passwort": passwort
+        });
+        // userId = result;//forübergehend um assigned Id herauszufinden
+        saveUsersOnServer();
+        // await setItem('usersData', JSON.stringify(users));
+        // newUserIdtoAppData(userId);// neuer User wird in appData gespeichert
+        resetFields();
+        showLoginDialog();
+
+    }
+
     resetFields();
-    showLoginDialog();
-   
-}
-resetFields();
-findName = [];
-findEmail = [];
+    findName = [];
+    findEmail = [];
 
 }
 
 
-function checkUser(name, email){
+function checkUser(name, email) {
     debugger;
     for (let j = 0; j < users.length; j++) {
         let element = users[j];
         returnCheckedUser(element, name, email);
-        
-        
+
+
     }
 }
 
@@ -107,23 +72,24 @@ function returnCheckedUser(element, name, email) {
         console.log('Match found');
         return firstCheck === true;
     }
-     else {
+    else {
         return false;
-     }
+    }
 }
-////// eine 5-stellige Nummer wird zurückgegeben
+//////* eine 5-stellige Nummer wird zurückgegeben
+
 function assignId() {
     let number = users.length + 1;
-    result = number.toString().padStart(5, '0'); 
+    result = number.toString().padStart(5, '0');
     return result;
 }
 
 
 
-// die Felderinhalt werden gelöscht
+// die Felderivalues werden gelöscht
 
 function resetFields() {
-    registerBtn.disabled = false;
+    document.getElementById('registerBtn').disabled = false;
     document.getElementById('userName').value = '';
     document.getElementById('userEmail').value = '';
     document.getElementById('userPasswort').value = '';
@@ -169,6 +135,7 @@ function resetAccount() {
     searchForEmail(checkEmail);
 
 }
+
 
 function searchForEmail(checkEmail) {
     for (let i = 0; i < users.length; i++) {
@@ -260,6 +227,7 @@ function logIn() {
 
 }
 
+
 ////CheckBox wird überprüft, wenn es angecheckt ist wird user Data on localStorage gespeichert und bei nächstem Mal angezeigt
 
 function checkRememberMe(email, passwort) {
@@ -301,11 +269,11 @@ function showGuestProfile() {
     searchForMatch(emailGuest, passwortGuest);
 }
 
-//User der in Log In Felder Daten eingegeben hat sollen mit Inhalt aus Array Users vergliechen werden
+//User der in LogIn Felder Daten eingegeben hat, sollen mit Inhalt aus Array Users vergliechen werden
 
 function searchForMatch(email, passwort) {
     for (let i = 0; i < users.length; i++) {
-    
+
         if (users[i]['email'] == email && users[i]['passwort'] == passwort) {
             let userIdLogIn = users[i]['userId'];
             let userName = users[i]['name'];
@@ -318,15 +286,42 @@ function searchForMatch(email, passwort) {
         }
 
     }
-
-
 }
 
-
-
-// Inhalt von Log in Felder wird gelöscht
+// Inhalt von Login Felder wird gelöscht
 
 function resetSignInFields() {
     document.getElementById('email').value = '';
     document.getElementById('passwort').value = '';
 }
+
+
+/***********************/
+/***********************/
+/*Login Version 2*/
+
+// function logIn() {
+//     debugger;
+//     let email = document.getElementById('email').value;
+//     let password = document.getElementById('password').value;
+//     let findEmail = testUsers.filter(t => t['email'] == email);
+
+//     if (findEmail.length > 0) {
+//         checkPasswort(findEmail, password);
+//     } else {
+//         console.log('Check your spelling, we could not find User with that email');
+//     }
+// }
+
+// function checkPasswort(findEmail, password) {
+//     if (findEmail[0]['passwort'] == password) {
+//         userId = findEmail[0]['userId'];
+//         window.location = "/summary.html"
+
+//     } else {
+//         console.log('Your Passwort is incorrect');
+//     }
+// }
+
+/***********************/
+/***********************/
