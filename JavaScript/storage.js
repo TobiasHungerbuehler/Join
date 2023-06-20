@@ -3,7 +3,7 @@
 /* All App Data */
 /*********************************************************************/
 let contacts = [];
-// let userId; // Wird nach dem Login gesetzt
+//let userId = 11111; // Wird nach dem Login gesetzt
 let userId = localStorage.getItem('userId'); // vielleicht noch besser
 const STORAGE_TOKEN = 'VME58G2KX9RYXPBTN6UKEQ0E5HVP3P7Q5CR6TE8W';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
@@ -54,14 +54,14 @@ function newUserIdtoAppData(){
 
 let appData = [
   {
-    "userId": 00001,
+    "userId": 11111,
     "data": {
       "tasks": [],
       "contacts": []
     }
   },
   {
-    "userId": 00002,
+    "userId": 22222,
     "data": {
       "tasks": [],
       "contacts": []
