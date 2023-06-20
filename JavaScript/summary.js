@@ -3,6 +3,7 @@ let userIdLogIn;
 
 
 async function loadSummary() {
+    // loadIdFromLocalStorage();
     init();
     loadUserNameAndId();
     greet();
@@ -11,12 +12,15 @@ async function loadSummary() {
     showTimeOfTheDay();
     showNumbers();
     checkNummberOfTasks();
+    
 
 }
 
 function getToBoard() {
     window.location.href = "./board.html";
 }
+
+
 
 /////////die Parameter aus Login seite werden aus Link übergenommen
 
@@ -32,7 +36,6 @@ function loadUserNameAndId() {
     
     
 }
-
 
 function greet() {
     document.getElementById('visitor').innerHTML = `${userName}`;
@@ -134,6 +137,7 @@ function showNumberOfDoneTasks() {
 /////////////////To do nach Urgent suchen und anzeigen lassen//////////////
 function searchForPrio() {
     let priority = tasks.filter(t => t['status'] == 'prio');
+    console.log(priority);
     document.getElementById('priorityNumber').innerHTML = `${priority.length}`;
 }
 

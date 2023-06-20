@@ -3,8 +3,8 @@ let firstCheck;
 let result; //forübergehend um assigned Id herauszufinden
 
 
+
 async function init() {
-    // debugger;
     // await testUsersToServer();
     await getUsers();
     showLoginDialog();
@@ -17,6 +17,7 @@ async function init() {
 //der neue User wird erstellt 
 
 async function register() {
+    // debugger;
     document.getElementById('registerBtn').disabled = true;
     let name = document.getElementById('userName').value;
     let email = document.getElementById('userEmail').value;
@@ -40,16 +41,16 @@ async function register() {
             "email": email,
             "passwort": passwort
         });
-        // userId = result;//forübergehend um assigned Id herauszufinden
+        userId = result;//forübergehend um assigned Id herauszufinden
         saveUsersOnServer();
         // await setItem('usersData', JSON.stringify(users));
-        // newUserIdtoAppData(userId);// neuer User wird in appData gespeichert
+        newUserIdtoAppData(userId);// neuer User wird in appData gespeichert
         resetFields();
         showLoginDialog();
 
     }
 
-    resetFields();
+    // resetFields();// überlege wie und wann soll Formularfelder gelöscht werden = sign up formular
     findName = [];
     findEmail = [];
 
@@ -84,7 +85,7 @@ function assignId() {
     return result;
 }
 
-
+// let registerBtn = document.getElementById('registerBtn');
 
 // die Felderivalues werden gelöscht
 
@@ -219,41 +220,41 @@ function resetPasswortTemplate() {
 
 function logIn() {
     let email = document.getElementById('email').value;
-    let passwort = document.getElementById('passwort').value;
-    console.log(email, passwort);
+    let password = document.getElementById('passwort').value;
+    console.log(email, password);
     // debugger;
-    checkRememberMe(email, passwort);
-    searchForMatch(email, passwort);
+    checkRememberMe(email, password);
+    searchForMatch(email, password);
 
 }
 
 
 ////CheckBox wird überprüft, wenn es angecheckt ist wird user Data on localStorage gespeichert und bei nächstem Mal angezeigt
 
-function checkRememberMe(email, passwort) {
+function checkRememberMe(email, password) {
     if (document.getElementById('rememberMe').checked) {
         console.log('Checkbox has been chechked');
-        saveToLocalStorage(email, passwort);
+        saveToLocalStorage(email, password);
     } else {
         console.log('Checkbox has not been chechked');
         resetSignInFields();
     }
 }
 
-function saveToLocalStorage(email, passwort) {
+function saveToLocalStorage(email, password) {
     localStorage.setItem('email', email);
-    localStorage.setItem('passwort', passwort);
+    localStorage.setItem('password', password);
 }
 
 function loadFromLocalStorage() {
-    if (!localStorage.getItem('email') && localStorage.getItem('passwort') == null) {
+    if (!localStorage.getItem('email') && localStorage.getItem('password') == null) {
         console.log('You have not saved anything yet');
     } else {
         // debugger;
         let inputEmail = localStorage.getItem('email');
-        let inputPasswort = localStorage.getItem('passwort');
+        let inputPassword = localStorage.getItem('password');
         document.getElementById('email').value = `${inputEmail}`;
-        document.getElementById('passwort').value = `${inputPasswort}`;
+        document.getElementById('passwort').value = `${inputPassword}`;
 
     }
 
@@ -271,22 +272,22 @@ function showGuestProfile() {
 
 //User der in LogIn Felder Daten eingegeben hat, sollen mit Inhalt aus Array Users vergliechen werden
 
-function searchForMatch(email, passwort) {
-    for (let i = 0; i < users.length; i++) {
+// function searchForMatch(email, passwort) {
+//     for (let i = 0; i < users.length; i++) {
 
-        if (users[i]['email'] == email && users[i]['passwort'] == passwort) {
-            let userIdLogIn = users[i]['userId'];
-            let userName = users[i]['name'];
-            const url = "/summary.html?" + userIdLogIn + '?=' + userName;
-            console.log('gefunden');
-            window.location.href = url;
-        } else {
-            // To Do was passiert wenn email oder passwort nicht überreinstimmen
-            console.log('Fehler');
-        }
+//         if (users[i]['email'] == email && users[i]['passwort'] == passwort) {
+//             let userIdLogIn = users[i]['userId'];
+//             let userName = users[i]['name'];
+//             const url = "/summary.html?" + userIdLogIn + '?=' + userName;
+//             console.log('gefunden');
+//             window.location.href = url;
+//         } else {
+//             // To Do was passiert wenn email oder passwort nicht überreinstimmen
+//             console.log('Fehler');
+//         }
 
-    }
-}
+//     }
+// }
 
 // Inhalt von Login Felder wird gelöscht
 
@@ -300,28 +301,35 @@ function resetSignInFields() {
 /***********************/
 /*Login Version 2*/
 
-// function logIn() {
-//     debugger;
-//     let email = document.getElementById('email').value;
-//     let password = document.getElementById('password').value;
-//     let findEmail = testUsers.filter(t => t['email'] == email);
+function searchForMatch(email, password) {
+    let findEmail = users.filter(u => u['email'] == email);
+    if (findEmail.length > 0) {
+        checkPassword(findEmail, password);
+    } else {
+        alert('Check your spelling, we could not find User with that email');
+    }
+}
 
-//     if (findEmail.length > 0) {
-//         checkPasswort(findEmail, password);
-//     } else {
-//         console.log('Check your spelling, we could not find User with that email');
-//     }
-// }
 
-// function checkPasswort(findEmail, password) {
-//     if (findEmail[0]['passwort'] == password) {
-//         userId = findEmail[0]['userId'];
-//         window.location = "/summary.html"
+function checkPassword(findEmail, password) {
+    if (findEmail[0]['passwort'] == password) {
+        let userIdTest = findEmail[0]['userId'];
+        window.location = "/summary.html";
+        saveIdToLocalStorage(userIdTest);
+        
+    } else {
+        alert('Your Password is incorrect');
+    }
+}
 
-//     } else {
-//         console.log('Your Passwort is incorrect');
-//     }
-// }
+
+function saveIdToLocalStorage(userId) {
+    localStorage.setItem('userId', userId);
+    
+}
+
+
 
 /***********************/
 /***********************/
+
