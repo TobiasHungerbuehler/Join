@@ -3,7 +3,7 @@
 /* All App Data */
 /*********************************************************************/
 let contacts = [];
-const userId = 00003; // Wird nach dem Login gesetzt
+const userId = 11111; // Wird nach dem Login gesetzt
 const STORAGE_TOKEN = 'VME58G2KX9RYXPBTN6UKEQ0E5HVP3P7Q5CR6TE8W';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
@@ -51,14 +51,14 @@ function newUserIdtoAppData(){
 // Speichrestruktur
 let appData = [
   {
-    "userId": 00001,
+    "userId": 11111,
     "data": {
       "tasks": [],
       "contacts": []
     }
   },
   {
-    "userId": 00002,
+    "userId": 22222,
     "data": {
       "tasks": [],
       "contacts": []
@@ -67,12 +67,25 @@ let appData = [
 ];
 
 
+//testfunktion
+async function x(){
+  let key = "appData";
+  let value = appData;
+  await setItem(key, value);  
+
+  let dataSetFromServer = await getItem('appData');
+  //console.log(dataSetFromServer)
+  let parsedTasks = await JSON.parse(dataSetFromServer.data.value);
+  console.log(parsedTasks)
+
+}
+
 /*********************************************************************/
 /* Add Task */
 /*********************************************************************/
 
 
-// Ladet alle AppData und speichert die Tasks des users in "rask" array
+// Ladet alle AppData und speichert die Tasks des users in "task" array
 async function getTasks() {
   try{
     const allAppData = await getAllAppData()
@@ -147,8 +160,6 @@ async function testTaskToServer() {
 }
 
 
-
-
 let testTasks = [
   {
     "title": "Phone prospecting for new customers",
@@ -206,7 +217,6 @@ let testTasks = [
     ],
     "status": 'awaitingFeedback'
   }
-
 ]
 
 const priorityValues = {
