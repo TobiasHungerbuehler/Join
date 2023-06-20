@@ -9,12 +9,6 @@ const STORAGE_TOKEN = 'VME58G2KX9RYXPBTN6UKEQ0E5HVP3P7Q5CR6TE8W';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 
-//Wert aus dem localstorage gespeicherte Id wird an userId zugewiesen
-
-// function loadIdFromLocalStorage() {
-//   userId = localStorage.getItem('userId');
-//   console.log('This is supposed to be an id' , userId);
-// }
 
 // Lade alle appData vom Server
 async function getAllAppData() {
