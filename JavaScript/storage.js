@@ -343,19 +343,19 @@ async function testUsersToServer() {
 
 let testUsers = [
   {
-      "userId" : 00001,
+      "userId" : 11111,
       "name" : "guest",
       "email" : "guest@join.de",
       "passwort" :"guest123"
   },
   {
-      "userId" : 00002,
+      "userId" : 22222,
       "name" : "test1",
       "email" : "test1@join.de",
       "passwort" :"test123"
   },
   {
-      "userId" : 00003,
+      "userId" : 33333,
       "name" : "Max Mustermann",
       "email" : "max@join.de",
       "passwort" :"max123"
