@@ -2,9 +2,10 @@
 /*********************************************************************/
 /* All App Data */
 /*********************************************************************/
+let appData = [];
 let contacts = [];
-//let userId = 11111; // Wird nach dem Login gesetzt
-let userId = localStorage.getItem('userId'); // vielleicht noch besser
+let userId = 11111; // Wird nach dem Login gesetzt
+//let userId = localStorage.getItem('userId'); // vielleicht noch besser
 const STORAGE_TOKEN = 'VME58G2KX9RYXPBTN6UKEQ0E5HVP3P7Q5CR6TE8W';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
@@ -14,9 +15,10 @@ const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 async function getAllAppData() {
   try {
     let dataSetFromServer = await getItem('appData');
-    let allAppData = dataSetFromServer['data']['value'];
-    let replacedData = allAppData.replace(/'/g, '"'); // Replace ""
+    let fullAppData = dataSetFromServer['data']['value'];
+    let replacedData = fullAppData.replace(/'/g, '"'); // Replace ""
     let parsedTasks = await JSON.parse(replacedData);
+    appData = parsedTasks;
     return parsedTasks
   } catch (error) {
     console.log('get tasks 2 out=', parsedTasks)
@@ -51,7 +53,7 @@ function newUserIdtoAppData(){
 }
 
 // Speichrestruktur
-
+/*
 let appData = [
   {
     "userId": 11111,
@@ -68,7 +70,7 @@ let appData = [
     }
   }
 ];
-
+*/
 
 /*********************************************************************/
 /* Add Task */
@@ -97,50 +99,29 @@ async function saveTasksOnServer() {
   let key = "appData";
   let value = appData;
   await setItem(key, value);  
-  //let key = "userTasks";
-  //let value = tasks;
-  //await setItem(key, value);
-  //await getTasks(); // automatishh wieder runterladen nach upload zu test
 }
 
 /*********************************************************************/
 /* Contacts */
 /*********************************************************************/
+
 //saving Contatcs on Server
-
-
 async function saveContactsOnServer() {
   const userDataSet = appData.find(user => user.userId === userId);
   userDataSet.data.contacts = contacts;
   let key = "appData";
   let value = appData;
   await setItem(key, value);
-
-
-  //let key = "savedContacts";
-  //let value = contacts;
-  //await setItem(key, value);
-
 }
 
 //Loading Contatcs from Server
 async function getContacts() {
   try {
-
     const allAppData = await getAllAppData()
     const userData = allAppData.find(item => item.userId === userId);
     const userContacts = userData.data.contacts;
     contacts = userContacts;
     console.log('get tasks 2=',tasks)
-
-
-
-    //let dataFromServer = await getItem('savedContacts');
-    //contactsFromServer = dataFromServer['data']['value'];
-    //let replacedData = contactsFromServer.replace(/'/g, '"'); // Replace ""
-    //let contactsAsJSON = await JSON.parse(replacedData);
-    //console.log(contactsAsJSON);
-    //contacts = contactsAsJSON;
   }
   catch (error) {
     console.log('No Data Found:', error);
