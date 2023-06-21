@@ -5,6 +5,8 @@ let result; //forübergehend um assigned Id herauszufinden
 
 
 async function init() {
+    debugger;
+    appData = await getAllAppData();
     // await testUsersToServer();
     await getUsers();
     showLoginDialog();
@@ -58,7 +60,7 @@ async function register() {
 }
 
 
-///Function vom Storage.js, neu registrierter User wird auf Haupt Storage gespeichert 
+///Function vom Storage.js genommen, neu registrierter User wird auf Haupt Storage gespeichert 
 
 function newUserIdtoAppData(userId){
     const newAppData =   {
@@ -69,6 +71,7 @@ function newUserIdtoAppData(userId){
       }
     }
     appData.push(newAppData);
+    setItem('appData', appData);
   }
 
   ///////
