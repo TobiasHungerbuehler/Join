@@ -41,16 +41,16 @@ async function setItem(key, value) {
 }
 
 
-function newUserIdtoAppData(){
-  const newAppData =   {
-    "userId": userId,
-    "data": {
-      "tasks": [],
-      "contacts": []
-    }
-  }
-  appData.push(newAppData);
-}
+// function newUserIdtoAppData(){
+//   const newAppData =   {
+//     "userId": userId,
+//     "data": {
+//       "tasks": [],
+//       "contacts": []
+//     }
+//   }
+//   appData.push(newAppData);
+// }
 
 // Speichrestruktur
 /*

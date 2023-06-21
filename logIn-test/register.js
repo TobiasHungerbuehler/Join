@@ -5,11 +5,13 @@ let result; //forübergehend um assigned Id herauszufinden
 
 
 async function init() {
+    debugger;
+    appData = await getAllAppData();
     // await testUsersToServer();
     await getUsers();
     showLoginDialog();
     // showUsers();
-    loadFromLocalStorage();
+    // loadFromLocalStorage();
 
 }
 
@@ -34,17 +36,18 @@ async function register() {
     } else if (findEmail.length > 0) {
         alert(`It seems that the User with the following email ${email} allready exists, please try again or if you are allready a User reset your password`);
     } else {
-
+        debugger;
         users.push({
-            "userId": assignId(),
+            "userId": getRandomNumber(),
             "name": name,
             "email": email,
             "passwort": passwort
         });
-        userId = result;//forübergehend um assigned Id herauszufinden
+        // userId = result;//forübergehend um assigned Id herauszufinden
+        newUserIdtoAppData(result);// neuer User wird in appData gespeichert
         saveUsersOnServer();
         // await setItem('usersData', JSON.stringify(users));
-        newUserIdtoAppData(userId);// neuer User wird in appData gespeichert
+        
         resetFields();
         showLoginDialog();
 
@@ -57,7 +60,23 @@ async function register() {
 }
 
 
-function checkUser(name, email) {
+///Function vom Storage.js genommen, neu registrierter User wird auf Haupt Storage gespeichert 
+
+function newUserIdtoAppData(userId){
+    const newAppData =   {
+      "userId": userId,
+      "data": {
+        "tasks": [],
+        "contacts": []
+      }
+    }
+    appData.push(newAppData);
+    setItem('appData', appData);
+  }
+
+  ///////
+
+  function checkUser(name, email) {
     debugger;
     for (let j = 0; j < users.length; j++) {
         let element = users[j];
@@ -77,13 +96,26 @@ function returnCheckedUser(element, name, email) {
         return false;
     }
 }
+
+
+//////////////////// eine 5-stellige random Nummer wird generiert
+
+function getRandomNumber() {
+    let min = 10000;
+    let max = 99999;
+    result = Math.floor(Math.random() * (max - min + 1)) + min;
+    console.log(result);
+    return result
+    }
+    /////////////////
+
 //////* eine 5-stellige Nummer wird zurückgegeben
 
-function assignId() {
-    let number = users.length + 1;
-    result = number.toString().padStart(5, '0');
-    return result;
-}
+// function assignId() {
+//     let number = users.length + 1;
+//     result = number.toString().padStart(5, '0');
+//     return result;
+// }
 
 // let registerBtn = document.getElementById('registerBtn');
 
