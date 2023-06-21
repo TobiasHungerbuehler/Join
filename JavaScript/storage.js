@@ -52,22 +52,22 @@ async function setItem(key, value) {
 
 // Speichrestruktur
 
-let appData = [
-  {
-    "userId": 11111,
-    "data": {
-      "tasks": [],
-      "contacts": []
-    }
-  },
-  {
-    "userId": 22222,
-    "data": {
-      "tasks": [],
-      "contacts": []
-    }
-  }
-];
+// let appData = [
+//   {
+//     "userId": 11111,
+//     "data": {
+//       "tasks": [],
+//       "contacts": []
+//     }
+//   },
+//   {
+//     "userId": 22222,
+//     "data": {
+//       "tasks": [],
+//       "contacts": []
+//     }
+//   }
+// ];
 
 
 /*********************************************************************/
