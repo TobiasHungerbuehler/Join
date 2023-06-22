@@ -1,29 +1,10 @@
-
-/*********************************************************************/
-/* All App Data */
-/*********************************************************************/
 let appData = [];
+let tasks = [];
 let contacts = [];
 let userId = 11111; // Wird nach dem Login gesetzt
 //let userId = localStorage.getItem('userId'); // vielleicht noch besser
 const STORAGE_TOKEN = 'VME58G2KX9RYXPBTN6UKEQ0E5HVP3P7Q5CR6TE8W';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
-
-
-
-// Lade alle appData vom Server
-async function getAllAppData() {
-  try {
-    let dataSetFromServer = await getItem('appData');
-    let fullAppData = dataSetFromServer['data']['value'];
-    let replacedData = fullAppData.replace(/'/g, '"'); // Replace ""
-    let parsedTasks = await JSON.parse(replacedData);
-    appData = parsedTasks;
-    return parsedTasks
-  } catch (error) {
-    console.log('get tasks 2 out=', parsedTasks)
-  }
-}
 
 
 // Load From Server
@@ -39,6 +20,25 @@ async function setItem(key, value) {
   return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
     .then(res => res.json());
 }
+
+
+// Lade alle appData vom Server
+async function getAllAppData() {
+  try {
+    let dataSetFromServer = await getItem('appData');
+    let fullAppData = dataSetFromServer['data']['value'];
+    let replacedData = fullAppData.replace(/'/g, '"'); // Replace ""
+    let parsedData = await JSON.parse(replacedData);
+    appData = parsedData;
+    //return parsedData
+  } catch (error) {
+    console.log('get tasks 2 out=', parsedData)
+  }
+}
+
+
+
+
 
 
 // function newUserIdtoAppData(){

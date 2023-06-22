@@ -4,7 +4,6 @@ let newCategoryColor;
 let newTaskPrio;
 let subTasks = [];
 let addedContacts = [];
-let tasks = [];
 let taskCategories = [];
 let allEmails = [];
 let editSubTasks = [];
