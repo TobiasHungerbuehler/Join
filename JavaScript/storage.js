@@ -1,8 +1,8 @@
 let appData = [];
 let tasks = [];
 let contacts = [];
-let userId = 11111; // nur für test
-//let userId = localStorage.getItem('userId'); // vielleicht noch besser
+//let userId = 11111; // nur für test
+let userId = await localStorage.getItem('userId'); // vielleicht noch besser
 const STORAGE_TOKEN = 'VME58G2KX9RYXPBTN6UKEQ0E5HVP3P7Q5CR6TE8W';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
