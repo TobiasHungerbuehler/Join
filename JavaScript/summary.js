@@ -5,8 +5,8 @@ let userIdLogIn;
 async function loadSummary() {
     // loadIdFromLocalStorage();
     // appData = await getAllAppData();
-    init();
     await getAllAppData()// load appData from Server
+    init();
     // loadUserNameAndId();
     greet();
     await getTasks();
