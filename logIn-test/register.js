@@ -6,8 +6,8 @@ let result; //forübergehend um assigned Id herauszufinden
 
 async function init() {
     // debugger;
-    appData = await getAllAppData();
-    await testUsersToServer();
+    await getAllAppData();
+    // await testUsersToServer();
     await getUsers();
     showLoginDialog();
     // showUsers();

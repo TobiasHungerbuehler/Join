@@ -13,7 +13,7 @@ async function loadSummary() {
     showTimeOfTheDay();
     showNumbers();
     checkNummberOfTasks();
-    
+
 
 }
 
@@ -28,14 +28,14 @@ function getToBoard() {
 function loadUserNameAndId() {
     // debugger;
     if (window.location.toString().includes("?=")) {
-        userName = location.href.split('=')[1].replace("%20" , " ");
-        userIdLogIn = location.href.split('?')[1];  
-        console.log('Ergebniss ist ',userName, userIdLogIn);
+        userName = location.href.split('=')[1].replace("%20", " ");
+        userIdLogIn = location.href.split('?')[1];
+        console.log('Ergebniss ist ', userName, userIdLogIn);
     } else {
         console.log('loaded more than once')
     }
-    
-    
+
+
 }
 
 function greet() {
@@ -85,6 +85,7 @@ function showNumbers() {
     showNumberOfDoneTasks();
     showNumberOfAwaitingFeedback();
     showNumberOfTasksInProgress();
+    showPriorityDate();
 }
 
 // function, die über Tasks Array itteriert
@@ -95,6 +96,37 @@ function checkNummberOfTasks() {
         console.log(element);
     }
 }
+
+/////////  Priority Task mit Urgent wird gesucht und angezeigt    ///////
+
+function showPriorityDate() {
+
+    let findPrio = tasks.filter(t => t['prio'] == 'urgent');
+   ' debugger;'
+   document.getElementById('urgentTaskNum').innerHTML = findPrio.length;
+    if (findPrio.length > 0) {
+        let priority = findPrio[0]['dueDate'].split('-');  //  ['2023', '05', '01']
+        let year = priority[0];
+        let month = priority[1];
+        let day = priority[2];
+        document.getElementById('dateUrgent').innerHTML = `${getMonthName(month)} ${day}, ${year}`;
+        console.log('The Date is', getMonthName(month), day, year);
+    } else {
+        document.getElementById('upcomingDeadline').innerHTML = 'No Upcoming Deadline';
+    }
+}
+
+function getMonthName(monthNumber) {
+    const date = new Date();
+    date.setMonth(monthNumber - 1);
+    return date.toLocaleString('en-US', {
+        month: 'long',
+    });
+}
+
+//////////     ********************    //////////////////////
+
+
 
 
 function showNumberOfTasks() {
@@ -151,14 +183,14 @@ function searchForPrio() {
 
 function checkWidth() {
 
-    if(innerWidth < 550){
-       fadeOut();
-       console.log(innerWidth);
-       setTimeout(removeOverlay, 6000);
+    if (innerWidth < 550) {
+        fadeOut();
+        console.log(innerWidth);
+        setTimeout(removeOverlay, 6000);
     } else {
         removeOverlay();
     }
-   
+
 }
 
 function fadeOut() {

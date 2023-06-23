@@ -1,6 +1,7 @@
 async function init() {
     await includeHTML();
     // document.getElementById('headline').innerHTML = 'Herzlich willkommen!';
+    checkUser();
 }
 
 async function includeHTML() {
@@ -14,5 +15,13 @@ async function includeHTML() {
         } else {
             element.innerHTML = 'Page not found';
         }
+    }
+}
+
+function checkUser() {
+    if (userId == 11111) {
+        document.getElementById('avatarHeaderImage').src = "/Img/christina-wocintechchat.png";
+    } else {
+        document.getElementById('avatarHeaderImage').src = "/Img/avatar_user_header.svg";
     }
 }
