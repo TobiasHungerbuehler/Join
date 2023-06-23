@@ -1,13 +1,8 @@
 let appData = [];
 let tasks = [];
 let contacts = [];
-<<<<<<< HEAD
-let userId = 11111; // Wird nach dem Login gesetzt
-// let userId = localStorage.getItem('userId'); // vielleicht noch besser
-=======
 let userId = 11111; // nur für test
 //let userId = localStorage.getItem('userId'); // vielleicht noch besser
->>>>>>> 4c407340a8f7c26f746163335332aec8871e3b28
 const STORAGE_TOKEN = 'VME58G2KX9RYXPBTN6UKEQ0E5HVP3P7Q5CR6TE8W';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
@@ -27,53 +22,6 @@ async function setItem(key, value) {
 }
 
 
-<<<<<<< HEAD
-// function newUserIdtoAppData(){
-//   const newAppData =   {
-//     "userId": userId,
-//     "data": {
-//       "tasks": [],
-//       "contacts": []
-//     }
-//   }
-//   appData.push(newAppData);
-// }
-
-// Speichrestruktur
-
-// let appData = [
-//   {
-//     "userId": 11111,
-//     "data": {
-//       "tasks": [],
-//       "contacts": []
-//     }
-//   },
-//   {
-//     "userId": 22222,
-//     "data": {
-//       "tasks": [],
-//       "contacts": []
-//     }
-//   }
-// ];
-
-/*
-let appData = [
-  {
-    "userId": 11111,
-    "data": {
-      "tasks": [],
-      "contacts": []
-    }
-  },
-  {
-    "userId": 22222,
-    "data": {
-      "tasks": [],
-      "contacts": []
-    }
-=======
 // Lade appData vom Server
 async function getAllAppData() {
   try {
@@ -84,7 +32,6 @@ async function getAllAppData() {
     appData = parsedData;
   } catch (error) {
     console.log(error)
->>>>>>> 4c407340a8f7c26f746163335332aec8871e3b28
   }
 }
 
