@@ -6,9 +6,9 @@ async function loadSummary() {
     // loadIdFromLocalStorage();
     // appData = await getAllAppData();
     init();
-    loadUserNameAndId();
-    greet();
     await getAllAppData()// load appData from Server
+    // loadUserNameAndId();
+    greet();
     await getTasks();
     checkWidth();
     showTimeOfTheDay();
@@ -26,18 +26,18 @@ function getToBoard() {
 
 /////////die Parameter aus Login seite werden aus Link übergenommen
 
-function loadUserNameAndId() {
-    // debugger;
-    if (window.location.toString().includes("?=")) {
-        userName = location.href.split('=')[1].replace("%20", " ");
-        userIdLogIn = location.href.split('?')[1];
-        console.log('Ergebniss ist ', userName, userIdLogIn);
-    } else {
-        console.log('loaded more than once')
-    }
+// function loadUserNameAndId() {
+//     // debugger;
+//     if (window.location.toString().includes("?=")) {
+//         userName = location.href.split('=')[1].replace("%20", " ");
+//         userIdLogIn = location.href.split('?')[1];
+//         console.log('Ergebniss ist ', userName, userIdLogIn);
+//     } else {
+//         console.log('loaded more than once')
+//     }
 
 
-}
+// }
 
 function greet() {
     document.getElementById('visitor').innerHTML = `${userName}`;
@@ -104,7 +104,7 @@ function showPriorityDate() {
 
     let findPrio = tasks.filter(t => t['prio'] == 'urgent');
    ' debugger;'
-   document.getElementById('urgentTaskNum').innerHTML = findPrio.length;
+   document.getElementById('urgentTaskNum').innerHTML = find;
     if (findPrio.length > 0) {
         let priority = findPrio[0]['dueDate'].split('-');  //  ['2023', '05', '01']
         let year = priority[0];
