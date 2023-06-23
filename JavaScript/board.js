@@ -11,6 +11,8 @@ let currentDraggedElement;
  */
 async function initBoard() {
     init() // Start Template
+    await getAllAppData()// load appData from Server
+
     await getTasks() // load tasks from server and save in "tasks"
     await getContacts() // Load Contacts from Server
     getCategoryArray() // -> addTask.html 
@@ -311,6 +313,26 @@ function removeAllHighlights() {
 /*********************************************************************/
 /* Task fullview */
 /*********************************************************************/
+
+// priority display options
+const priorityValues = {
+    urgent: {
+        color: '#FF3D00',
+        text: 'Urgent',
+        img: './Img/arrow-up-white.png'
+    },
+    medium: {
+        color: '#FFA800',
+        text: 'Medium',
+        img: './Img/equal-white.png'
+    },
+    low: {
+        color: '#7AE229',
+        text: 'Low',
+        img: './Img/arrow-down-white.png'
+    }
+  };
+
 
 /**
  * Shows the clicked task as a full view.
