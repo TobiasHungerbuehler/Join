@@ -19,6 +19,7 @@ let editSubTasks = [];
  */
 async function initAddTask() {
     init() //Load Html Template
+    await getAllAppData()// load appData from Server
     await getTasks(); 
     getCategoryArray() 
     await getContacts() 

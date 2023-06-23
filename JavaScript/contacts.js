@@ -56,6 +56,7 @@ let letters = [];
 
 async function loadContactPage() {
     init();
+    await getAllAppData()// load appData from Server
     await getContacts();
     accessContacts();
     // myFunctionTwo();
