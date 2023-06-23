@@ -8,6 +8,7 @@ async function loadSummary() {
     init();
     loadUserNameAndId();
     greet();
+    await getAllAppData()// load appData from Server
     await getTasks();
     checkWidth();
     showTimeOfTheDay();

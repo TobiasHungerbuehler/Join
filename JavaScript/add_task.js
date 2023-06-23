@@ -4,7 +4,6 @@ let newCategoryColor;
 let newTaskPrio;
 let subTasks = [];
 let addedContacts = [];
-let tasks = [];
 let taskCategories = [];
 let allEmails = [];
 let editSubTasks = [];
@@ -20,6 +19,7 @@ let editSubTasks = [];
  */
 async function initAddTask() {
     init() //Load Html Template
+    await getAllAppData()// load appData from Server
     await getTasks(); 
     getCategoryArray() 
     await getContacts() 
