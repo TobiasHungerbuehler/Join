@@ -1,5 +1,10 @@
 body {
     font-family: 'Inter';
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none !important;
 }
 
 
@@ -37,8 +42,12 @@ p {
     height: 50px;
     padding: 1.5px;
     border: 3px solid #2A3647;
+    cursor: pointer;
 }
 
+.avatar-header:hover {
+    border: 3px solid #eef0f3;
+}
 /* Section with Links */
 
 .container-left {
@@ -90,6 +99,7 @@ p {
     padding: 10px;
     cursor: pointer;
     color: #FFFFFF;
+    
 
 
 }
@@ -117,6 +127,37 @@ p {
     margin-bottom: 30px;
 }
 
+/* Pop-Out button */
+
+.log-out-pop-out-web {
+    width: 130px;
+    /* height: 55px; */
+    background-color: #2A3647;
+    color: #FFFFFF;
+    position: fixed;
+    right: 0;
+    top: 100px;
+    border-radius: 20px 0px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 12px;
+    transform: translateX(140px);
+    transition: all 1s ease-in-out;
+    z-index: 2;
+    
+}
+
+.log-out-pop-out-web div {
+    padding: 10px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.pop-out-web {
+    transform: translateX(0px);
+}
 
 /* Responsive Version Only */
 
@@ -126,6 +167,7 @@ p {
         width: unset;
 
     }
+
     .kanban-text {
         margin-left: 150px;
     }
@@ -147,6 +189,10 @@ p {
         height: 75px;
     }
 
+    .links-cont-elements a {
+        text-decoration: none;
+    }
+
     .links-cont-elements img {
         width: 26px;
         height: 26px;
@@ -158,84 +204,85 @@ p {
         margin-left: 0;
     }
 
-    .dialog-box{
+    .dialog-box {
         width: 90vw;
     }
 
 }
-    @media(max-width: 900px) {
-        .container-left {
-            width: 100vw;
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            top: unset;
-            height: 100px;
-            z-index: 1;
-        }
 
-        .logo-cont {
-            display: none;
-        }
+@media(max-width: 900px) {
+    .container-left {
+        width: 100vw;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        top: unset;
+        height: 100px;
+        z-index: 1;
+    }
 
-        .immpresum-cont {
-            display: none;
-        }
+    .logo-cont {
+        display: none;
+    }
 
-        .links-cont {
-            display: flex;
-            width: 100%;
-            justify-content: space-around;
-            min-height: 100px;
-        
-        }
+    .immpresum-cont {
+        display: none;
+    }
 
-        .links-cont-elements {
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            /* width: unset; */
-            margin-bottom: 0;
-            padding: 0;
-            max-width: 88px;
-        }
-
-
-        .links-cont-elements img {
-            width: 32px;
-            height: 32px;
-            margin-left: 0;
-        }
-
-        .m-left {
-            margin-left: 0;
-        }
-
-        .kanban-text {
-            display: none;
-        }
-
-        .logo-mobile {
-            display: unset;
-            width: 46px;
-            height: 46px;
-            margin-left: 40px;
-
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-        }
+    .links-cont {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        min-height: 100px;
 
     }
 
+    .links-cont-elements {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        /* width: unset; */
+        margin-bottom: 0;
+        padding: 0;
+        max-width: 88px;
+    }
 
-    /* @media(max-width: 600px){
+
+    .links-cont-elements img {
+        width: 32px;
+        height: 32px;
+        margin-left: 0;
+    }
+
+    .m-left {
+        margin-left: 0;
+    }
+
+    .kanban-text {
+        display: none;
+    }
+
+    .logo-mobile {
+        display: unset;
+        width: 46px;
+        height: 46px;
+        margin-left: 40px;
+
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+}
+
+
+/* @media(max-width: 600px){
         .adress-book{
             display: none;
         }
