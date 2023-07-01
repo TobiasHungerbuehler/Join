@@ -5,7 +5,10 @@ async function loadContactPage() {
     init();
     await getAllAppData()// load appData from Server
     await getContacts();
+    await getTasks(); // from board
     accessContacts();
+    getCategoryArray(); // -> addTask.html  // from board
+    getEmailsFromContacts(); // from board
 }
 
 

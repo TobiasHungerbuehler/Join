@@ -26,6 +26,16 @@ function showLoginDialog() {
 
 /*Login Version 2*/
 
+
+function logIn() {
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('passwort').value;
+    console.log(email, password);
+    // debugger;
+    checkRememberMe(email, password);
+    searchForMatch(email, password);
+
+}
 //email und passwort werden verglichen und bei Match an Summary weitergeleitet
 
 function searchForMatch(email, password) {
