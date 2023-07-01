@@ -185,3 +185,193 @@ form {
 .danger a {
     background-color: rgb(204, 57, 57);
 }
+
+
+
+/*******Animation for Web Version *********************************/
+
+.web-overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #F5F5F5;
+    /* background-color: #2A3647;  */
+    animation-name: animation-web-bg;
+    animation-delay: 1s;
+    animation-duration: 1.7s;
+    animation-fill-mode: forwards;
+
+}
+
+.web-logo {
+    width: 275px;
+    height: 350px;
+    position: absolute;
+    left: calc(40%);
+    top: calc(28%);
+    animation-name: animation-web-logo;
+    animation-delay: 1s;
+    animation-duration: 1.7s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes animation-web-logo {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-30%, -30%);
+    }
+
+    100% {
+        transform: translate(-50%, -50%);
+        left: calc(8%);
+        top: calc(10%);
+        width: 100px;
+        height: 120px;
+        z-index: 0;
+    }
+}
+
+
+@keyframes animation-web-bg {
+    0% {
+        opacity: 50%;
+    }
+
+    50% {
+        opacity: 75%;
+        background-color: #F5F5F5;
+    }
+
+    100% {
+        position: unset;
+        opacity: 100%;
+        background-color: #F5F5F5;
+        z-index: 0;
+        height: unset;
+    }
+}
+
+/***********************************************/
+
+
+/*******Animation for Mobile Version *********************************/
+
+.mobile-overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    /* background-color: #F5F5F5; */
+    background-color: #2A3647;
+    animation-name: animation-mobile-bg;
+    animation-delay: 1s;
+    animation-duration: 1.7s;
+    animation-fill-mode: forwards;
+
+}
+
+.mobile-logo {
+    width: 100px;
+    height: 120px;
+    background-image: url('/Img/logo-mobile.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    left: calc(40%);
+    top: calc(38%);
+    animation-name: animation-mobile-logo;
+    animation-delay: 1s;
+    animation-duration: 1.7s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes animation-mobile-logo {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-30%, -30%);
+        background-image: url('/Img/logo-web.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+
+    }
+
+    100% {
+        background-image: url('/Img/logo-web.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        transform: translate(-50%, -50%);
+        left: calc(17%);
+        top: calc(9%);
+        width: 64px;
+        height: 100px;
+        z-index: 0;
+    }
+}
+
+
+@keyframes animation-mobile-bg {
+    0% {
+        opacity: 50%;
+    }
+
+    50% {
+        opacity: 75%;
+        background-color: #F5F5F5;
+    }
+
+    100% {
+        /* opacity: 100%;
+        background-color: #F5F5F5;
+        z-index: 0; */
+
+        position: unset;
+        opacity: 100%;
+        background-color: #F5F5F5;
+        z-index: 0;
+        height: unset;
+    }
+}
+
+/***********************************************/
+
+/* ***Mobile Version******** */
+
+@media (max-width: 550px) {
+    .info-box-right {
+        position:absolute;
+        top: unset;
+        bottom: 24px;
+        right: 0;
+        left: calc(15%);
+}
+
+.dialog {
+    width: 90vw;
+}
+
+.button-cont {
+    display: flex;
+    justify-content: space-between;
+    width: 80vw;
+}
+
+.input-cont {
+    width: unset;
+
+}
+}

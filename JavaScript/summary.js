@@ -1,48 +1,33 @@
-let userName;
 let userIdLogIn;
+userName = localStorage.getItem('userName');
 
 
 async function loadSummary() {
-    // loadIdFromLocalStorage();
-    // appData = await getAllAppData();
-    await getAllAppData()// load appData from Server
     init();
-    loadUserNameAndId();
+    await getAllAppData()// load appData from Server
+    // loadUserNameAndId();
     greet();
     await getTasks();
     checkWidth();
     showTimeOfTheDay();
     showNumbers();
     checkNummberOfTasks();
-
-
 }
+
+
+
+//es wird auf Board Seite weitergeleitet
 
 function getToBoard() {
     window.location.href = "./board.html";
 }
 
 
-
-/////////die Parameter aus Login seite werden aus Link übergenommen
-
-function loadUserNameAndId() {
-    // debugger;
-    if (window.location.toString().includes("?=")) {
-        userName = location.href.split('=')[1].replace("%20", " ");
-        userIdLogIn = location.href.split('?')[1];
-        console.log('Ergebniss ist ', userName, userIdLogIn);
-    } else {
-        console.log('loaded more than once')
-    }
-
-
-}
+//userName aus Lokalstorage wird abgelesen und angezeigt
 
 function greet() {
     document.getElementById('visitor').innerHTML = `${userName}`;
     document.getElementById('visitorMobile').innerHTML = `${userName}`;
-
 }
 
 
@@ -80,6 +65,9 @@ function showTimeOfTheDay() {
 
 }
 
+
+// die Nummern werden aufgelistet
+
 function showNumbers() {
     showNumberOfTasks()
     showNumberOfTodo();
@@ -89,6 +77,8 @@ function showNumbers() {
     showPriorityDate();
 }
 
+
+
 // function, die über Tasks Array itteriert
 
 function checkNummberOfTasks() {
@@ -97,6 +87,8 @@ function checkNummberOfTasks() {
         console.log(element);
     }
 }
+
+
 
 /////////  Priority Task mit Urgent wird gesucht und angezeigt    ///////
 
@@ -154,29 +146,14 @@ function showNumberOfDoneTasks() {
     document.getElementById('doneTasks').innerHTML = `${done.length}`;
 }
 
-// function findAndAssignCategory(i) {
-//     let element = tasks[i]['status'];
-//     if (element == 'todo') {
-//         document.getElementById('numberOfTodos').innerHTML = `${element.length}`; 
-//     } else  if (element == 'awaitingFeedback') {
-//         document.getElementById('awaitingFeedback').innerHTML = `${element.length}`; 
-//     } else  if (element == 'inProgress') {
-//         document.getElementById('tasksInProgress').innerHTML = `${element.length}`; 
-//     } else  if (element == 'done') {
-//         document.getElementById('doneTasks').innerHTML = `${element.length}`; 
-//     }
-// }
-
 
 /////////////////To do nach Urgent suchen und anzeigen lassen//////////////
+
 function searchForPrio() {
     let priority = tasks.filter(t => t['status'] == 'prio');
     console.log(priority);
     document.getElementById('priorityNumber').innerHTML = `${priority.length}`;
 }
-
-// tasks['prio']
-// tasks['dueDate']
 
 
 // Animation in mobile Version
@@ -201,3 +178,7 @@ function fadeOut() {
 function removeOverlay() {
     document.getElementById('overlayContainer').classList.add('d-none');
 }
+
+
+/// in case Back Button has been clicked
+

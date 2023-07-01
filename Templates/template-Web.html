@@ -12,6 +12,7 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="/Style/fonts.css">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
 </head>
 
 <body>
@@ -20,7 +21,7 @@
         <p class="kanban-text">Kanban Project Management Tool</p>
         <div class="image-box">
             <img class="question-mark" src="/Img/icon_question.svg">
-            <img class="avatar-header" id="avatarHeaderImage" src="/Img/avatar_user_header.svg">
+            <img class="avatar-header" id="avatarHeaderImage" src="/Img/avatar_user_header.svg" onclick="showPopOut()">
         </div>
 
     </header>
@@ -45,6 +46,11 @@
         </div>
 
     </div>
+    <div class="log-out-pop-out-web" id="popOut">
+        <div id="helpBtn" class="d-none">Help</div>
+        <div id="legalNoticeBtn" class="d-none">Legal notice</div>
+        <div onclick="logOut()">Log out</div>
+            </div>
 
 
 </body>
