@@ -391,6 +391,10 @@
 
 
 @media(max-width: 1350px){
+    .board-overlay {
+        position: fixed;
+    }
+
     .board-page-content {
         width: 600px;
         
