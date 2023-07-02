@@ -572,7 +572,7 @@ function closeOverlayBoard(){
 
 
 /**
- * Close the overlay board.
+ * 
  */
 function showAddTaskForm() {
     resetVariables()

@@ -66,6 +66,7 @@ function getEmailsFromContacts() {
  * Adds a task based on the form data.
  */
 function addTask() {
+    console.log('addtask function')
     if (!addTaskValidation()) {
         showSuccessInfo('Please select a valid category or create a new one.')
     } else {
@@ -153,13 +154,13 @@ async function createNewTaskJson(title,description, taskCategory, taskEmails, du
 } 
 
 /**
- * Save tasks array on the server
+ * Save tasks array on the server ////////////////////////// fehler doppelte funktion
  */
-async function saveTasksOnServer() {
-    let key = "userTasks";
-    let value = tasks;
-    setItem(key, value);
-}
+// async function saveTasksOnServer() {
+//     let key = "userTasks";
+//     let value = tasks;
+//     setItem(key, value);
+// }
 
 /**
  * Close the element with the given id

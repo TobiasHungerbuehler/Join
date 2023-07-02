@@ -70,6 +70,8 @@
 }
 
 .task-container{
+    border-radius: 15px;
+    padding: 10px;
     background-color: #FFFFFF;
     margin-bottom: 54px;
     cursor: pointer;
