@@ -25,6 +25,7 @@ body {
 }
 
 .page {
+    margin-top: 112px;
     margin-left: 232px;
     display: flex;
     align-items: center;
@@ -67,6 +68,7 @@ label {
     min-height: 51px;
     width: 100%;
     border: 1px solid #D1D1D1;
+    background-color: #ffffff;
     border-radius: 10px;
     margin-bottom: 20px;
     display: flex;
@@ -259,6 +261,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 130px;
     height: 51px;
     border: none;
+    background-color: #ffffff;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     padding: 8px 10px;
@@ -357,8 +360,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     padding: 18px 10px;
     font-weight: 700;
     font-size: 21px;
-    border: 1px solid #2A3647;
-    background-color: #F5F5F5;
+    border: 1px solid rgb(42, 54, 71, 0.4);
+    background-color: #ffffff;
     color: #2A3647;
     border-radius: 10px;
     transition: all 225ms ease-in-out;
