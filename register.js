@@ -323,12 +323,31 @@ function checkWidth() {
     if (innerWidth < 450) {
         document.getElementById('mobileOverlay').classList.remove('d-none');
         document.getElementById('webOverlay').classList.add('d-none');
+        document.getElementById('webLogo').classList.add('adj-web-logo');
     } else {
         document.getElementById('webOverlay').classList.remove('d-none');
-        document.getElementById('mobileOverlay').classList.add('d-none');    
+        document.getElementById('mobileOverlay').classList.add('d-none'); 
+        document.getElementById('mobileLogo').classList.add('adj-mobile-logo');
+
     }
 }
 
+/* Logo adjustment web to mobile and mobile to web */
+
+window.addEventListener('resize', checkLogo);
+
+function checkLogo() {
+    // debugger;
+    if (innerWidth < 450) {
+        document.getElementById('webLogo').classList.add('adj-mobile-logo');
+        document.getElementById('mobileLogo').classList.remove('adj-web-logo');
+    } else {
+
+        document.getElementById('mobileLogo').classList.add('adj-web-logo');
+        document.getElementById('webLogo').classList.remove('adj-mobile-logo');
+
+    }
+}
 
 //////////////////  Templates //////////////////////////
 
@@ -372,7 +391,7 @@ function forgotMyPasswortTemplate() {
     <div class="forgot-passwort-text">Don't worry! We will send you an email with the instructions to reset your passwort.</div>
     <form action="https://www.aleksandar-miler.developerakademie.net/send_mail.php" method="post" id="formPasswort">
     <div class="input-cont"><input requiered type="email" placeholder="Email" id="resetEmail"><img src="/Img/icon_mail.svg"></div>
-    <div class="button-cont"><button class="blue-btn passwort-btn" id="resetEmailBtn" onclick="resetAccount(); return false" type="submit">Send me the email</button></div>
+    <div class="button-cont"><button class="blue-btn passwort-btn emailBtn" id="resetEmailBtn" onclick="resetAccount(); return false" type="submit">Send me the email</button></div>
     </form> 
     `;
 }

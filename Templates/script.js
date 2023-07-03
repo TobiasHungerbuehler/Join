@@ -31,7 +31,7 @@ function checkUser() {
 
 //User wird zur Startseite weitergeleitet
 function logOut() {
-    window.location.href = './login-test/index.html';
+    window.location.href = '/index.html';
     //to do Müssen die Id und userName aus localStorage gelöscht??
 }
 
