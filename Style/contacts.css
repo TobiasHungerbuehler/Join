@@ -418,6 +418,7 @@ body {
 .section-right form {
     display: flex;
     flex-direction: column;
+    width: unset;
 }
 
 .form-container {
@@ -452,6 +453,8 @@ body {
     outline: none;
     background-color: transparent;
     border: 0px solid;
+    font-size: inherit !important;
+    width: unset;
 }
 
 .close-btn {
