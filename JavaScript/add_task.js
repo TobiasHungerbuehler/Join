@@ -153,14 +153,6 @@ async function createNewTaskJson(title,description, taskCategory, taskEmails, du
    window.location.href = 'board.html';
 } 
 
-/**
- * Save tasks array on the server ////////////////////////// fehler doppelte funktion
- */
-// async function saveTasksOnServer() {
-//     let key = "userTasks";
-//     let value = tasks;
-//     setItem(key, value);
-// }
 
 /**
  * Close the element with the given id
