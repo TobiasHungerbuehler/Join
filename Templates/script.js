@@ -22,16 +22,16 @@ async function includeHTML() {
 //id vom User wird überprüft um begrüßt zu werden
 function checkUser() {
     if (userId == 11111) {
-        document.getElementById('avatarHeaderImage').src = "/Img/christina-wocintechchat.png";
+        document.getElementById('avatarHeaderImage').src = "./Img/christina-wocintechchat.png";
     } else {
-        document.getElementById('avatarHeaderImage').src = "/Img/avatar_user_header.svg";
+        document.getElementById('avatarHeaderImage').src = "./Img/avatar_user_header.svg";
     }
 }
 
 
 //User wird zur Startseite weitergeleitet
 function logOut() {
-    window.location.href = '/index.html';
+    window.location.href = './index.html';
     //to do Müssen die Id und userName aus localStorage gelöscht??
 }
 

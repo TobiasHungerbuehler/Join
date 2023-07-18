@@ -53,7 +53,7 @@ function checkPassword(findEmail, password) {
     let userName = findEmail[0]['name'];
     if (findEmail[0]['passwort'] == password) {
         let userIdTest = findEmail[0]['userId'];
-        window.location = "/summary.html";
+        window.location = "./summary.html";
         saveIdToLocalStorage(userIdTest, userName);
         
     } else {
@@ -349,6 +349,33 @@ function checkLogo() {
     }
 }
 
+///////////////////RESET PASSWORT/////////////////////////// momentan immmer noch inactive
+
+// async function onSubmit(event) {
+//     event.preventDefault(); // Prevent Deafault Form Action
+//     let formData = new FormData(event.target); // create a FormData based on our Form element in HTML
+//     let response = await action(formData);
+//     if (response.ok) {
+//         alert('Email was sent');
+//     } else {
+//         alert('Email was not sent');
+//     }
+// }
+
+// function action(formData) {
+//     const input = 'https://aleksandar-miler.developerakademie.net/send_mail.php';
+//     const requestInit = {
+//         method: 'post',
+//         body : formData
+//     };
+
+//     return fetch(
+//         input,
+//         requestInit
+//     );
+// }
+
+
 //////////////////  Templates //////////////////////////
 
 
@@ -357,8 +384,8 @@ function checkLogo() {
 function logInTemplate() {
     document.getElementById('formContainer').innerHTML = `
     <form onsubmit="logIn(); return false">
-                <div class="input-cont"><input requiered type="email" placeholder="Email" id="email"><img src="/Img/icon_mail.svg" alt=""></div>
-                <div class="input-cont"><input required type="passwort" placeholder="Passwort" id="passwort"><img src="/Img/icon_lock.svg" alt=""></div>
+                <div class="input-cont"><input requiered type="email" placeholder="Email" id="email"><img src="./Img/icon_mail.svg" alt=""></div>
+                <div class="input-cont"><input required type="passwort" placeholder="Passwort" id="passwort"><img src="./Img/icon_lock.svg" alt=""></div>
                 <div class="dialog-links-cont">
                     <input type="checkbox" id="rememberMe"></input><span class="remember-link"><img src="">Remember me</span><span class="forgot-passwort" onclick="showForgotMyPasswort()">Forgot my passwort</span>
                 </div>
@@ -376,9 +403,9 @@ function logInTemplate() {
 function signUpTemplate() {
     document.getElementById('formContainer').innerHTML = `
     <form onsubmit="register(); return false">
-    <div class="input-cont"><input required class="input-field-name" type="name" placeholder="Name" id="userName"> <img src="/Img/icon_user.svg"></div>
-    <div class="input-cont"><input requiered type="email" placeholder="Email" id="userEmail"><img src="/Img/icon_mail.svg" alt=""></div>
-    <div class="input-cont"><input required type="passwort" placeholder="Passwort" id="userPasswort"><img src="/Img/icon_lock.svg" alt=""></div>
+    <div class="input-cont"><input required class="input-field-name" type="name" placeholder="Name" id="userName"> <img src="./Img/icon_user.svg"></div>
+    <div class="input-cont"><input requiered type="email" placeholder="Email" id="userEmail"><img src="./Img/icon_mail.svg" alt=""></div>
+    <div class="input-cont"><input required type="passwort" placeholder="Passwort" id="userPasswort"><img src="./Img/icon_lock.svg" alt=""></div>
     <div class="button-cont"><button class="blue-btn" id = "registerBtn">Sign up</button></div> 
     </form>`;
 }
@@ -389,8 +416,8 @@ function signUpTemplate() {
 function forgotMyPasswortTemplate() {
     document.getElementById('formContainer').innerHTML = `
     <div class="forgot-passwort-text">Don't worry! We will send you an email with the instructions to reset your passwort.</div>
-    <form action="https://www.aleksandar-miler.developerakademie.net/send_mail.php" method="post" id="formPasswort">
-    <div class="input-cont"><input requiered type="email" placeholder="Email" id="resetEmail"><img src="/Img/icon_mail.svg"></div>
+    <form onsubmit="onSubmit(event)" method="post" id="formPasswort">
+    <div class="input-cont"><input requiered type="email" placeholder="Email" id="resetEmail" name="email"><img src="./Img/icon_mail.svg"></div>
     <div class="button-cont"><button class="blue-btn passwort-btn emailBtn" id="resetEmailBtn" onclick="resetAccount(); return false" type="submit">Send me the email</button></div>
     </form> 
     `;
@@ -403,8 +430,8 @@ function forgotMyPasswortTemplate() {
 function resetPasswortTemplate() {
     document.getElementById('formContainer').innerHTML = `
     <div class="forgot-passwort-text">Change your account passwort</div>
-    <div class="input-cont"><input required type="passwort" placeholder="New passwort" id="newPasswort"><img src="/Img/icon_lock.svg" alt=""></div>
-    <div class="input-cont"><input required type="passwort" placeholder="Confirm passwort" id="confirmPasswort"><img src="/Img/icon_lock.svg" alt=""></div>
+    <div class="input-cont"><input required type="passwort" placeholder="New passwort" id="newPasswort"><img src="./Img/icon_lock.svg" alt=""></div>
+    <div class="input-cont"><input required type="passwort" placeholder="Confirm passwort" id="confirmPasswort"><img src="./Img/icon_lock.svg" alt=""></div>
     <div class="button-cont"><button class="blue-btn passwort-btn" id="resetPasswortBtn" onclick="resetPasswort()">Continue</button></div> 
 `;
 }
