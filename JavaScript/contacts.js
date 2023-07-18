@@ -321,7 +321,7 @@ function showContactDetails(k) {
                 <div class="link-add-task" onclick="showAddTaskForm()">+ Add Task</div></div>
                 </div>
                 <div style="margin-top: 24px;"><span style="font-size: 21px;">Contact Information</span>
-                <span class="edit-contact-link" onclick="editContact(${k})" id="editContactBtn"><img class="pencil-logo" src="/Img/pencil_icon.svg"> Edit Contact</span></div>
+                <span class="edit-contact-link" onclick="editContact(${k})" id="editContactBtn"><img class="pencil-logo" src="./Img/pencil_icon.svg"> Edit Contact</span></div>
             
             <div class="rest-info">
             <span><b>Email</b></span>
@@ -330,8 +330,8 @@ function showContactDetails(k) {
             <span>${contacts[k]['phone']}</span>
         </div>
         <div class="mobile-edit-btn d-none" id="mobileEditBtn">
-            <div class="mobile-edit-btn-link trash-btn" onclick="deleteContact(${k})"><img src="/Img/icon_trash.svg"></div>
-            <div class="mobile-edit-btn-link pencil-btn" onclick="editContact(${k})"><img src="/Img/icon_pencil.svg"></div></div>
+            <div class="mobile-edit-btn-link trash-btn" onclick="deleteContact(${k})"><img src="./Img/icon_trash.svg"></div>
+            <div class="mobile-edit-btn-link pencil-btn" onclick="editContact(${k})"><img src="./Img/icon_pencil.svg"></div></div>
         </div>
         
         
@@ -344,10 +344,10 @@ function showContactDetails(k) {
 function dialogTemplate() {
     return /*HTML*/ `
     <form onsubmit="registerContact(); return false">
-        <div class="input-cont"><input required class="input-field-name" type="text" placeholder="Name" id="contactName"> <img src="/Img/icon_user.svg"></div>
-        <div class="input-cont"><input requiered type="email" placeholder="Email" id="contactEmail"><img src="/Img/icon_mail.svg" alt=""></div>
-        <div class="input-cont"><input required type="tel" placeholder="Phone" id="contactPhone"><img src="/Img/icon_phone.svg" alt=""></div>
-        <div class="btn-container"><button class="cancel-btn" onclick="closeContactDIalog()" id="cancelBtn">Cancel<img src="/img/icon_close.svg"></button><button class="create-contact-btn" id="createContactBtn">Create Contact<img src="/img/check.svg"></button></div>
+        <div class="input-cont"><input required class="input-field-name" type="text" placeholder="Name" id="contactName"> <img src="./Img/icon_user.svg"></div>
+        <div class="input-cont"><input requiered type="email" placeholder="Email" id="contactEmail"><img src="./Img/icon_mail.svg" alt=""></div>
+        <div class="input-cont"><input required type="tel" placeholder="Phone" id="contactPhone"><img src="./Img/icon_phone.svg" alt=""></div>
+        <div class="btn-container"><button class="cancel-btn" onclick="closeContactDIalog()" id="cancelBtn">Cancel<img src="./img/icon_close.svg"></button><button class="create-contact-btn" id="createContactBtn">Create Contact<img src="/img/check.svg"></button></div>
     </form>
     `;
 }
@@ -374,9 +374,9 @@ function renderTemplateContact(k) {
 function renderEditTemplate(k) {
     return /*HTML*/ `
     <div class="form-container">
-        <div class="input-cont"><input required class="input-field-name" type="text" placeholder="Name" id="contactName"> <img src="/Img/icon_user.svg"></div>
-        <div class="input-cont"><input requiered type="email" placeholder="Email" id="contactEmail"><img src="/Img/icon_mail.svg" alt=""></div>
-        <div class="input-cont"><input required type="tel" placeholder="Phone" id="contactPhone"><img src="/Img/icon_phone.svg" alt=""></div>
-        <div class="btn-container"><button class="cancel-btn" onclick="deleteContact(${k})" id="cancelBtn">Delete<img src="/img/icon_close.svg"></button><button class="create-contact-btn" id="createContactBtn" onclick="saveChangedContact(${k})">Save<img src="/img/check.svg"></button></div>
+        <div class="input-cont"><input required class="input-field-name" type="text" placeholder="Name" id="contactName"> <img src="./Img/icon_user.svg"></div>
+        <div class="input-cont"><input requiered type="email" placeholder="Email" id="contactEmail"><img src="./Img/icon_mail.svg" alt=""></div>
+        <div class="input-cont"><input required type="tel" placeholder="Phone" id="contactPhone"><img src="./Img/icon_phone.svg" alt=""></div>
+        <div class="btn-container"><button class="cancel-btn" onclick="deleteContact(${k})" id="cancelBtn">Delete<img src="./img/icon_close.svg"></button><button class="create-contact-btn" id="createContactBtn" onclick="saveChangedContact(${k})">Save<img src="/img/check.svg"></button></div>
     </div>`;
 }
