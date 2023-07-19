@@ -347,7 +347,7 @@ function dialogTemplate() {
         <div class="input-cont"><input required class="input-field-name" type="text" placeholder="Name" id="contactName"> <img src="./Img/icon_user.svg"></div>
         <div class="input-cont"><input requiered type="email" placeholder="Email" id="contactEmail"><img src="./Img/icon_mail.svg" alt=""></div>
         <div class="input-cont"><input required type="tel" placeholder="Phone" id="contactPhone"><img src="./Img/icon_phone.svg" alt=""></div>
-        <div class="btn-container"><button class="cancel-btn" onclick="closeContactDIalog()" id="cancelBtn">Cancel<img src="./img/icon_close.svg"></button><button class="create-contact-btn" id="createContactBtn">Create Contact<img src="/img/check.svg"></button></div>
+        <div class="btn-container"><button class="cancel-btn" onclick="closeContactDIalog()" id="cancelBtn">Cancel<img src="./img/icon_close.svg"></button><button class="create-contact-btn" id="createContactBtn">Create Contact<img src="./img/check.svg"></button></div>
     </form>
     `;
 }
