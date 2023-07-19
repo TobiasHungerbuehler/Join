@@ -363,7 +363,7 @@ function checkLogo() {
 // }
 
 // function action(formData) {
-//     const input = 'https://aleksandar-miler.developerakademie.net/send_mail.php';
+//     const input = 'https://gruppe-558.developerakademie.net/send_mail.php';
 //     const requestInit = {
 //         method: 'post',
 //         body : formData

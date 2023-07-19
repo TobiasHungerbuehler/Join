@@ -316,7 +316,7 @@ form {
 .mobile-logo {
     width: 100px;
     height: 120px;
-    background-image: url('/Img/logo-mobile.svg');
+    background-image: url('./Img/logo-mobile.svg');
     background-repeat: no-repeat;
     background-size: contain;
     position: absolute;
@@ -335,7 +335,7 @@ form {
 
     50% {
         transform: translate(-30%, -30%);
-        background-image: url('/Img/logo-web.svg');
+        background-image: url('./Img/logo-web.svg');
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
@@ -343,7 +343,7 @@ form {
     }
 
     100% {
-        background-image: url('/Img/logo-web.svg');
+        background-image: url('./Img/logo-web.svg');
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
