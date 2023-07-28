@@ -642,6 +642,7 @@ body {
 
     .adress-book {
         width: 100%;
+        
     }
 
     .contact-section {
@@ -667,6 +668,9 @@ body {
 }
 
 @media(max-width: 900px) {
+    .adress-book {
+        margin-bottom: 100px;
+    }
     .kanban-contacts {
         display: block;
     }

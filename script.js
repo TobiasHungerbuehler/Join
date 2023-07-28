@@ -1,6 +1,6 @@
 let users = [];
 let firstCheck;
-let result; //forübergehend um assigned Id herauszufinden
+let result; 
 
 
 
@@ -22,6 +22,8 @@ function showLoginDialog() {
     document.getElementById('arrowImg').classList.add('d-none');
     document.getElementById('infoBoxRight').classList.remove('d-none');
     logInTemplate();
+    showHidePassword();
+
 }
 
 /*Login Version 2*/
@@ -30,12 +32,12 @@ function showLoginDialog() {
 function logIn() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('passwort').value;
-    console.log(email, password);
-    // debugger;
     checkRememberMe(email, password);
     searchForMatch(email, password);
 
 }
+
+
 //email und passwort werden verglichen und bei Match an Summary weitergeleitet
 
 function searchForMatch(email, password) {
@@ -110,7 +112,6 @@ async function register() {
     } else if (findEmail.length > 0) {
         alert(`It seems that the User with the following email ${email} allready exists, please try again or if you are allready a User reset your password`);
     } else {
-        debugger;
         users.push({
             "userId": getRandomNumber(),
             "name": name,
@@ -151,7 +152,6 @@ function getRandomNumber() {
     let min = 10000;
     let max = 99999;
     result = Math.floor(Math.random() * (max - min + 1)) + min;
-    console.log(result);
     return result
     }
 
@@ -161,24 +161,24 @@ function getRandomNumber() {
 
 function checkRememberMe(email, password) { //eventuell noch in login function
     if (document.getElementById('rememberMe').checked) {
-        console.log('Checkbox has been checked');
         saveToLocalStorage(email, password);
     } else {
-        console.log('Checkbox has not been checked');
         resetSignInFields();
     }
 }
+
 
 function saveToLocalStorage(email, password) {
     localStorage.setItem('email', email);
     localStorage.setItem('password', password);
 }
 
+
 function loadFromLocalStorage() {
     if (!localStorage.getItem('email') && localStorage.getItem('password') == null) {
-        console.log('You have not saved anything yet');
+        // console.log('You have not saved anything yet');
     } else {
-        // debugger;
+       
         let inputEmail = localStorage.getItem('email');
         let inputPassword = localStorage.getItem('password');
         document.getElementById('email').value = `${inputEmail}`;
@@ -247,15 +247,22 @@ function searchForEmail(checkEmail) {
 
 }
 
+//Show Hide password
 
-
+function showHidePassword() {
+    let x = document.getElementById('passwort');
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
 
 
 
 //wofür habe ich das gebraucht?
 
   function checkUser(name, email) {
-    debugger;
     for (let j = 0; j < users.length; j++) {
         let element = users[j];
         returnCheckedUser(element, name, email);
@@ -267,7 +274,6 @@ function searchForEmail(checkEmail) {
 
 function returnCheckedUser(element, name, email) {
     if (element['name'] == name || element['email'] == email) {
-        console.log('Match found');
         return firstCheck === true;
     }
     else {
@@ -337,7 +343,6 @@ function checkWidth() {
 window.addEventListener('resize', checkLogo);
 
 function checkLogo() {
-    // debugger;
     if (innerWidth < 450) {
         document.getElementById('webLogo').classList.add('adj-mobile-logo');
         document.getElementById('mobileLogo').classList.remove('adj-web-logo');
@@ -385,7 +390,7 @@ function logInTemplate() {
     document.getElementById('formContainer').innerHTML = `
     <form onsubmit="logIn(); return false">
                 <div class="input-cont"><input requiered type="email" placeholder="Email" id="email"><img src="./Img/icon_mail.svg" alt=""></div>
-                <div class="input-cont"><input required type="passwort" placeholder="Passwort" id="passwort"><img src="./Img/icon_lock.svg" alt=""></div>
+                <div class="input-cont"><input required type="passwort" placeholder="Passwort" id="passwort"><img src="./Img/icon_lock.svg" alt="" onclick="showHidePassword()"></div>
                 <div class="dialog-links-cont">
                     <input type="checkbox" id="rememberMe"></input><span class="remember-link"><img src="">Remember me</span><span class="forgot-passwort" onclick="showForgotMyPasswort()">Forgot my passwort</span>
                 </div>

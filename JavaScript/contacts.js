@@ -30,7 +30,6 @@ function renderLetters() {
     let adressBook = document.getElementById('adressBook');
     for (let j = 0; j < letters.length; j++) {
         const element = letters[j];
-        // console.log(letters);
         adressBook.innerHTML += renderTemplateLetter(j);
     }
 
@@ -41,8 +40,7 @@ function renderLetters() {
 
 function checkFirstLetter(i) {
     let letter = contacts[i]['name'];
-    let firstLetter = letter.slice(0, 1);
-    console.log(firstLetter);
+    let firstLetter = letter.slice(0, 1).toUpperCase();
     if (!letters.includes(firstLetter)) {
         letters.push(firstLetter);
         letters.sort();
@@ -69,7 +67,7 @@ function renderContacts(j) {
     for (let k = 0; k < contacts.length; k++) {
         let contact = contacts[k]['name']; // Johan Johansson
         let firstLetter = contact.slice(0, 1); // J
-        if (firstLetter == letters[j]) { //
+        if (firstLetter.toUpperCase() == letters[j]) { //
             someHTML += renderTemplateContact(k);
         }
     }
@@ -187,8 +185,6 @@ function registerContact() {
     }
 
     saveContactsOnServer();
-    // debugger;
-    console.log(contacts);
     resetFields();
     closeContactDIalog();
     adressBook.innerHTML = '';
@@ -203,7 +199,6 @@ function registerContact() {
 function pickAcolor() {
     let colors = ["blue", "red", "yellow", "green", "hell-blue", "purple", "orange", "gold", "tomato"];
     let randomElement = colors[Math.floor(Math.random() * colors.length)];
-    console.log(randomElement);
     return randomElement;
 
 }
@@ -264,7 +259,6 @@ function saveChangedContact(k) { //hier werden wir noch eine Variable brauchen d
     accessContacts();
     showContact(k);
     showContactEditedInfo();
-    console.log(contacts);
     document.getElementById('formContainer').innerhtml = dialogTemplate();
 }
 
@@ -278,7 +272,6 @@ function deleteContact(k) {
     closeContactDIalog();
     adressBook.innerHTML = '';
     accessContacts();
-    console.log(contacts);
     document.getElementById(`contactInfoContainer`).classList.remove('show-info-dialog');
     document.getElementById('formContainer').innerhtml = dialogTemplate();
     showContactDeletedInfo();

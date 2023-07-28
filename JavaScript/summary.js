@@ -43,22 +43,18 @@ function showTimeOfTheDay() {
 
 
     if (hour < noon && hour > sunrise) {
-        console.log('Its Morning');
         document.getElementById('greet').innerHTML = 'Good Morning,';
         document.getElementById('greetMobile').innerHTML = 'Good Morning,';
 
     } else if (hour >= noon && hour <= afternoon) {
-        console.log('Its Afternoon');
         document.getElementById('greet').innerHTML = 'Good Afternoon,';
         document.getElementById('greetMobile').innerHTML = 'Good Afternoon,';
 
-    } else if (hour >= afternoon && hour <= evening) {
-        console.log('Its Evening');
+    } else if (hour >= afternoon && hour <= evening) {  
         document.getElementById('greet').innerHTML = 'Good Evening,';
         document.getElementById('greetMobile').innerHTML = 'Good Evening,';
     }
     else if (hour >= evening && hour <= sunrise) {
-        console.log('Its night');
         document.getElementById('greet').innerHTML = 'Good night,';
         document.getElementById('greetMobile').innerHTML = 'Good night,';
     }
@@ -84,7 +80,6 @@ function showNumbers() {
 function checkNummberOfTasks() {
     for (let i = 0; i < tasks.length; i++) {
         const element = tasks[i];
-        console.log(element);
     }
 }
 
@@ -103,7 +98,7 @@ function showPriorityDate() {
         let month = priority[1];
         let day = priority[2];
         document.getElementById('dateUrgent').innerHTML = `${getMonthName(month)} ${day}, ${year}`;
-        console.log('The Date is', getMonthName(month), day, year);
+       
     } else {
         document.getElementById('upcomingDeadline').innerHTML = 'No Upcoming Deadline';
     }
@@ -151,7 +146,6 @@ function showNumberOfDoneTasks() {
 
 function searchForPrio() {
     let priority = tasks.filter(t => t['status'] == 'prio');
-    console.log(priority);
     document.getElementById('priorityNumber').innerHTML = `${priority.length}`;
 }
 
@@ -163,7 +157,6 @@ function checkWidth() {
 
     if (innerWidth < 550) {
         fadeOut();
-        console.log(innerWidth);
         setTimeout(removeOverlay, 6000);
     } else {
         removeOverlay();
