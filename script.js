@@ -392,7 +392,8 @@ function logInTemplate() {
                 <div class="input-cont"><input requiered type="email" placeholder="Email" id="email"><img src="./Img/icon_mail.svg" alt=""></div>
                 <div class="input-cont"><input required type="passwort" placeholder="Passwort" id="passwort"><img src="./Img/icon_lock.svg" alt="" onclick="showHidePassword()"></div>
                 <div class="dialog-links-cont">
-                    <input type="checkbox" id="rememberMe"></input><span class="remember-link"><img src="">Remember me</span><span class="forgot-passwort" onclick="showForgotMyPasswort()">Forgot my passwort</span>
+                    <div><input type="checkbox" id="rememberMe"></input><span class="remember-link">Remember me</span></div>
+                    <span class="forgot-passwort" onclick="showForgotMyPasswort()">Forgot my passwort</span>
                 </div>
                 <div class="button-cont" id="loginButtons">
                     <button class="blue-btn" id="loginBtn" value="newLogIn">Log in</button>

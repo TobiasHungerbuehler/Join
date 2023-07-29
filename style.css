@@ -197,6 +197,7 @@ form {
 
 .remember-link {
     text-decoration: none;
+    margin-left: 16px;
 }
 
 .danger a {
@@ -205,19 +206,19 @@ form {
 
 /* Logo adjustment web to mobile and mobile to web */
 
- .adj-web-logo {
-        left: calc(8%) !important;
-        top: calc(10%) !important;
-        width: 100px !important;
-        height: 120px !important;
-    }
+.adj-web-logo {
+    left: calc(8%) !important;
+    top: calc(10%) !important;
+    width: 100px !important;
+    height: 120px !important;
+}
 
-    .adj-mobile-logo {
-        left: calc(17%) !important;
-        top: calc(9%) !important;
-        width: 64px !important;
-        height: 100px !important;
-    }
+.adj-mobile-logo {
+    left: calc(17%) !important;
+    top: calc(9%) !important;
+    width: 64px !important;
+    height: 100px !important;
+}
 
 
 
@@ -401,6 +402,18 @@ form {
         height: 100px;
     } */
 
+    .dialog {
+        height: 65vh;
+    }
+
+    h1 {
+        font-size: 47px !important;
+    }
+
+    .dialog-links-cont {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
 
     .info-box-right {
         position: absolute;
@@ -418,10 +431,40 @@ form {
         display: flex;
         justify-content: space-between;
         width: 80vw;
+        align-items: center;
+        flex-direction: column;
+
+    }
+    .blue-btn {
+        width: 180px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 13px;
+        margin-left: 0;
+        font-size: 16px;
+    }
+
+    .white-btn {
+        width: 180px;
+        font-size: 16px;
+    }
+
+    .info-box-right {
+        right: calc(11%);
+        left: calc(11%);
     }
 
     .input-cont {
         width: unset;
 
+    }
+
+    .remember-link {
+        margin-left: 16px;
+    }
+
+    .forgot-passwort {
+        margin-bottom: 12px;
     }
 }
