@@ -37,7 +37,7 @@ body {
     height: 25px;
     position: absolute;
     left: calc(8%);
-    top: calc(8%);
+    top: calc(14%);
 
 }
 
@@ -133,6 +133,11 @@ form {
 
 .emailBtn {
     min-width: 145px !important;
+}
+
+.adjusting-header {
+    width: 59vw;
+    margin-left: calc(10%);
 }
 
 /* To Do */

@@ -23,6 +23,7 @@ function showLoginDialog() {
     document.getElementById('infoBoxRight').classList.remove('d-none');
     logInTemplate();
     showHidePassword();
+    document.getElementById('header').classList.remove('adjusting-header');
 
 }
 
@@ -211,6 +212,7 @@ function resetFields() {
 
 function showForgotMyPasswort() {
     document.getElementById('header').innerHTML = 'I forgot my passwort';
+    document.getElementById('header').classList.add('adjusting-header');
     document.getElementById('arrowImg').classList.remove('d-none');
     document.getElementById('infoBoxRight').classList.add('d-none');
     forgotMyPasswortTemplate();
