@@ -212,10 +212,16 @@ function resetFields() {
 
 function showForgotMyPasswort() {
     document.getElementById('header').innerHTML = 'I forgot my passwort';
-    document.getElementById('header').classList.add('adjusting-header');
     document.getElementById('arrowImg').classList.remove('d-none');
     document.getElementById('infoBoxRight').classList.add('d-none');
     forgotMyPasswortTemplate();
+    adjustingHeader();
+}
+
+function adjustingHeader() {
+    if (innerWidth < 450) {
+        document.getElementById('header').classList.add('adjusting-header');
+    }
 }
 
 
