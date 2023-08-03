@@ -1,10 +1,11 @@
 .help-cont {
     margin-left: 46px;
-    padding-right: 62px;
+    padding-right: 85px;
     margin-top: 36px;
     overflow-y: auto;
     width: 100%;
 }
+
 .number {
     margin-right: 50px;
 }
@@ -20,23 +21,42 @@
 
 .join {
     color: var(--bs-cyan);
-    font-weight: 100;
+    font-weight: 200;
 }
 
 .pdg-btm {
     padding-bottom: 24px;
 }
 
+.blue-arrow {
+    position: absolute;
+    top: 12px;
+    right: 46px;
+    cursor: pointer;
+}
+
+.dev-akademie {
+    color: red;
+}
+
 /*********** Responsive Version only **********/
-@media(max-width: 1200px){
+@media(max-width: 1200px) {
     .help-cont {
-        margin-left:32px;
+        margin-left: 32px;
         margin-right: 32px;
     }
 }
 
-@media(max-width: 900px){
+@media(max-width: 900px) {
     .help-cont {
         margin-bottom: 100px;
+    }
+}
+
+@media(max-width: 500px) {
+    .help-cont {
+        width: unset;
+        /* margin-left: 0; */
+        margin-right: 0;
     }
 }

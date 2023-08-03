@@ -38,8 +38,8 @@ function logOut() {
 //PopOut button erscheint auf der rechte Seite
 function showPopOut() {
     if (innerWidth < 600) {
-      document.getElementById('helpBtn').classList.remove('d-none'); 
-      document.getElementById('legalNoticeBtn').classList.remove('d-none'); 
+        document.getElementById('helpBtn').classList.remove('d-none');
+        document.getElementById('legalNoticeBtn').classList.remove('d-none');
     } else {
         document.getElementById('helpBtn').classList.add('d-none');
         document.getElementById('legalNoticeBtn').classList.add('d-none');
@@ -62,3 +62,4 @@ function closePopOut() {
 //         closePopOut();
 //     }
 //   });
+

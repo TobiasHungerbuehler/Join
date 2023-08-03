@@ -41,6 +41,10 @@ p {
     justify-content: space-around;
 }
 
+.question-mark {
+    margin-top: 8px;
+}
+
 .avatar-header {
     border-radius: 50%;
     width: 50px;
