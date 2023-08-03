@@ -1,0 +1,42 @@
+.help-cont {
+    margin-left: 46px;
+    padding-right: 62px;
+    margin-top: 36px;
+    overflow-y: auto;
+    width: 100%;
+}
+.number {
+    margin-right: 50px;
+}
+
+.steps-cont {
+    display: flex;
+}
+
+.explanation {
+    display: flex;
+    flex-direction: column;
+}
+
+.join {
+    color: var(--bs-cyan);
+    font-weight: 100;
+}
+
+.pdg-btm {
+    padding-bottom: 24px;
+}
+
+/*********** Responsive Version only **********/
+@media(max-width: 1200px){
+    .help-cont {
+        margin-left:32px;
+        margin-right: 32px;
+    }
+}
+
+@media(max-width: 900px){
+    .help-cont {
+        margin-bottom: 100px;
+    }
+}
