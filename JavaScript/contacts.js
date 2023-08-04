@@ -112,6 +112,12 @@ window.addEventListener('resize', myFunction);
 
 
 function myFunction() {
+    if (innerWidth < 600) {
+        document.getElementById('newContactResponsiveBtn').innerHTML = "";
+    }
+    if (innerWidth > 600) {
+        document.getElementById('newContactResponsiveBtn').innerHTML = "New Contact";
+    }
 
     if (innerWidth > 900) {
         document.getElementById('contactSection').style = "display: inline";

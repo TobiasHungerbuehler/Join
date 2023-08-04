@@ -1,6 +1,6 @@
 let users = [];
 let firstCheck;
-let result; 
+let result;
 
 
 
@@ -58,7 +58,7 @@ function checkPassword(findEmail, password) {
         let userIdTest = findEmail[0]['userId'];
         window.location = "./summary.html";
         saveIdToLocalStorage(userIdTest, userName);
-        
+
     } else {
         alert('Your Password is incorrect');
     }
@@ -69,7 +69,7 @@ function checkPassword(findEmail, password) {
 function saveIdToLocalStorage(userId, userName) {
     localStorage.setItem('userId', userId);
     localStorage.setItem('userName', userName);
-    
+
 }
 
 
@@ -101,6 +101,7 @@ async function register() {
     let name = document.getElementById('userName').value;
     let email = document.getElementById('userEmail').value;
     let passwort = document.getElementById('userPasswort').value;
+    let confirmedPasswort = document.getElementById('userPasswortConfirm').value;
 
 
     //eventuell in andere Function ?? checkNewUser(name, email, passwort);
@@ -112,7 +113,13 @@ async function register() {
         alert(`It seems that the User with the Name ${name} allready exists, please check your spelling and try again`);
     } else if (findEmail.length > 0) {
         alert(`It seems that the User with the following email ${email} allready exists, please try again or if you are allready a User reset your password`);
-    } else {
+    } else if (passwort !== confirmedPasswort) {
+        alert('The Fields password and confirm password have to be the same, try again');
+    } else if (policyCheck() == false) {
+        alert('You have to agree to our Privacy policy in order to register');
+    }
+
+    else {
         users.push({
             "userId": getRandomNumber(),
             "name": name,
@@ -134,19 +141,19 @@ async function register() {
 
 ///Function vom Storage.js übernommen, neu registrierter User wird auf Haupt Storage gespeichert 
 
-function newUserIdtoAppData(userId){
-    const newAppData =   {
-      "userId": userId,
-      "data": {
-        "tasks": [],
-        "contacts": []
-      }
+function newUserIdtoAppData(userId) {
+    const newAppData = {
+        "userId": userId,
+        "data": {
+            "tasks": [],
+            "contacts": []
+        }
     }
     appData.push(newAppData);
     setItem('appData', appData);
-  }
+}
 
-  
+
 //// eine 5-stellige random Nummer wird generiert
 
 function getRandomNumber() {
@@ -154,9 +161,18 @@ function getRandomNumber() {
     let max = 99999;
     result = Math.floor(Math.random() * (max - min + 1)) + min;
     return result
+}
+
+
+//es wird überprüft ob policy gecheckt ist oder nicht
+
+function policyCheck() {
+    if (document.getElementById('acceptPrivacyPolicy').checked) {
+        return true;
+    } else {
+        return false;
     }
-
-
+}
 
 ////CheckBox wird überprüft, ob es angecheckt ist, und wird user Data on localStorage gespeichert und bei nächstem Mal angezeigt
 
@@ -179,7 +195,7 @@ function loadFromLocalStorage() {
     if (!localStorage.getItem('email') && localStorage.getItem('password') == null) {
         // console.log('You have not saved anything yet');
     } else {
-       
+
         let inputEmail = localStorage.getItem('email');
         let inputPassword = localStorage.getItem('password');
         document.getElementById('email').value = `${inputEmail}`;
@@ -270,7 +286,7 @@ function showHidePassword() {
 
 //wofür habe ich das gebraucht?
 
-  function checkUser(name, email) {
+function checkUser(name, email) {
     for (let j = 0; j < users.length; j++) {
         let element = users[j];
         returnCheckedUser(element, name, email);
@@ -340,7 +356,7 @@ function checkWidth() {
         document.getElementById('webLogo').classList.add('adj-web-logo');
     } else {
         document.getElementById('webOverlay').classList.remove('d-none');
-        document.getElementById('mobileOverlay').classList.add('d-none'); 
+        document.getElementById('mobileOverlay').classList.add('d-none');
         document.getElementById('mobileLogo').classList.add('adj-mobile-logo');
 
     }
@@ -420,6 +436,8 @@ function signUpTemplate() {
     <div class="input-cont"><input required class="input-field-name" type="name" placeholder="Name" id="userName"> <img src="./Img/icon_user.svg"></div>
     <div class="input-cont"><input requiered type="email" placeholder="Email" id="userEmail"><img src="./Img/icon_mail.svg" alt=""></div>
     <div class="input-cont"><input required type="passwort" placeholder="Passwort" id="userPasswort"><img src="./Img/icon_lock.svg" alt=""></div>
+    <div class="input-cont"><input required type="passwort" placeholder="Confirm Passwort" id="userPasswortConfirm"><img src="./Img/icon_lock.svg" alt=""></div>
+    <div class="privacy-policy-cont"><input type="checkbox" id="acceptPrivacyPolicy"></input><span class="remember-link">I accept the <a href="./privacyPolicy.html">Privacy policy</a></span></div>
     <div class="button-cont"><button class="blue-btn" id = "registerBtn">Sign up</button></div> 
     </form>`;
 }

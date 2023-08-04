@@ -815,4 +815,15 @@ body {
     .underline {
         margin-left: 0;
     }
+
+    .new-contact-responsive-btn {
+        min-width: 60px;
+        border-radius: 100%;  
+    }
+    .contact-btn-responsive-cont { 
+        background-color: transparent;
+        bottom: 105px;
+        top: unset;
+        
+    }
 }
