@@ -9,6 +9,7 @@ async function loadContactPage() {
     accessContacts();
     getCategoryArray(); // -> addTask.html  // from board
     getEmailsFromContacts(); // from board
+    myFunction();
 }
 
 

@@ -111,12 +111,16 @@ async function register() {
 
     if (findName.length > 0) {
         alert(`It seems that the User with the Name ${name} allready exists, please check your spelling and try again`);
+        showSignUpDialog();
     } else if (findEmail.length > 0) {
         alert(`It seems that the User with the following email ${email} allready exists, please try again or if you are allready a User reset your password`);
+        showSignUpDialog();
     } else if (passwort !== confirmedPasswort) {
         alert('The Fields password and confirm password have to be the same, try again');
+        showSignUpDialog();
     } else if (policyCheck() == false) {
         alert('You have to agree to our Privacy policy in order to register');
+        showSignUpDialog();
     }
 
     else {
@@ -237,6 +241,8 @@ function showForgotMyPasswort() {
 function adjustingHeader() {
     if (innerWidth < 450) {
         document.getElementById('header').classList.add('adjusting-header');
+    }else {
+        document.getElementById('header').classList.remove('adjusting-header');
     }
 }
 
@@ -358,7 +364,7 @@ function checkWidth() {
         document.getElementById('webOverlay').classList.remove('d-none');
         document.getElementById('mobileOverlay').classList.add('d-none');
         document.getElementById('mobileLogo').classList.add('adj-mobile-logo');
-
+    
     }
 }
 
@@ -367,7 +373,7 @@ function checkWidth() {
 window.addEventListener('resize', checkLogo);
 
 function checkLogo() {
-    if (innerWidth < 450) {
+    if (innerWidth < 880) {
         document.getElementById('webLogo').classList.add('adj-mobile-logo');
         document.getElementById('mobileLogo').classList.remove('adj-web-logo');
     } else {
@@ -375,6 +381,16 @@ function checkLogo() {
         document.getElementById('mobileLogo').classList.add('adj-web-logo');
         document.getElementById('webLogo').classList.remove('adj-mobile-logo');
 
+    }
+}
+
+window.addEventListener('resize', checkResetPasswortH1);
+
+function checkResetPasswortH1() {
+    if (innerWidth < 450) {
+        document.getElementById('header').classList.add('adjusting-header');
+    } else {
+        document.getElementById('header').classList.remove('adjusting-header');
     }
 }
 

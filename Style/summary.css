@@ -394,10 +394,12 @@
     body {
         overflow-x: hidden;
     }
+
     .log-out-pop-out-web {
         position: fixed;
-        top:100px;
+        top: 100px;
     }
+
     .summary-task-box-big img {
         width: 40px;
         height: 40px;
@@ -453,4 +455,84 @@
     .section-urgent-text-elem {
         font-size: 32px;
     }
+}
+
+@media(max-width: 400px) {
+    .kanban-contacts {
+        display: none !important;
+    }
+
+    .contact-section-header {
+        font-size: 36px !important;
+    }
+
+    .header-cont-elem-right {
+        height: unset;
+        font-size: 18px;
+    }
+
+    .urgent-text {
+        font-size: 14px;
+    }
+
+    .upcomming-deadline-text {
+        font-size: 14px;
+    }
+
+    .header-cont {
+        padding-bottom: 16px;
+        height: unset;
+    }
+
+    .summary-task-box {
+        height: 100px;
+        justify-content: space-evenly;
+    }
+
+    .summary-task-box-numm {
+        font-size: 28px;
+    }
+
+    .summary-task-box-text-top {
+        font-size: 12px;
+    }
+
+    .task-middle-line {
+        height: 100px;
+    }
+
+    .section-urgent-text-elem {
+        font-size: 28px;
+    }
+
+    .section-urgent-text-elem span {
+        font-size: 14px;
+    }
+
+    .date-text {
+        font-size: 15px;
+    }
+
+    .summary-task-box-big {
+        height: 100px;
+    }
+
+    .summary-task-box-text {
+        font-size: 14px;
+    }
+
+    .task-middle-line {
+        margin-top: 16px;
+    }
+
+    .tasks-bottom-line {
+        margin-top: 14px;
+        margin-bottom: 16px;
+    }
+
+    .summary-task-box-big-elem {
+        height: 60%;
+        justify-content: space-around;
+    }
+
 }
