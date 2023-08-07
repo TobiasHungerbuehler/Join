@@ -556,10 +556,12 @@ function resetPrioIcon() {
  */
 function addSubtask() {
     let newSubtaskTitle = document.getElementById('subtask-input').value;
-    let newSubtask = {"title": newSubtaskTitle, "isCompleted": "false"}
-    subTasks.push(newSubtask);
-    document.getElementById('subtask-input').value = '';
-    renderSubtasks();
+    if(newSubtaskTitle){
+        let newSubtask = {"title": newSubtaskTitle, "isCompleted": "false"}
+        subTasks.push(newSubtask);
+        document.getElementById('subtask-input').value = '';
+        renderSubtasks();
+    }
 }
 
 

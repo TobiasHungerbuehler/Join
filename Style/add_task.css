@@ -464,12 +464,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         margin-left: 140px;
     }
 
-    #form, .title-container, .button-bar  {
+    #form, .title-container  {
         width: 880px;
     }
 
     .form-left, .form-right{
         width: 100%;
+    }
+
+    .button-bar  {
+        width: 350px;
+        justify-content: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 }
 
@@ -491,17 +498,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     #form, .title-container {
         width: 350px;  
     }
-
-    .button-bar{
-        position: fixed;
-        top: 17px;
-        right: 10px;
-        width: auto;
-    }
 }
 
 @media(max-width: 1100px){
     .clear-btn{
         display: none;
     } 
+}
+
+@media(max-width: 500px){
+
+    .title-container {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
 }

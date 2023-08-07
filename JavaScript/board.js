@@ -276,6 +276,7 @@ async function moveTo(newStatus) {
  */
 function allowDrop(ev) {
     ev.preventDefault();
+    highlighting(ev.target.id); /////// geändert
 }
 
 
@@ -300,6 +301,36 @@ function removeHighlight(id) {
 
 
 /**
+ * Drops the task into the corresponding status container.
+ * 
+ * @param {Event} ev - The drop event.
+ * @param {string} newStatus - The new status of the task.
+ */
+function dropTask(ev, newStatus) {
+    ev.preventDefault();
+    removeHighlight(ev.target.id); // Remove the highlight when the draggable element is dropped.
+
+    // Get the dragged task ID from the dataTransfer.
+    const taskID = ev.dataTransfer.getData('text/plain');
+    
+    // Change the status of the task after it is dropped into the corresponding container.
+    tasks[taskID]['status'] = newStatus;
+    
+    // Save the updated task on the server.
+    saveTasksOnServer()
+        .then(() => {
+            // Update the kanban board with the new task arrangement.
+            renderTasksToKanban();
+        })
+        .catch((error) => {
+            console.error("Error saving tasks on server:", error);
+        });
+}
+
+
+
+
+/**
  * Removes the highlight from all elements.
  */
 function removeAllHighlights() {
@@ -308,6 +339,8 @@ function removeAllHighlights() {
         containers[i].classList.remove('highlight');
     }
 }
+
+
 
     
 /*********************************************************************/
