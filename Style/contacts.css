@@ -70,7 +70,7 @@ body {
     background-color: #F6F7F8;
     margin-right: unset;
     height: 80px;
-    display:none;
+    display: none;
 }
 
 .contact-info:hover {
@@ -139,13 +139,17 @@ body {
 .contact-section-header {
     font-size: 61px;
     margin-right: 16px;
+    margin-right: 16px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
 }
 
 .close-Contact-Info-Mobile {
     position: absolute;
     top: 75px;
     right: calc(8%);
-    display: none; 
+    display: none;
     /* changed */
 }
 
@@ -221,7 +225,7 @@ body {
 }
 
 .contact-info-container {
-    min-width: 350px;
+    /* width: 350px; */
     /* height: 100vh; */
     /* background-color: burlywood; */
     margin-left: 60px;
@@ -383,6 +387,7 @@ body {
     flex-direction: column;
     justify-content: center;
 }
+
 .dialog-box-logo {
     width: 60px;
     margin-top: -50px;
@@ -642,7 +647,7 @@ body {
 
     .adress-book {
         width: 100%;
-        
+
     }
 
     .contact-section {
@@ -654,7 +659,7 @@ body {
         top: 120px;
     } */
 
-    .contact-btn-responsive-cont{
+    .contact-btn-responsive-cont {
         display: flex;
     }
 
@@ -669,8 +674,9 @@ body {
 
 @media(max-width: 900px) {
     .adress-book {
-        margin-bottom: 100px;
+        margin-bottom: 75px;
     }
+
     .kanban-contacts {
         display: block;
     }
@@ -756,7 +762,8 @@ body {
     .dialog-box-logo {
         display: none;
     }
-/* 
+
+    /* 
     .dialog-text1 {
         margin-left: calc(22%);
     }
@@ -790,11 +797,11 @@ body {
         top: -60px;
     }
 
-    .close-btn{
+    .close-btn {
         display: none;
     }
 
-    .close-btn-sec-left{
+    .close-btn-sec-left {
         display: block;
     }
 
@@ -818,12 +825,105 @@ body {
 
     .new-contact-responsive-btn {
         min-width: 60px;
-        border-radius: 100%;  
+        border-radius: 100%;
     }
-    .contact-btn-responsive-cont { 
+
+    .contact-btn-responsive-cont {
         background-color: transparent;
         bottom: 105px;
         top: unset;
-        
+
+    }
+}
+
+@media(max-width:400px) {
+    .section-left {
+        height: 48%;
+        padding-left: 0;
+    }
+
+    .section-right {
+        height: 52%;
+    }
+
+    .dialog-text1 {
+        font-size: 40px;
+    }
+
+    .dialog-text2 {
+        font-size: 21px;
+    }
+
+    .big-initial-contacts-info {
+        width: 90px;
+        height: 90px;
+        font-size: 47px;
+    }
+
+    .form-container form {
+        margin-bottom: 6px;
+        margin-top: 55px;
+    }
+
+    .input-cont {
+        max-width: 75% !important;
+        gap: 0;
+        margin-left: calc(12%);
+        height: 42px !important;
+        margin-bottom: 10px !important;
+        font-size: 14px;
+    }
+
+    .btn-container {
+        margin-bottom: -55px;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .cancel-btn {
+        width: 105px;
+        height: 42px;
+        font-size: 21px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .create-contact-btn {
+        width: 194px;
+        height: 42px;
+        font-size: 21px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 12px;
+    }
+
+    .contact-info-container {
+        width: 300px;
+    }
+
+    .kanban-contacts {
+        display: none !important;
+    }
+
+    .contact-section-header {
+        font-size: 36px;
+    }
+
+    .contact-section-message {
+        font-size: 26px;
+
+    }
+
+    .underline-contact {
+        margin-bottom: 12px;
+        height: 0px;
+        margin-top: 12px;
+    }
+
+    .mobile-edit-btn {
+        bottom: calc(5%);
     }
 }
