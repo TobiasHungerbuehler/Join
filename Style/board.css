@@ -71,7 +71,6 @@
 
 .task-container{
     border-radius: 15px;
-    padding: 10px;
     background-color: #FFFFFF;
     margin-bottom: 54px;
     cursor: pointer;
@@ -319,9 +318,9 @@
 }
 
 .close-button-full {
-    position: absolute;
-    top: 0;
-    right: 0;
+    position: fixed;
+    top: 15%;
+    right: 10%;
     cursor: pointer;
 }
 
@@ -418,37 +417,30 @@
 
 @media(max-width: 1100px) {
     .board-overlay-inlay{
-        overflow-y: auto;
         border-radius: 0; 
         height: 100%;
         width: 100%; 
+
     }
     
     .form-input-section{
         margin-top: 90px;
+        margin-top: 300px;
+        width: 100%;
     }
     
     .button-bar  {
-        background-color: white;
         position: fixed;
-        justify-content: center;
+        justify-content: flex-end;
         top: 0px;
-        /* left: 50%;
-        transform: translateX(-50%); */
         width: 100%;
       }
 
-
-    .form-input-section {
-        width: fit-content;
+    #form {
+        width: 350px;  
     }
 
-    /* .button-bar{
-        position: fixed;
-        top: 17px;
-        right: 10px;
-        width: auto;
-    } */
+
 
     .title-container-board {
         width: 252px;
@@ -462,13 +454,66 @@
     .kanban-Container {
         min-height: 250px;
     }
+}
 
 
+@media(max-width: 900px){
+    .full-task-container {
+        width: 90%;
+    }
+
+    .task-title-container-full {
+        font-size: 40px;
+    }
+
+    .board-overlay-inlay {
+        margin-top: 100px;
+        margin-bottom: 300px;
+    }
+
+    .full-task-container {
+        margin-top: 100px;
+        overflow-y: auto;
+        position: relative;
+        width: 90%;
+        font-size: 18px;
+        max-height: 80%; 
+     
+    }
+
+    .options-full {
+        width: auto;
+        flex-direction: column;
+        position: fixed;
+        bottom: 120px;
+        right: 20px;
+    }
+
+    .delete-task-button{
+        border-radius: 10px 10px 10px 10px;
+    }
+
+    .edit-task-button {
+        border-radius: 10px 10px 10px 10px;
+        margin-top: 10px;
+
+    }
+
+    .create-task-btn {
+        min-width: 90px;
+        padding: 10px 5px;
+    }
+
+    .close-button-full {
+        right: 15px;
+    }
 
 
+}
 
-
-
-
+@media(max-width: 500px){
+    #form{
+        width: 95%;
+    }
 
 }
