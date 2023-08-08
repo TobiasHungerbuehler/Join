@@ -1,5 +1,6 @@
 let matchingTasks = [];
-let currentDraggedElement;
+
+
 
 /*********************************************************************/
 /* Board start functions */
@@ -35,8 +36,6 @@ function renderTasksToKanban() {
         showTaskPrioImage(task,i)
     }
 }
-
-
 
 
 
@@ -253,6 +252,7 @@ function clearAllStatusContainers() {
  */
 function startDragging(id) {
     currentDraggedElement = id; // Speichert die ID des bewegten Elements
+    console.log('start draging', id)
 }
 
 
@@ -260,8 +260,9 @@ function startDragging(id) {
  * Changes the status of the task after it is dropped into the corresponding container.
  * 
  * @param {string} newStatus - The new status of the task.
- */
+*/
 async function moveTo(newStatus) {
+    console.log('move to', newStatus)
     tasks[currentDraggedElement]['status'] = newStatus; // Change Status in task Array
     await saveTasksOnServer(); // save Task on Server
     renderTasksToKanban();
@@ -276,7 +277,6 @@ async function moveTo(newStatus) {
  */
 function allowDrop(ev) {
     ev.preventDefault();
-    highlighting(ev.target.id); /////// geändert
 }
 
 
@@ -301,42 +301,102 @@ function removeHighlight(id) {
 
 
 /**
- * Drops the task into the corresponding status container.
- * 
- * @param {Event} ev - The drop event.
- * @param {string} newStatus - The new status of the task.
- */
-function dropTask(ev, newStatus) {
-    ev.preventDefault();
-    removeHighlight(ev.target.id); // Remove the highlight when the draggable element is dropped.
-
-    // Get the dragged task ID from the dataTransfer.
-    const taskID = ev.dataTransfer.getData('text/plain');
-    
-    // Change the status of the task after it is dropped into the corresponding container.
-    tasks[taskID]['status'] = newStatus;
-    
-    // Save the updated task on the server.
-    saveTasksOnServer()
-        .then(() => {
-            // Update the kanban board with the new task arrangement.
-            renderTasksToKanban();
-        })
-        .catch((error) => {
-            console.error("Error saving tasks on server:", error);
-        });
-}
-
-
-
-
-/**
  * Removes the highlight from all elements.
  */
 function removeAllHighlights() {
     const containers = document.getElementsByClassName('kanban-Container');
     for (let i = 0; i < containers.length; i++) {
         containers[i].classList.remove('highlight');
+    }
+}
+
+
+// Mobile
+let touchStartY;
+let boundaryCheckInterval = null;
+const BOUNDARY_THRESHOLD = 50;  // Sie können diesen Wert anpassen,
+const SCROLL_AMOUNT = 20;
+
+function startDraggingTouch(event, id) {
+    currentDraggedElement = id;
+    touchStartY = event.touches[0].clientY;
+
+    const originalElement = document.getElementById(`task${id}`);
+    clonedElement = originalElement.cloneNode(true);
+    clonedElement.style.position = "fixed";
+    clonedElement.style.zIndex = "1000";
+    clonedElement.style.width = "150px";
+    yOffset = event.touches[0].clientY - originalElement.getBoundingClientRect().top;
+    xOffset = event.touches[0].clientX - originalElement.getBoundingClientRect().left;
+    document.body.appendChild(clonedElement);
+
+    updateClonePosition(event.touches[0].clientX, event.touches[0].clientY);
+}
+
+function touchMove(event) {
+    if (!currentDraggedElement) return;
+    event.preventDefault();
+    updateClonePosition(event.touches[0].clientX, event.touches[0].clientY);
+}
+
+function touchEnd(event) {
+    const touchEndY = event.changedTouches[0].clientY;
+    const touchEndX = event.changedTouches[0].clientX;
+
+    const checkWithinBounds = (container) => {
+        const rect = container.getBoundingClientRect();
+        return touchEndY > rect.top && touchEndY < rect.bottom && touchEndX > rect.left && touchEndX < rect.right;
+    };
+
+    if (clonedElement) {
+        document.body.removeChild(clonedElement);
+        clonedElement = null;
+    }
+
+    if (checkWithinBounds(document.getElementById('toDo'))) {
+        moveTo('toDo');
+    } else if (checkWithinBounds(document.getElementById('inProgress'))) {
+        moveTo('inProgress');
+    } else if (checkWithinBounds(document.getElementById('awaitingFeedback'))) {
+        moveTo('awaitingFeedback');
+    } else if (checkWithinBounds(document.getElementById('done'))) {
+        moveTo('done');
+    }
+
+    // Stoppen Sie das Intervall, wenn das Ziehen endet
+    if (boundaryCheckInterval) {
+        clearInterval(boundaryCheckInterval);
+        boundaryCheckInterval = null;
+    }
+    currentDraggedElement = null; ////////////////////////////////
+}
+
+function updateClonePosition(currentX, currentY) {
+    clonedElement.style.left = `${currentX - xOffset}px`;
+    clonedElement.style.top = `${currentY - yOffset}px`;
+}
+
+
+///*css*/
+function checkBoundaries() {
+    if (!clonedElement) return;
+
+    const rect = clonedElement.getBoundingClientRect();
+
+    if (rect.top <= BOUNDARY_THRESHOLD) {
+        console.log("Element ist am oberen Rand");
+        scrollWindow("up");
+    } else if (rect.bottom >= window.innerHeight - BOUNDARY_THRESHOLD) {
+        console.log("Element ist am unteren Rand");
+        scrollWindow("down");
+    }
+}
+
+function scrollWindow(direction) {
+    if (direction === "up") {
+        window.scrollBy(0, -SCROLL_AMOUNT);
+    } else if (direction === "down") {
+        window.scrollBy(0, SCROLL_AMOUNT);
     }
 }
 
