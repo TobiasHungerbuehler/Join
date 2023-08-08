@@ -2,28 +2,36 @@ let userIdLogIn;
 userName = localStorage.getItem('userName');
 
 
+/**
+ * 
+ * 
+ */
+
 async function loadSummary() {
     init();
     await getAllAppData()// load appData from Server
-    // loadUserNameAndId();
     greet();
     await getTasks();
     checkWidth();
     showTimeOfTheDay();
     showNumbers();
-    checkNummberOfTasks();
 }
 
 
 
-//es wird auf Board Seite weitergeleitet
+
+/**
+ * this function redirects to the board page
+ */
 
 function getToBoard() {
     window.location.href = "./board.html";
 }
 
 
-//userName aus Lokalstorage wird abgelesen und angezeigt
+/**
+ * this function gets the userName from localStorage und shows in both web and mobile Version the name of the current user
+ */
 
 function greet() {
     document.getElementById('visitor').innerHTML = `${userName}`;
@@ -31,7 +39,9 @@ function greet() {
 }
 
 
-//die Zeit wird berechnet und der Guest wird demändsprechend begrüßt
+/**
+ * this function is calculating what time of the day is and greeting the user depending on that time reference 
+ */
 
 function showTimeOfTheDay() {
     let hour = new Date().getHours();
@@ -61,8 +71,9 @@ function showTimeOfTheDay() {
 
 }
 
-
-// die Nummern werden aufgelistet
+/**
+ * list of functions that are supposed to show the numbers of specific tasks 
+ */
 
 function showNumbers() {
     showNumberOfTasks()
@@ -75,22 +86,12 @@ function showNumbers() {
 
 
 
-// function, die über Tasks Array itteriert
-
-function checkNummberOfTasks() {
-    for (let i = 0; i < tasks.length; i++) {
-        const element = tasks[i];
-    }
-}
-
-
-
-/////////  Priority Task mit Urgent wird gesucht und angezeigt    ///////
+/**
+ * this function is searcing for all Priority tasks and showing the result in specified format [month, day, year]
+ */
 
 function showPriorityDate() {
-
     let findPrio = tasks.filter(t => t['prio'] == 'urgent');
-   ' debugger;'
    document.getElementById('urgentTaskNum').innerHTML = findPrio.length;
     if (findPrio.length > 0) {
         let priority = findPrio[0]['dueDate'].split('-');  //  ['2023', '05', '01']
@@ -98,11 +99,18 @@ function showPriorityDate() {
         let month = priority[1];
         let day = priority[2];
         document.getElementById('dateUrgent').innerHTML = `${getMonthName(month)} ${day}, ${year}`;
-       
     } else {
         document.getElementById('upcomingDeadline').innerHTML = 'No Upcoming Deadline';
     }
 }
+
+
+
+/**
+ * this function transforms number of a month to a full name of the month
+ * @param {*} monthNumber - month as a number 
+ * @returns - the full name of month will be returned
+ */
 
 function getMonthName(monthNumber) {
     const date = new Date();
@@ -112,37 +120,59 @@ function getMonthName(monthNumber) {
     });
 }
 
-//////////     ********************    //////////////////////
 
 
-
+/**
+ * this function is showing the number of all tasks
+ */
 
 function showNumberOfTasks() {
     document.getElementById('numberOfTasks').innerHTML = `${tasks.length}`;
-
 }
+
+
+/**
+ * this function is showing the number of all tasks marked as todo
+ */
+
 function showNumberOfTodo() {
     let todo = tasks.filter(t => t['status'] == 'toDo');
     document.getElementById('numberOfTodos').innerHTML = `${todo.length}`;
 }
 
+
+/**
+ * this function is showing the number of all tasks marked as awaiting Feedback
+ */
 function showNumberOfAwaitingFeedback() {
     let feedback = tasks.filter(t => t['status'] == 'awaitingFeedback');
     document.getElementById('awaitingFeedback').innerHTML = `${feedback.length}`;
 }
+
+
+/**
+ * this function is showing the number of all tasks marked as tasks in Progress
+ */
 
 function showNumberOfTasksInProgress() {
     let progress = tasks.filter(t => t['status'] == 'inProgress');
     document.getElementById('tasksInProgress').innerHTML = `${progress.length}`;
 }
 
+
+
+/**
+ * this function is showing the number of all tasks marked as done tasks
+ */
 function showNumberOfDoneTasks() {
     let done = tasks.filter(t => t['status'] == 'done');
     document.getElementById('doneTasks').innerHTML = `${done.length}`;
 }
 
 
-/////////////////To do nach Urgent suchen und anzeigen lassen//////////////
+/**
+ * this function is searcing and showing the Priority task with the keyword Urgent
+ */
 
 function searchForPrio() {
     let priority = tasks.filter(t => t['status'] == 'prio');
@@ -150,28 +180,36 @@ function searchForPrio() {
 }
 
 
-// Animation in mobile Version
+/////////////****  Animation in mobile Version***/////////////
 
+/**
+ * this function is showing or hiding the animation fade-out depending on a current width of screen
+ */
 
 function checkWidth() {
-
     if (innerWidth < 550) {
         fadeOut();
         setTimeout(removeOverlay, 6000);
     } else {
         removeOverlay();
     }
-
 }
+
+/**
+ * this function is initialising the animation by adding the css class to sertain element
+ */
 
 function fadeOut() {
     document.getElementById('overlayContainer').classList.add('fade-out');
 }
 
+
+/**
+ * this function removes the overlay over as a result of not showing the animation 
+ */
+
 function removeOverlay() {
     document.getElementById('overlayContainer').classList.add('d-none');
 }
 
-
-/// in case Back Button has been clicked
 

@@ -7,15 +7,15 @@ let result;
 async function init() {
     checkWidth();
     await getAllAppData();
-    // await testUsersToServer();
     await getUsers();
     showLoginDialog();
     // loadFromLocalStorage();
 }
 
 
-
-// Log in Dialog wird wieder gezeigt
+/**
+ * this function is supposed to show the Log In Dialog
+ */
 
 function showLoginDialog() {
     document.getElementById('header').innerHTML = 'Log in';
@@ -27,7 +27,9 @@ function showLoginDialog() {
 
 }
 
-/*Login Version 2*/
+/**
+ * this function is taking the value from input Fields and initialising another two function, which are in charge of searching for the match 
+ */
 
 
 function logIn() {
@@ -38,8 +40,12 @@ function logIn() {
 
 }
 
-
-//email und passwort werden verglichen und bei Match an Summary weitergeleitet
+/**
+ * this function is searching for a match of given inputs in array named users, 
+ * a variable named findEmail will, if found, contain the data of user in form of array
+ * @param {string} email -  email of the user to compare
+ * @param {string} password - password from the user to compare
+ */
 
 function searchForMatch(email, password) {
     let findEmail = users.filter(u => u['email'] == email);
@@ -51,6 +57,12 @@ function searchForMatch(email, password) {
     }
 }
 
+/**
+ * this function is trying to find a match in a array of findEmail by checking the value of password,
+ * if so, user Id Number will be saved in localStorage, and start page will be showed
+ * @param {*} findEmail - contains the data of user in form of array
+ * @param {*} password - password from the user to compare
+ */
 
 function checkPassword(findEmail, password) {
     let userName = findEmail[0]['name'];
@@ -64,7 +76,12 @@ function checkPassword(findEmail, password) {
     }
 }
 
-//id und userName werden auf localStorage gespeichert
+
+/**
+ * this function is saving two strings to the localStorage
+ * @param {string} userId - the value of Identification number of user
+ * @param {string} userName - the value of name of user
+ */
 
 function saveIdToLocalStorage(userId, userName) {
     localStorage.setItem('userId', userId);
@@ -73,7 +90,10 @@ function saveIdToLocalStorage(userId, userName) {
 }
 
 
-///// wenn man an Guest Login button druckt, wird Guest Account gestartet
+
+/**
+ * this function is initialising the Demo Version with Guest Data
+ */
 
 function showGuestProfile() {
     let emailGuest = 'guest@join.de';
@@ -82,8 +102,9 @@ function showGuestProfile() {
 }
 
 
-
-// Sign up formular wird angezeigt
+/**
+ * this function is showing Sign up Dialog
+ */
 
 function showSignUpDialog() {
     document.getElementById('header').innerHTML = 'Sign up';
@@ -93,19 +114,32 @@ function showSignUpDialog() {
 }
 
 
-//der neue User wird erstellt 
-//
+/**
+ * this function is creating, when the conditions are right, new account for user
+ */
 
-async function register() {
+function register() {
     document.getElementById('registerBtn').disabled = true;
     let name = document.getElementById('userName').value;
     let email = document.getElementById('userEmail').value;
     let passwort = document.getElementById('userPasswort').value;
     let confirmedPasswort = document.getElementById('userPasswortConfirm').value;
+    checkNewUser(name, email, passwort, confirmedPasswort);
+}
 
 
-    //eventuell in andere Function ?? checkNewUser(name, email, passwort);
+/**
+ * this function is checking if the current user already exists in array named users, using the values of variables taken 
+ * from input fileds. 
+ *  
+ * @param {string} name - the value of name of user
+ * @param {string} email - the value of email of user
+ * @param {string} passwort - the value of password of user
+ * @param {string} confirmedPasswort - the value of the confirmed password of user
+ */
 
+
+function checkNewUser(name, email, passwort, confirmedPasswort) {
     let findName = users.filter(u => u['name'] == name);
     let findEmail = users.filter(u => u['email'] == email);
 
@@ -122,28 +156,42 @@ async function register() {
         alert('You have to agree to our Privacy policy in order to register');
         showSignUpDialog();
     }
-
     else {
-        users.push({
-            "userId": getRandomNumber(),
-            "name": name,
-            "email": email,
-            "passwort": passwort
-        });
-        newUserIdtoAppData(result);// neuer User wird in appData gespeichert
-        saveUsersOnServer();
-        resetFields();
-        showLoginDialog();
+        createNewUser(name, email, passwort);
     }
-
-    // resetFields();// überlege wie und wann soll Formularfelder gelöscht werden = sign up formular
     findName = [];
     findEmail = [];
-
 }
 
 
-///Function vom Storage.js übernommen, neu registrierter User wird auf Haupt Storage gespeichert 
+/**
+ * this function is creating new User by pushing its values first to the array named users, than saving the data on server
+ * 
+ * @param {string} name - the value of name of user
+ * @param {string} email - the value of email of user
+ * @param {string} passwort - the value of password of user
+ */
+
+function createNewUser(name, email, passwort) {
+    users.push({
+        "userId": getRandomNumber(),
+        "name": name,
+        "email": email,
+        "passwort": passwort
+    });
+    newUserIdtoAppData(result);// new User will be saved in appData 
+    saveUsersOnServer();
+    resetFields();
+    showLoginDialog();
+}
+
+
+
+/**
+ * this function, as taken from storage.js, is in charge of saving user data on main storage/server
+ * @param {string} userId - value of identification number unique to the user that have been created 
+ */
+
 
 function newUserIdtoAppData(userId) {
     const newAppData = {
@@ -158,7 +206,12 @@ function newUserIdtoAppData(userId) {
 }
 
 
-//// eine 5-stellige random Nummer wird generiert
+/**
+ * this function creates a five digit random but unique number, 
+ * which is going to be assigned first to a globaly defined variable called result
+ *  
+ * @returns random unique number that has been assigned to new user
+ */
 
 function getRandomNumber() {
     let min = 10000;
@@ -168,7 +221,12 @@ function getRandomNumber() {
 }
 
 
-//es wird überprüft ob policy gecheckt ist oder nicht
+/**
+ * this function is trying to find out whaether the check box has been checked or not
+ * 
+ * @returns - value of true or false
+ */
+
 
 function policyCheck() {
     if (document.getElementById('acceptPrivacyPolicy').checked) {
@@ -178,7 +236,15 @@ function policyCheck() {
     }
 }
 
-////CheckBox wird überprüft, ob es angecheckt ist, und wird user Data on localStorage gespeichert und bei nächstem Mal angezeigt
+
+
+/**
+ * this function is trying to find out whaether the check box on the Sign Dialog has been checked or not, 
+ * if so, the values of variables are going to be saved in localStorage 
+ * 
+ * @param {string} email - the value of email of user
+ * @param {string} password - the value of password of user
+ */
 
 function checkRememberMe(email, password) { //eventuell noch in login function
     if (document.getElementById('rememberMe').checked) {
@@ -189,11 +255,23 @@ function checkRememberMe(email, password) { //eventuell noch in login function
 }
 
 
+
+/**
+ * this function saves the values of variables of the user to the local storage
+ * @param {string} email - the value of email of user 
+ * @param {string} password - the value of password of user
+ */
+
 function saveToLocalStorage(email, password) {
     localStorage.setItem('email', email);
     localStorage.setItem('password', password);
 }
 
+
+
+/**
+ * this function is getting the data from user out of the localStorage the next time he tryes to log in
+ */
 
 function loadFromLocalStorage() {
     if (!localStorage.getItem('email') && localStorage.getItem('password') == null) {
@@ -204,13 +282,13 @@ function loadFromLocalStorage() {
         let inputPassword = localStorage.getItem('password');
         document.getElementById('email').value = `${inputEmail}`;
         document.getElementById('passwort').value = `${inputPassword}`;
-
     }
-
 }
 
 
-// Inhalt von Login Felder wird gelöscht
+/**
+ * this function deletes the value of the Login Fields
+ */
 
 function resetSignInFields() {
     document.getElementById('email').value = '';
@@ -218,7 +296,9 @@ function resetSignInFields() {
 }
 
 
-// die Values aus Feldern werden gelöscht
+/**
+ * this function deletes the value of the Sign in Fields
+ */
 
 function resetFields() {
     document.getElementById('registerBtn').disabled = false;
@@ -228,7 +308,9 @@ function resetFields() {
 }
 
 
-// Dialog Forgot my Passwort wird angezeigt
+/**
+ * function is showing the forgotMyPasswort Dialog
+ */
 
 function showForgotMyPasswort() {
     document.getElementById('header').innerHTML = 'I forgot my passwort';
@@ -237,6 +319,11 @@ function showForgotMyPasswort() {
     forgotMyPasswortTemplate();
     adjustingHeader();
 }
+
+
+/**
+ * this function is adjusting the html element depending on a width of the page
+ */
 
 function adjustingHeader() {
     if (innerWidth < 450) {
@@ -247,8 +334,9 @@ function adjustingHeader() {
 }
 
 
-
-//Dialog soll nur als Link aus geschickter Email angezeigt??!!
+/**
+ * this function shows the Dialog resetPassword, to which has one been redirected from a confirmatiion mail
+ */
 
 function resetAccount() {
     /////Dieses Teil bezieht sich auf reset Passwort Fenster wenn man Link aus email klickt///
@@ -257,14 +345,17 @@ function resetAccount() {
 
     let checkEmail = document.getElementById('resetEmail').value;
     searchForEmail(checkEmail);
-
 }
 
 
+/**
+ * this function is searching the array named users, by using the value from a email field
+ * @param {string} checkEmail - value of the field in reset password section
+ */
 function searchForEmail(checkEmail) {
     for (let i = 0; i < users.length; i++) {
         if (checkEmail == users[i]['email']) {
-            //to do redirect to page 'E mail mit Link wurde erfolgreich auf {checkEmail} geschick'
+            //to do redirect to page 'E mail mit Link wurde erfolgreich auf {checkEmail} geschickt
             console.log('we have a match', users[i]['userId']);
             templateEmailSucces(i);
             checkEmail.value = '';
@@ -272,12 +363,13 @@ function searchForEmail(checkEmail) {
             console.log('Email not Found, please sign up');
             // alert('It seems that User with the following email has not been found! Please sign up.');
         }
-
     }
-
 }
 
-//Show Hide password
+
+/**
+ * this function is in charge of masking/showing the password that has been typed
+ */
 
 function showHidePassword() {
     let x = document.getElementById('passwort');
@@ -290,14 +382,13 @@ function showHidePassword() {
 
 
 
-//wofür habe ich das gebraucht?
+
+//////???????????????wofür habe ich das gebraucht?
 
 function checkUser(name, email) {
     for (let j = 0; j < users.length; j++) {
         let element = users[j];
         returnCheckedUser(element, name, email);
-
-
     }
 }
 
@@ -353,7 +444,11 @@ function returnCheckedUser(element, name, email) {
 
 
 
-//Animation, die für Web/Mobile Version angepasst wird
+
+
+/**
+ * function is adjusting Animation depending on mobile/Web layout
+ */
 
 function checkWidth() {
     if (innerWidth < 450) {
@@ -368,7 +463,11 @@ function checkWidth() {
     }
 }
 
-/* Logo adjustment web to mobile and mobile to web */
+
+/**
+ * function is adjusting an html element (Logo) according to the size of the screen(mobile or Web)
+ */
+
 
 window.addEventListener('resize', checkLogo);
 
@@ -380,9 +479,14 @@ function checkLogo() {
 
         document.getElementById('mobileLogo').classList.add('adj-web-logo');
         document.getElementById('webLogo').classList.remove('adj-mobile-logo');
-
     }
 }
+
+
+
+/**
+ * function is adjusting an html element (h1) according to the size of the screen
+ */
 
 window.addEventListener('resize', checkResetPasswortH1);
 
@@ -394,7 +498,9 @@ function checkResetPasswortH1() {
     }
 }
 
-///////////////////RESET PASSWORT/////////////////////////// momentan immmer noch inactive
+
+
+///////////////////RESET PASSWORT/////////////////////////// inactive at the moment
 
 // async function onSubmit(event) {
 //     event.preventDefault(); // Prevent Deafault Form Action
@@ -421,10 +527,16 @@ function checkResetPasswortH1() {
 // }
 
 
+
+
+
 //////////////////  Templates //////////////////////////
 
 
-// Template für Login
+
+/**
+ * function is showing the html template of Login
+ */
 
 function logInTemplate() {
     document.getElementById('formContainer').innerHTML = `
@@ -444,7 +556,10 @@ function logInTemplate() {
     `;
 }
 
-// Template für Sign In
+
+/**
+ * function is showing the html template of sign in
+ */
 
 function signUpTemplate() {
     document.getElementById('formContainer').innerHTML = `
@@ -459,7 +574,9 @@ function signUpTemplate() {
 }
 
 
-// Template für forgot my password
+/**
+ * function is showing the html template of forgotMyPassword
+ */
 
 function forgotMyPasswortTemplate() {
     document.getElementById('formContainer').innerHTML = `
@@ -473,7 +590,9 @@ function forgotMyPasswortTemplate() {
 
 
 
-//// reset password
+/**
+ * function is showing the html template of resetPassword
+ */
 
 function resetPasswortTemplate() {
     document.getElementById('formContainer').innerHTML = `
@@ -484,7 +603,10 @@ function resetPasswortTemplate() {
 `;
 }
 
-//// Email succesfully sent
+
+/**
+ * function is showing the html template of email succesfully sent
+ */
 
 function templateEmailSucces(i) {
     document.getElementById('header').innerHTML = 'Email sent!';
