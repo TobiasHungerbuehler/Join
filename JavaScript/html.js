@@ -247,6 +247,9 @@ function createContactFullHtml(initials, colorClass, name) {
 function shwoTaskForm(submitfunction,i) {
     return /*html*/ `
          <div class="board-overlay-inlay" id="board-overlay-inlay">
+         <div class="close-button-full" onclick="closeTaskFull()">
+                <img src="./Img/arrow-left-blue.svg" alt="">
+            </div>
                     <form onsubmit="${submitfunction}(${i}); return false" id="form">
                 <div class="form-input-section">
                     <div class="form-left">
