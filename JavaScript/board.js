@@ -394,6 +394,7 @@ const priorityValues = {
 function showFullTask(i) {
     let task = tasks[i]
     showOverlayBoard();
+    document.getElementById('body').style.overflow = 'hidden';
     renderFullTask(task, i);
     showTaskContactsFull(task,i)
     setPrioOnFullTask(task);  
@@ -405,8 +406,6 @@ function showFullTask(i) {
  */
 function showOverlayBoard(){
     document.getElementById('board-overlay').classList.remove('d-none')
-    document.getElementById('body').style.overflow = 'hidden';
-
 }
 
 
@@ -660,7 +659,7 @@ function setFormCloseButton(){
     document.getElementById('board-overlay-inlay').innerHTML += /*html*/ `
     <div class="close-button-parent">
         <div class="close-button-addTask" onclick="closeTaskFull()">
-            <img src="./Img/icon_close.svg" alt="">
+            <img src="./Img/arrow-left-blue.svg" alt="">
         </div>
     </div>
     `;
