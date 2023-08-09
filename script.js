@@ -2,7 +2,10 @@ let users = [];
 let firstCheck;
 let result;
 
-
+/**
+ * loading data from server, including users, 
+ * initializes all neccesery functions in order for page to work 
+ */
 
 async function init() {
     checkWidth();

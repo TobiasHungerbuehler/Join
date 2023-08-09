@@ -1,8 +1,15 @@
+/**
+ * functions are being initialized
+ */
+
 async function init() {
     await includeHTML();
-    // document.getElementById('headline').innerHTML = 'Herzlich willkommen!';
     checkUser();
 }
+
+/**
+ * this function imports the Template to every page
+ */
 
 async function includeHTML() {
     let includeElements = document.querySelectorAll('[w3-include-html]');
@@ -18,8 +25,10 @@ async function includeHTML() {
     }
 }
 
+/**
+ * the picture for the avatar will be set depending on the identification number of guest user or new registered user
+ */
 
-//id vom User wird überprüft um begrüßt zu werden
 function checkUser() {
     if (userId == 11111) {
         document.getElementById('avatarHeaderImage').src = "./Img/christina-wocintechchat.png";
@@ -29,13 +38,18 @@ function checkUser() {
 }
 
 
-//User wird zur Startseite weitergeleitet
+/**
+ * user will be redirected to the start page
+ */
+
 function logOut() {
     window.location.href = './index.html';
-    //to do Müssen die Id und userName aus localStorage gelöscht??
 }
 
-//PopOut button erscheint auf der rechte Seite
+/**
+ * sliding menu will be shown on the right side depending on a screen size
+ */
+
 function showPopOut() {
     if (innerWidth < 600) {
         document.getElementById('helpBtn').classList.remove('d-none');
@@ -49,17 +63,10 @@ function showPopOut() {
 }
 
 
+/**
+ * closes the sliding menu on the right side
+ */
 
 function closePopOut() {
-    // debugger;
     document.getElementById('popOut').classList.remove('pop-out-web');
 }
-
-// window.addEventListener('click', function(e){   
-//     if (document.getElementById('popOut').contains(e.target && "style=translateX(0)")){
-//       return;
-//     } else{
-//         closePopOut();
-//     }
-//   });
-

@@ -307,8 +307,8 @@
     }
 
     .kanban-contacts {
-        display: block;
-        padding-left: 0;
+        display: none !important;
+        /* padding-left: 0; */
     }
 
     .underline-contact {

@@ -1,6 +1,13 @@
 let temporaryContacts = [];
 let letters = [];
 
+/**
+ * loading all data from server, including contacts, tasks,
+ * initializes all neccesery functions in order for page to work 
+ * 
+ */
+
+
 async function loadContactPage() {
     init();
     await getAllAppData()// load appData from Server
@@ -9,11 +16,13 @@ async function loadContactPage() {
     accessContacts();
     getCategoryArray(); // -> addTask.html  // from board
     getEmailsFromContacts(); // from board
-    myFunction();
+    adjustElements();
 }
 
+/**
+ * acceses the array named contacts, initializing 
+ */
 
-//Function, mit der wir erstens durch Array iterrieren
 
 function accessContacts() {
     if (!contacts.includes(temporaryContacts)) {
@@ -25,7 +34,11 @@ function accessContacts() {
 }
 
 
-//Function, die Elemente/Buchstaben aus Letter Array rendert
+
+/**
+ * rendering the starting letters from the array named letters 
+ */
+
 
 function renderLetters() {
     let adressBook = document.getElementById('adressBook');
@@ -33,11 +46,16 @@ function renderLetters() {
         const element = letters[j];
         adressBook.innerHTML += renderTemplateLetter(j);
     }
-
 }
 
 
-//Function, die erste Buchstabe aus dem Nachnemen ausschneidet, pusht in array und sorrtiert nach alfabet
+
+/**
+ * first letter from the lastname of a user out of the array named contacts will be taken, 
+ * checkt if the array named letters already contains it, if not, it will be stored int array named letters 
+ * and sorted in alphabetical order
+ * @param {string} i - stands for the every single object of an array named letters
+ */
 
 function checkFirstLetter(i) {
     let letter = contacts[i]['name'];
@@ -49,7 +67,11 @@ function checkFirstLetter(i) {
 }
 
 
-//Function, die nimmt Initials aus dem Namen
+/**
+ * the initials of the user will be created
+ * @param {object} k - stands for every single object from an array called contacts
+ * @returns - value of initials of the users name
+ */
 
 function checkInitial(k) {
     let initialText = "";
@@ -61,8 +83,12 @@ function checkInitial(k) {
 }
 
 
-///Function, die nochmal durch contacts iterriert, überprüft ob der Name von Contacts mit Buchstabe übereinstimmt und gibt den Wert zurück
 
+/**
+ * the container of a contact with basic information will be created, by comparing first letter of a name with the elements from array called letters
+ * @param {object} j - stands for every single object from array named contacts
+ * @returns html element containing basic information of the contact
+ */
 function renderContacts(j) {
     let someHTML = "";
     for (let k = 0; k < contacts.length; k++) {
@@ -77,7 +103,11 @@ function renderContacts(j) {
 
 
 
-// Function zeigt Informationen von einzelnen Contacts auf der rechte Seite
+/**
+ * more Information about Contact will be shown in a sliding window on the right side
+ * @param {object} k - stands for every single object in array called contacts
+ */
+
 
 function showContact(k) {
     eraseBackground();
@@ -104,15 +134,17 @@ function showContact(k) {
         document.getElementById('editContactBtn').classList.add('d-none');
         document.getElementById('adressBook').classList.add('d-none');
     }
- 
 }
 
 
+/**
+ * depending on a width of a screen, sertain html elements will be shown or hidden 
+ */
 
-window.addEventListener('resize', myFunction);
+window.addEventListener('resize', adjustElements);
 
 
-function myFunction() {
+function adjustElements() {
     if (innerWidth < 600) {
         document.getElementById('newContactResponsiveBtn').innerHTML = "";
     }
@@ -135,6 +167,10 @@ function myFunction() {
 
 
 
+/**
+ * closes the window AdressBook when in mobile version
+ */
+
 function closeContactInfoMobile() {
     document.getElementById('contactSection').classList.add('d-none');
     document.getElementById('adressBook').classList.remove('d-none');
@@ -143,7 +179,11 @@ function closeContactInfoMobile() {
 }
 
 
-//Background vom früherangeclikten Elementen werden gelöscht
+
+/**
+ * background of non selected contact Button will be erased
+ */
+
 
 function eraseBackground() {
     let elements = document.getElementsByClassName('contact-bg');
@@ -154,7 +194,11 @@ function eraseBackground() {
 }
 
 
-// Function, die füs Aufmachen des Fensters 'Add contacts Section' zuständig ist
+
+/**
+ * opens the dialog Add new Contact
+ */
+
 
 function showContactDialog() {
     document.getElementById('dialogContainer').classList.remove('d-none');
@@ -164,7 +208,9 @@ function showContactDialog() {
 
 
 
-//Dialog wird zugemacht
+/**
+ * closes the dialog Add new Contact
+ */
 
 function closeContactDIalog() {
     document.getElementById('dialogContainer').classList.add('d-none');
@@ -172,10 +218,13 @@ function closeContactDIalog() {
 }
 
 
-//fügt neueingetragene Kontakte in Contacts Array hinzu
+
+/**
+ * new contact will be created
+ */
+
 
 function registerContact() {
-    // letters = [];
     let contactName = document.getElementById('contactName');
     let contactEmail = document.getElementById('contactEmail');
     let contactPhone = document.getElementById('contactPhone');
@@ -201,7 +250,11 @@ function registerContact() {
 
 
 
-// die Farbe wird beim Zufall ausgewählt
+
+/**
+ * the color of avatar will be chosen by random choice
+ * @returns - variable which has a value of a string that has the same name as defined css class 
+ */
 
 function pickAcolor() {
     let colors = ["blue", "red", "yellow", "green", "hell-blue", "purple", "orange", "gold", "tomato"];
@@ -211,7 +264,10 @@ function pickAcolor() {
 }
 
 
-// die Felder werden geleert
+
+/**
+ * the fields will be cleared
+ */
 
 function resetFields() {
     contactName.value = '';
@@ -220,17 +276,30 @@ function resetFields() {
 }
 
 
-
-//nachdem neu Kontakt erstellt, ergänzt oder gelöscht wurde, info box wird angezeigt
+/**
+ * after the contact has been created, info box will be shown
+ */
 
 function showSuccessBox() {
     document.getElementById('successInfo').classList.add('show-success-info');
 }
 
+
+
+/**
+ * after the contact has been deleted, info box will be shown
+ */
+
 function showContactDeletedInfo() {
     document.getElementById('successInfo').innerHTML = 'Contact successfully deleted';
     document.getElementById('successInfo').classList.add('show-success-info');
 }
+
+
+
+/**
+ * after the contact has been edited, info box will be shown
+ */
 
 function showContactEditedInfo() {
     document.getElementById('successInfo').innerHTML = 'Contact successfully edited';
@@ -239,7 +308,11 @@ function showContactEditedInfo() {
 }
 
 
-//Kontakt Dialog wird geöffnet um Kontakt zuändern
+
+/**
+ * opens the dialog in order to edit the contact
+ * @param {object} k - stands for every single object in array called contacts
+ */
 
 function editContact(k) {
     document.getElementById('formContainer').innerHTML = renderEditTemplate(k);
@@ -252,11 +325,15 @@ function editContact(k) {
     document.getElementById('contactName').value = `${contacts[k]['name']}`;
     document.getElementById('contactEmail').value = `${contacts[k]['email']}`;
     document.getElementById('contactPhone').value = `${contacts[k]['phone']}`;
-
 }
 
 
-function saveChangedContact(k) { //hier werden wir noch eine Variable brauchen damit wir leichter mit Werte manipulieren können
+/**
+ * edited changes on contact will be saved on the server
+ * @param {object} k - stands for every single object in array called contacts
+ */
+
+function saveChangedContact(k) { 
     contacts[k]['name'] = document.getElementById('contactName').value;
     contacts[k]['email'] = document.getElementById('contactEmail').value;
     contacts[k]['phone'] = document.getElementById('contactPhone').value;
@@ -270,8 +347,11 @@ function saveChangedContact(k) { //hier werden wir noch eine Variable brauchen d
 }
 
 
+/**
+ * change of deleting the contact will be saved on the server
+ * @param {object} k - stands for every single object in array called contacts
+ */
 
-//Kontakt wird gelöscht
 
 function deleteContact(k) {
     contacts.splice(k, 1);
@@ -285,7 +365,10 @@ function deleteContact(k) {
 }
 
 
-//reseting the Dialog Box, bzw, umschalten von Edit auf AddContact
+
+/**
+ * switching between the Add Contact and Edit Contact dialog 
+ */
 
 function clearForm() {
     document.getElementById('addContactHeader').innerHTML = "Add Contact";
@@ -300,7 +383,12 @@ function clearForm() {
 
 
 
-//Templates für Buchstabe-Container
+
+/**
+ * container that represents initial of the adress book will be shown
+ * @param {object} j - represents the object in array called letters
+ * @returns html element
+ */
 
 function renderTemplateLetter(j) {
     return /*HTML*/ `
@@ -310,7 +398,11 @@ function renderTemplateLetter(j) {
 }
 
 
-// Kontakt wird detaliert angezegt
+/**
+ * every information of an contact will be shown in sliding window on the right side (web), as a separate window (mobile)
+ * @param {object} k -represents the object in array called contacts
+ * @returns html element
+ */
 
 function showContactDetails(k) {
     return /*HTML*/ `
@@ -339,7 +431,10 @@ function showContactDetails(k) {
 }
 
 
-//Formular Add new Contacts wird angezeigt
+/**
+ * the form add new contact will be shown
+ * @returns html element
+ */
 
 function dialogTemplate() {
     return /*HTML*/ `
@@ -353,8 +448,12 @@ function dialogTemplate() {
 }
 
 
+/**
+ * digested information about contact will be shown as a part of adressbook
+ * @param {object} k -represents the object in array called contacts
+ * @returns html element
+ */
 
-// Templates für Contact-container
 
 function renderTemplateContact(k) {
 
@@ -367,9 +466,11 @@ function renderTemplateContact(k) {
 }
 
 
-
-
-//Formular Edit Contact wird angezeigt
+/**
+ * form edit contact will be shown
+ * @param {object} k - represents the object in array called contacts
+ * @returns html element
+ */
 
 function renderEditTemplate(k) {
     return /*HTML*/ `

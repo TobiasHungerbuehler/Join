@@ -3,8 +3,8 @@ userName = localStorage.getItem('userName');
 
 
 /**
- * 
- * 
+ * loading data from server, 
+ * initializes all neccesery functions in order for page to work 
  */
 
 async function loadSummary() {
