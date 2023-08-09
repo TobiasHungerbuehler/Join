@@ -448,9 +448,7 @@
 
 
 @media(max-width: 1350px){
-    .full-task-container{
 
-    }
 
     .board-page-content {
         width: 600px;
@@ -480,26 +478,11 @@
 
     }
 
-    .board-overlay-inlay{
-        /* position: fixed;
-        border-radius: 0; 
-        height: 95%;
-        width: 100%; 
-        align-items: flex-start; */
-    }
-
- 
     .form-input-section{
         margin-top: 180px;
         width: 100%;
     }
     
-    /* .button-bar  {
-        position: fixed;
-        justify-content: flex-end;
-        top: 0px;
-        width: 100%;
-    } */
 
     #form {
         width: 350px;  
@@ -541,18 +524,9 @@
         font-size: 40px;
     }
 
-    .board-overlay-inlay {
-        /* margin-top: 550px;
-        margin-bottom: 700px; */
-    }
-
-
     .options-full {
         width: auto;
         flex-direction: column;
-        /* position: fixed; */
-        /* bottom: 120px;
-        right: 20px; */
     }
 
     .delete-task-button{
