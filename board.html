@@ -23,10 +23,10 @@
 
     
 </head>
-<body onload="initBoard()">
+<body onload="initBoard()" id="body">
     <div w3-include-html="./Templates/template-Web.html"></div>
     <div class="board-overlay d-none" id="board-overlay"></div>
-    <div class="page">
+    <div class="page" id="page">
         <div class="title-container-board flex-container">
             <h1 class="page-title">Board</h1>
             <img class="addTask-button-mobile-board" src="./Img/icon_plus.svg" alt="" onclick="showAddTaskForm()">        
@@ -49,32 +49,28 @@
                     <span>To do</span>
                     <img src="./Img/icon_plus_edge.svg" alt="" onclick="showAddTaskForm()">
                 </div>
-                <div class="kanban-Container" id="toDo" ondrop="moveTo('toDo')" ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlighting('toDo')"
-                ontouchmove="touchMove(event)" ontouchend="touchEnd(event)"></div>
+                <div class="kanban-Container" id="toDo" ondrop="moveTo('toDo')" ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlighting('toDo')"></div>
             </div>
             <div>
                 <div class="kanban-container-titel">
                     <span>In progress</span>
                     <img src="./Img/icon_plus_edge.svg" alt="" onclick="showAddTaskForm()">
                 </div>
-                <div class="kanban-Container" id="inProgress" ondrop="moveTo('inProgress')" ondragleave="removeHighlight('inProgress')" ondragover="allowDrop(event); highlighting('inProgress')"
-                ontouchmove="touchMove(event)" ontouchend="touchEnd(event)"></div>
+                <div class="kanban-Container" id="inProgress" ondrop="moveTo('inProgress')" ondragleave="removeHighlight('inProgress')" ondragover="allowDrop(event); highlighting('inProgress')"></div>
             </div>
             <div>
                 <div class="kanban-container-titel">
                     <span>Awaiting feedback</span>
                     <img src="./Img/icon_plus_edge.svg" alt="" onclick="showAddTaskForm()">
                 </div>
-                <div class="kanban-Container" id="awaitingFeedback" ondrop="moveTo('awaitingFeedback')" ondragleave="removeHighlight('awaitingFeedback')" ondragover="allowDrop(event); highlighting('awaitingFeedback')"
-                ontouchmove="touchMove(event)" ontouchend="touchEnd(event)"></div>
+                <div class="kanban-Container" id="awaitingFeedback" ondrop="moveTo('awaitingFeedback')" ondragleave="removeHighlight('awaitingFeedback')" ondragover="allowDrop(event); highlighting('awaitingFeedback')"></div>
             </div>
             <div>
                 <div class="kanban-container-titel">
                     <span>done</span>
                     <img src="./Img/icon_plus_edge.svg" alt="" onclick="showAddTaskForm()">
                 </div>
-                <div class="kanban-Container" id="done" ondrop="moveTo('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlighting('done')"
-                ontouchmove="touchMove(event)" ontouchend="touchEnd(event)"></div>  
+                <div class="kanban-Container" id="done" ondrop="moveTo('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlighting('done')"></div>  
             </div>
         </div>
     </div>  

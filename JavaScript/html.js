@@ -144,11 +144,9 @@ function resetSubtaskInput() {
  */
 function generateTaskPreviewHTML(task, status, i) {
     return document.getElementById(status).innerHTML += /*html*/ `
-        <div class="task-container" id="task${i}" draggable="true" 
-             ontouchstart="startDraggingTouch(event, ${i})" 
-             ontouchend="touchEnd(event)"
-             ondragstart="startDragging(${i})" 
-             onclick="showFullTask(${i})">
+        <div class="task-container" id="task${i}" draggable="true"              
+            ondragstart="startDragging(${i})" 
+            onclick="handleClick(${i})">
             <div class="task-category-container" style="background-color: ${task['category']['color']}">${task['category']['category']}</div>
             <div class="task-title-container">${task['title']}</div>
             <div class="task-description-container">${task['description']}</div>
@@ -159,7 +157,7 @@ function generateTaskPreviewHTML(task, status, i) {
                 </div>
             </div>
         </div>
-    `;   
+    `;
 }
 
 
@@ -206,7 +204,7 @@ function renderFullTask(task,i) {
                 <div class="contact-render-container-full" id="contact-render-container-full"></div>                   
             </div>   
             <div class="close-button-full" onclick="closeTaskFull()">
-                <img src="./Img/icon_close.svg" alt="">
+                <img src="./Img/arrow-left-blue.svg" alt="">
             </div>
             <div class="options-full" >
                 <div class="delete-task-button" onclick="deleteTask(${i})">

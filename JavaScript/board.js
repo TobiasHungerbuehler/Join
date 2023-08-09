@@ -252,7 +252,6 @@ function clearAllStatusContainers() {
  */
 function startDragging(id) {
     currentDraggedElement = id; // Speichert die ID des bewegten Elements
-    console.log('start draging', id)
 }
 
 
@@ -262,12 +261,18 @@ function startDragging(id) {
  * @param {string} newStatus - The new status of the task.
 */
 async function moveTo(newStatus) {
-    console.log('move to', newStatus)
     tasks[currentDraggedElement]['status'] = newStatus; // Change Status in task Array
-    await saveTasksOnServer(); // save Task on Server
+    updatePreview();
+}
+
+
+
+async function updatePreview() {
+    await saveTasksOnServer(); 
     renderTasksToKanban();
     removeAllHighlights(); 
 }
+
 
 
 /**
@@ -312,97 +317,51 @@ function removeAllHighlights() {
 
 
 // Mobile
-let touchStartY;
-let boundaryCheckInterval = null;
-const BOUNDARY_THRESHOLD = 50;  // Sie können diesen Wert anpassen,
-const SCROLL_AMOUNT = 20;
+let clickTimer = null;
+let isDoubleClick = false;
 
-function startDraggingTouch(event, id) {
-    currentDraggedElement = id;
-    touchStartY = event.touches[0].clientY;
-
-    const originalElement = document.getElementById(`task${id}`);
-    clonedElement = originalElement.cloneNode(true);
-    clonedElement.style.position = "fixed";
-    clonedElement.style.zIndex = "1000";
-    clonedElement.style.width = "150px";
-    yOffset = event.touches[0].clientY - originalElement.getBoundingClientRect().top;
-    xOffset = event.touches[0].clientX - originalElement.getBoundingClientRect().left;
-    document.body.appendChild(clonedElement);
-
-    updateClonePosition(event.touches[0].clientX, event.touches[0].clientY);
-}
-
-function touchMove(event) {
-    if (!currentDraggedElement) return;
-    event.preventDefault();
-    updateClonePosition(event.touches[0].clientX, event.touches[0].clientY);
-}
-
-function touchEnd(event) {
-    const touchEndY = event.changedTouches[0].clientY;
-    const touchEndX = event.changedTouches[0].clientX;
-
-    const checkWithinBounds = (container) => {
-        const rect = container.getBoundingClientRect();
-        return touchEndY > rect.top && touchEndY < rect.bottom && touchEndX > rect.left && touchEndX < rect.right;
-    };
-
-    if (clonedElement) {
-        document.body.removeChild(clonedElement);
-        clonedElement = null;
-    }
-
-    if (checkWithinBounds(document.getElementById('toDo'))) {
-        moveTo('toDo');
-    } else if (checkWithinBounds(document.getElementById('inProgress'))) {
-        moveTo('inProgress');
-    } else if (checkWithinBounds(document.getElementById('awaitingFeedback'))) {
-        moveTo('awaitingFeedback');
-    } else if (checkWithinBounds(document.getElementById('done'))) {
-        moveTo('done');
-    }
-
-    // Stoppen Sie das Intervall, wenn das Ziehen endet
-    if (boundaryCheckInterval) {
-        clearInterval(boundaryCheckInterval);
-        boundaryCheckInterval = null;
-    }
-    currentDraggedElement = null; ////////////////////////////////
-}
-
-function updateClonePosition(currentX, currentY) {
-    clonedElement.style.left = `${currentX - xOffset}px`;
-    clonedElement.style.top = `${currentY - yOffset}px`;
-}
-
-
-///*css*/
-function checkBoundaries() {
-    if (!clonedElement) return;
-
-    const rect = clonedElement.getBoundingClientRect();
-
-    if (rect.top <= BOUNDARY_THRESHOLD) {
-        console.log("Element ist am oberen Rand");
-        scrollWindow("up");
-    } else if (rect.bottom >= window.innerHeight - BOUNDARY_THRESHOLD) {
-        console.log("Element ist am unteren Rand");
-        scrollWindow("down");
-    }
-}
-
-function scrollWindow(direction) {
-    if (direction === "up") {
-        window.scrollBy(0, -SCROLL_AMOUNT);
-    } else if (direction === "down") {
-        window.scrollBy(0, SCROLL_AMOUNT);
+function handleClick(i) {
+    if (clickTimer === null) {
+        clickTimer = setTimeout(function() {
+            if (!isDoubleClick) {
+                showFullTask(i); // Funktion für den einfachen Klick
+            }
+            clearTimeout(clickTimer);
+            clickTimer = null;
+            isDoubleClick = false;
+        }, 300); // 300ms Verzögerung
+    } else {
+        isDoubleClick = true;
+        showTaskOptions(i); // Funktion für den Doppelklick
+        clearTimeout(clickTimer);
+        clickTimer = null;
     }
 }
 
 
+function showTaskOptions(i) {
+    // Ihre Logik für den Doppelklick hier
+    document.getElementById('task'+i).innerHTML = /*html*/ `
+        <div class="task-container-options" onclick="renderTasksToKanban()">
+            <div class="arrow-left">
+                <img src="./Img/arrow-left-blue.svg" alt="">
+            </div>
+            <div class="task-option-btn" onclick="changeStautsTo(${i},'done')">Done</div>
+            <div class="task-option-btn" onclick="changeStautsTo(${i},'awaitingFeedback')">Awaiting Feedback</div>
+            <div class="task-option-btn" onclick="changeStautsTo(${i},'inProgress')">In progress</div>
+            <div class="task-option-btn" onclick="changeStautsTo(${i},'toDo')">To Do</div>
+        </div>
+    `;
+}
 
-    
+
+async function changeStautsTo(i, status){
+    tasks[i]['status'] =  status; 
+    updatePreview()
+}
+
+
+  
 /*********************************************************************/
 /* Task fullview */
 /*********************************************************************/
@@ -446,6 +405,8 @@ function showFullTask(i) {
  */
 function showOverlayBoard(){
     document.getElementById('board-overlay').classList.remove('d-none')
+    document.getElementById('body').style.overflow = 'hidden';
+
 }
 
 
@@ -653,6 +614,7 @@ function showAddedTaskContacts(taskEmails){
 function closeTaskFull() {
     document.getElementById('board-overlay').innerHTML = '';
     document.getElementById('board-overlay').classList.add('d-none')
+    document.getElementById('body').style.overflow = 'auto';
 }
 
 
