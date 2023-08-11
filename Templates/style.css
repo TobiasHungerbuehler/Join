@@ -176,7 +176,8 @@ p {
     .container-left {
         width: unset;
 
-    }
+    } 
+    
 
     .kanban-text {
         margin-left: 150px;
@@ -253,7 +254,7 @@ p {
         justify-content: center;
         align-items: center;
         height: 90%;
-        /* width: unset; */
+        width: 100px !important; 
         margin-bottom: 0;
         padding: 0;
         width: 7px;
