@@ -20,7 +20,18 @@ header {
     left: 0;
     right: 0;
     z-index: 2;
+}
 
+.logo-cont {
+    margin-top: 20px;
+}
+
+.links-cont {
+    margin-top: 40px;
+}
+
+#headline p {
+    margin-bottom: 0;
 }
 
 .logo-mobile {
@@ -175,12 +186,19 @@ p {
 
     .container-left {
         width: unset;
-
     } 
     
-
     .kanban-text {
         margin-left: 150px;
+    }
+
+    
+    .logo-cont {
+        margin-top: 60px;
+    }
+
+    .links-cont {
+        margin-top: 20px;
     }
 
     .logo-cont img {
@@ -208,10 +226,11 @@ p {
         width: 26px;
         height: 26px;
         margin-left: 0;
-        margin-bottom: 14px;
+        margin-bottom: 5px;
     }
 
     .m-left {
+        font-size: 15px;
         margin-left: 0;
     }
 
@@ -229,8 +248,10 @@ p {
         bottom: 0;
         right: 0;
         top: unset;
-        height: 80px;
-        z-index: 1;
+        height: 60px;
+        justify-content: center;
+
+        /* z-index: 1; */
     }
 
     .logo-cont {
@@ -245,8 +266,7 @@ p {
         display: flex;
         width: 100%;
         justify-content: space-around;
-        min-height: 80px;
-
+        align-items: center;
     }
 
     .links-cont-elements {
@@ -255,8 +275,7 @@ p {
         align-items: center;
         height: 90%;
         width: 100px !important; 
-        margin-bottom: 0;
-        padding: 0;
+        padding-bottom: 15px;
         width: 7px;
         border-radius: 20px;
         margin-top: 4px;
