@@ -120,9 +120,6 @@ p {
     padding: 10px;
     cursor: pointer;
     color: #FFFFFF;
-    
-
-
 }
 
 .links-cont-elements:hover {
@@ -248,10 +245,8 @@ p {
         bottom: 0;
         right: 0;
         top: unset;
-        height: 60px;
+        height: 74px;
         justify-content: center;
-
-        /* z-index: 1; */
     }
 
     .logo-cont {
@@ -263,20 +258,20 @@ p {
     }
 
     .links-cont {
+        margin-top: 0px;
+        padding-top: 5px;
         display: flex;
         width: 100%;
         justify-content: space-around;
-        align-items: center;
     }
 
     .links-cont-elements {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 90%;
+        height: 65px;
         width: 100px !important; 
         padding-bottom: 15px;
-        width: 7px;
         border-radius: 20px;
         margin-top: 4px;
     }
@@ -288,7 +283,8 @@ p {
     }
    
     .m-left {
-        margin-left: 0;
+        margin: 0;
+        padding: 0;
         font-size: 14px;
     }
 
