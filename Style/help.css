@@ -1,9 +1,9 @@
 .help-cont {
     margin-left: 46px;
-    padding-right: 85px;
     margin-top: 36px;
-    overflow-y: auto;
-    width: 100%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
 }
 
 .number {

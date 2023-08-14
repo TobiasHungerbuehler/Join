@@ -350,7 +350,10 @@ function renderContactIcons() {
         const email = addedContacts[i];
         const initials = getInitials(email) // --> board.js
         const color = getColorClass(email) // --> board.js
-        createContactIconHtml(initials, color);
+        if(initials){
+            console.log(email, initials, color)
+            createContactIconHtml(initials, color);
+        }
     }
 }
 

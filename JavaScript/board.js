@@ -493,6 +493,7 @@ async function deleteTask(i){
 function editTaskWindow(i) {
     document.getElementById('board-overlay').innerHTML = '';
     document.getElementById('board-overlay').innerHTML = shwoTaskForm('editTask', i);
+    setFormCloseButton()
     setValuesOnForm(i);
 }
 

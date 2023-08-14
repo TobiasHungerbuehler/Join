@@ -1,3 +1,0 @@
-Template -container-left z-index auf 3 erhöhen - erledigt
-Kanban Project Management Tool auf Summray in responsive entfernen - erledigt
-summary ist zu gross? - erledigt
