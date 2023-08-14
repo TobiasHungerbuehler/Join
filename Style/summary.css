@@ -16,8 +16,8 @@
     /* height: 211px; changed */
     /* justify-content: center; */
     align-items: center;
-    padding-top: 16px;
-    padding-bottom: 16px;
+   padding-top: 16px;  /* changed */
+    padding-bottom: 16px; /* changed */
 }
 
 .kanban-contacts {
