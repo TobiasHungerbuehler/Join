@@ -23,9 +23,11 @@
 .header-cont {
     display: flex;
     padding: 60px;
-    height: 211px;
+    /* height: 211px; changed */
     /* justify-content: center; */
     align-items: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
 }
 
 .kanban-contacts {
@@ -54,7 +56,7 @@
 
 .summary-task-cont {
     /* background-color: bisque; */
-    min-height: 600px;
+    /* min-height: 600px; */ /* changed*/
     min-width: 500px;
     display: flex;
     margin-left: 62px;

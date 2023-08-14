@@ -64,7 +64,7 @@ function showTimeOfTheDay() {
         document.getElementById('greet').innerHTML = 'Good Evening,';
         document.getElementById('greetMobile').innerHTML = 'Good Evening,';
     }
-    else if (hour >= evening && hour <= sunrise) {
+    else if (hour >= evening && hour <= midnight) {
         document.getElementById('greet').innerHTML = 'Good night,';
         document.getElementById('greetMobile').innerHTML = 'Good night,';
     }
