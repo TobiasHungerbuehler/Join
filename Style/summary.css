@@ -1,3 +1,13 @@
+.d-none{
+    display: none !important;
+}
+
+.summary-cont{
+    overflow-y: scroll;
+}
+
+
+
 .summary-cont {
     position: absolute;
     left: 232px;
