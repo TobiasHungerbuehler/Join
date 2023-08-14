@@ -927,3 +927,82 @@ body {
         bottom: calc(5%);
     }
 }
+
+
+/****************responsive Height *************/
+
+@media(max-height: 650px) and (max-width: 1400px) {
+
+    .contact-section-header-cont {
+        padding-top: 18px !important;
+        padding-bottom: 18px !important;
+    }
+
+    .dialog-box {
+        width: 85vw;
+        height: 85vh;
+    }
+
+    .dialog-text1 {
+        font-size: 50px;
+    }
+
+    .dialog-text2 {
+        font-size: 24px;
+    }
+}
+
+@media(max-height: 650px) and (max-width: 1050px) {
+    .dialog-box {
+        width: 90vw;
+
+    }
+}
+
+@media(max-height: 650px) and (max-width: 900px) {
+    .dialog-text-cont {
+        margin-top: -38px;
+    }
+
+    .big-initial-contacts-info {
+        top: -50px;
+        width: 95px;
+        height: 95px;
+    }
+
+    .input-cont {
+        margin-bottom: 16px !important;
+    }
+
+    .form-container {
+        margin-top: 32px;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .dialog-box {
+        height: 95vh;
+    }
+
+    .contact-section-header-cont {
+        padding-top: 0px !important;
+    }
+
+    .big-initial {
+        width: 70px;
+        height: 70px;
+        
+    }
+
+    .mobile-edit-btn {
+        bottom: calc(8%);
+    }
+
+    .kanban-contacts {
+        display: none !important;
+    }
+    
+}
