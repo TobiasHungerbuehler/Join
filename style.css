@@ -154,11 +154,11 @@ form {
 .emailBtn {
     min-width: 245px !important;
 }
-
+/* 
 .adjusting-header {
     width: 59vw;
-    margin-left: calc(10%);
-}
+    margin-left: calc(32%);
+} */
 
 .policy-legal-links-cont {
     position: absolute;
@@ -255,7 +255,7 @@ form {
     left: calc(8%) !important;
     top: calc(10%) !important;
     width: 100px !important;
-    height: 120px !important;
+    height: 120px !important; 
 }
 
 .adj-mobile-logo {
@@ -265,7 +265,11 @@ form {
     height: 100px !important;
 }
 
-
+.adj-dialog-signUp {
+    margin-top: calc(16%);
+    height: 73vh !important;
+    
+}
 
 /*******Animation for Web Version *********************************/
 
@@ -638,5 +642,132 @@ form {
 
     .emailBtn {
         min-width: 145px !important;
+    }
+}
+
+/* ***********responsive Height *****************/
+
+@media(max-height: 650px) and (max-width: 1450px) {
+    .blue-btn {
+        font-size: 16px;
+        width: 180px;
+    }
+
+    .white-btn {
+        font-size: 16px;
+        width: 180px;
+        margin-top: 0;
+        margin-left: 12px;
+    }
+
+
+    .dialog-links-cont {
+        flex-direction: unset;
+        margin-bottom: 12px;
+    }
+
+    .forgot-passwort {
+        margin-bottom: 12px;
+    }
+
+    .button-cont {
+        display: flex;
+        flex-direction: unset;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .info-box-right {
+        top: calc(2%);
+
+    }
+
+    .adj-mobile-logo {
+        left: calc(8%) !important;
+
+    }
+
+    .input-cont {
+        height: 42px;
+        margin-bottom: 12px;
+        gap: 75px;
+        font-size: 14px;
+    }
+
+    .policy-cont {
+
+        margin-bottom: 12px;
+    }
+
+}
+
+@media(max-height: 650px) and (max-width: 550px) {
+    .blue-btn {
+        font-size: 16px;
+        width: 180px;
+        height: 42px;
+    }
+
+    .white-btn {
+        font-size: 16px;
+        width: 180px;
+        margin-top: 0;
+        margin-left: 0;
+        height: 42px;
+    }
+
+
+    .dialog-links-cont {
+        flex-direction: column-reverse;
+        margin-bottom: 12px;
+        font-size: 14px;
+    }
+
+    .forgot-passwort {
+        margin-bottom: 12px;
+    }
+
+    .button-cont {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .info-box-right {
+        top: unset;
+        bottom: calc(6%);
+        left: calc(11%);
+        right: calc(11%);
+
+    }
+
+
+    .adj-mobile-logo {
+        left: calc(14%) !important;
+
+    }
+
+    h1 {
+        font-size: 37px !important;
+    }
+
+    .section-text {
+        margin-bottom: 12px;
+    }
+
+    .underline {
+        margin-top: 12px;
+    }
+
+}
+
+@media(max-height: 650px) and (max-width: 550px) {
+    .input-cont {
+        gap: 0;
+    }
+    
+    h1 {
+        font-size: 32px !important;
     }
 }

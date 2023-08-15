@@ -13,6 +13,7 @@ async function init() {
     await getUsers();
     showLoginDialog();
     // loadFromLocalStorage();
+    checkLogoResponsiveHeightDelay();
 }
 
 
@@ -21,6 +22,7 @@ async function init() {
  */
 
 function showLoginDialog() {
+    reAdjustDialogHeight();
     document.getElementById('header').innerHTML = 'Log in';
     document.getElementById('arrowImg').classList.add('d-none');
     document.getElementById('infoBoxRight').classList.remove('d-none');
@@ -110,11 +112,34 @@ function showGuestProfile() {
  */
 
 function showSignUpDialog() {
+    adjustDialogHeight();
     document.getElementById('header').innerHTML = 'Sign up';
     document.getElementById('arrowImg').classList.remove('d-none');
     document.getElementById('infoBoxRight').classList.add('d-none');
     signUpTemplate();
 }
+
+
+/**
+ * adjusting the size of sign up dialog depending on a width and height
+ */
+
+function adjustDialogHeight() {
+    if(innerWidth < 550 && innerHeight < 650) {
+        document.getElementById('dialog').classList.add('adj-dialog-signUp');
+    }
+}
+
+
+
+/**
+ * readjusting the size of  sign up dialog depending on a width and height
+ */
+
+function reAdjustDialogHeight() {
+    document.getElementById('dialog').classList.remove('adj-dialog-signUp');
+}
+
 
 
 /**
@@ -454,6 +479,7 @@ function returnCheckedUser(element, name, email) {
  */
 
 function checkWidth() {
+    
     if (innerWidth < 450) {
         document.getElementById('mobileOverlay').classList.remove('d-none');
         document.getElementById('webOverlay').classList.add('d-none');
@@ -485,6 +511,27 @@ function checkLogo() {
     }
 }
 
+
+/**
+ * adjusting the size of a logo depending on a height value
+ */
+
+window.addEventListener('resize', checkLogoResponsiveHeight);
+
+function checkLogoResponsiveHeight() {
+    if (innerWidth < 1400 && innerHeight < 650) {
+        document.getElementById('webLogo').classList.add('adj-mobile-logo');
+    }
+}
+
+
+/**
+ * adjusting the size of the logo with a delay
+ */
+
+function checkLogoResponsiveHeightDelay() {
+    setTimeout(checkLogoResponsiveHeight, 3000);
+}
 
 
 /**
