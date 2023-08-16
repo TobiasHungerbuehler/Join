@@ -1,7 +1,5 @@
 let matchingTasks = [];
 
-
-
 /*********************************************************************/
 /* Board start functions */
 /*********************************************************************/
@@ -13,7 +11,6 @@ let matchingTasks = [];
 async function initBoard() {
     init() // Start Template
     await getAllAppData()// load appData from Server
-
     await getTasks() // load tasks from server and save in "tasks"
     await getContacts() // Load Contacts from Server
     getCategoryArray() // -> addTask.html 
@@ -36,7 +33,6 @@ function renderTasksToKanban() {
         showTaskPrioImage(task,i)
     }
 }
-
 
 
 /**

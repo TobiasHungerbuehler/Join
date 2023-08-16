@@ -26,7 +26,6 @@ async function initAddTask() {
     getEmailsFromContacts() 
 }
 
-
 /**
  * Read the categories including color from "tasks" and store them in taskCategories array
  */

@@ -28,22 +28,6 @@ async function newAppData() {
 }
 
 
-basicAppData = [
-  {
-    "userId": 11111,
-    "data": {
-      "tasks": [],
-      "contacts": []
-    }
-  },
-  {
-    "userId": 22222,
-    "data": {
-      "tasks": [],
-      "contacts": []
-    }
-  }
-];
 
 let testTasks = [
   {
@@ -87,22 +71,7 @@ let testTasks = [
       {"title": "Review and finalize reports with management", "isCompleted": "true"}
     ],
     "status": 'awaitingFeedback'
-  },
-  {
-    "title": "Test 4",
-    "description": "Compile financial data and create reports for management.",
-    "category": { "category": "Backoffice", "color": "#e27329" },
-    "taskEmails": ["stefan@joinmail.com","friedrich@joinmail.com" ],
-    "dueDate": "2023-05-31",
-    "prio": "low",
-    "subtasks": [
-      {"title": "Gather financial data from relevant sources", "isCompleted": "true"},
-      {"title": "Organize data and create financial reports", "isCompleted": "true"},
-      {"title": "Review and finalize reports with management", "isCompleted": "true"}
-    ],
-    "status": 'awaitingFeedback'
   }
-
 ]
 
 let testContacts = [
@@ -155,3 +124,22 @@ let testContacts = [
       'avatarColor': 'orange'
     }
   ];
+
+
+  
+basicAppData = [
+  {
+    "userId": 11111,
+    "data": {
+      "tasks": [],
+      "contacts": []
+    }
+  },
+  {
+    "userId": 22222,
+    "data": {
+      "tasks": [],
+      "contacts": []
+    }
+  }
+];

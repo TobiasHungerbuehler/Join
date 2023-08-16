@@ -69,10 +69,12 @@ function searchForMatch(email, password) {
  * @param {*} password - password from the user to compare
  */
 
-function checkPassword(findEmail, password) {
+async function checkPassword(findEmail, password) {
     let userName = findEmail[0]['name'];
     if (findEmail[0]['passwort'] == password) {
         let userIdTest = findEmail[0]['userId'];
+        await demoTaskToServer()
+        await demoContactsToServer()
         window.location = "./summary.html";
         saveIdToLocalStorage(userIdTest, userName);
 

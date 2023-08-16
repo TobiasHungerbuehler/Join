@@ -2,6 +2,10 @@
     display: none !important;
 }
 
+.body {
+    overflow-y: scroll;
+}
+
 .flex-container {
     display: flex;
     justify-content: space-between;
@@ -57,13 +61,13 @@
 }
 
 .kanban-Container {
-    min-height: 400px;
+    min-height: 350px;
     width: 250px;
     border-radius: 15px;
 }
 
 .highlight {
-    border: 1px dotted rgba(0, 0, 0, 0.3)
+    background-color: #d3d2d2;
 }
 
 
