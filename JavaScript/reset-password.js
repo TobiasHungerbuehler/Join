@@ -1,7 +1,5 @@
 
-///////am Start der reset Passwort Seite  soll
-// <script onload = "onPageLoad()">
-//let email = "";
+let email = "";
 //let users;
 
 function onPageLoad() {

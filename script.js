@@ -376,38 +376,6 @@ function adjustingHeader() {
 }
 
 
-/**
- * this function shows the Dialog resetPassword, to which has one been redirected from a confirmatiion mail
- */
-
-function resetAccount() {
-    /////Dieses Teil bezieht sich auf reset Passwort Fenster wenn man Link aus email klickt///
-    // document.getElementById('header').innerHTML = 'Reset your passwort';
-    // resetPasswortTemplate();
-
-    let checkEmail = document.getElementById('resetEmail').value;
-    searchForEmail(checkEmail);
-}
-
-
-/**
- * this function is searching the array named users, by using the value from a email field
- * @param {string} checkEmail - value of the field in reset password section
- */
-function searchForEmail(checkEmail) {
-    for (let i = 0; i < users.length; i++) {
-        if (checkEmail == users[i]['email']) {
-            //to do redirect to page 'E mail mit Link wurde erfolgreich auf {checkEmail} geschickt
-            templateEmailSucces(i);
-            checkEmail.value = '';
-        } else {
-            // alert('It seems that User with the following email has not been found! Please sign up.');
-            //to do reminding of incorrect input
-            showForgotMyPasswort();
-
-        }
-    }
-}
 
 
 /**
@@ -422,70 +390,6 @@ function showHidePassword() {
         x.type = "password";
     }
 }
-
-
-
-
-//////???????????????wofür habe ich das gebraucht?
-
-function checkUser(name, email) {
-    for (let j = 0; j < users.length; j++) {
-        let element = users[j];
-        returnCheckedUser(element, name, email);
-    }
-}
-
-
-function returnCheckedUser(element, name, email) {
-    if (element['name'] == name || element['email'] == email) {
-        return firstCheck === true;
-    }
-    else {
-        return false;
-    }
-}
-
-
-
-
-/***********************/
-
-// Login Version 1
-
-
-// function logIn() {
-//     let email = document.getElementById('email').value;
-//     let password = document.getElementById('passwort').value;
-//     console.log(email, password);
-//     // debugger;
-//     checkRememberMe(email, password);
-//     searchForMatch(email, password);
-
-// }
-
-//User der in LogIn Felder Daten eingegeben hat, sollen mit Inhalt aus Array Users vergliechen werden
-
-// function searchForMatch(email, passwort) {
-//     for (let i = 0; i < users.length; i++) {
-
-//         if (users[i]['email'] == email && users[i]['passwort'] == passwort) {
-//             let userIdLogIn = users[i]['userId'];
-//             let userName = users[i]['name'];
-//             const url = "/summary.html?" + userIdLogIn + '?=' + userName;
-//             console.log('gefunden');
-//             window.location.href = url;
-//         } else {
-//             // To Do was passiert wenn email oder passwort nicht überreinstimmen
-//             console.log('Fehler');
-//         }
-
-//     }
-// }
-
-/***********************/
-
-
-
 
 
 
@@ -565,31 +469,68 @@ function checkResetPasswortH1() {
 
 
 
-///////////////////RESET PASSWORT/////////////////////////// inactive at the moment
+///////////////////RESET PASSWORT/////////////////////////// 
 
-// async function onSubmit(event) {
-//     event.preventDefault(); // Prevent Deafault Form Action
-//     let formData = new FormData(event.target); // create a FormData based on our Form element in HTML
-//     let response = await action(formData);
-//     if (response.ok) {
-//         alert('Email was sent');
-//     } else {
-//         alert('Email was not sent');
-//     }
-// }
 
-// function action(formData) {
-//     const input = 'https://gruppe-558.developerakademie.net/send_mail.php';
-//     const requestInit = {
-//         method: 'post',
-//         body : formData
-//     };
+/**
+ * checking if the given mail already exists in a array named users 
+ * @returns value of true or false
+ */
+function compareEmails() {
+    let checkEmail = document.getElementById('resetEmail').value;
+    let findEmail = users.filter(u => u['email'] == checkEmail); 
+    if(findEmail.length > 0){ 
+        return true
+    } else {
+        return false
+    }
+}
 
-//     return fetch(
-//         input,
-//         requestInit
-//     );
-// }
+
+/**
+ * if the values of emails match, sending data on a server and initialising start of php file execution 
+ * @param {*} event Prevent Deafault Form Action
+ */
+
+
+async function onSubmit(event) {
+  if (compareEmails() === true) {
+    event.preventDefault(); // Prevent Deafault Form Action
+    let formData = new FormData(event.target); // create a FormData based on our Form element in HTML
+    let response = await action(formData);
+    if (response.ok) {
+        alert('Email was sent');
+        templateEmailSucces();
+    } else {
+        alert('Email was not sent');
+    }
+   
+} 
+else {
+    alert('It seems that User with the following email has not been found! Please sign up.');
+}
+
+
+/**
+ * 
+ * @param {*} formData based on our Form element in HTML
+ * @returns fetching data from server
+ */
+
+function action(formData) {
+    const input = 'https://gruppe-558.developerakademie.net/Join/send_mail.php';
+    const requestInit = {
+        method: 'post',
+        body : formData
+    };
+
+    return fetch(
+        input,
+        requestInit
+    );
+
+} 
+}
 
 
 
@@ -648,7 +589,7 @@ function forgotMyPasswortTemplate() {
     <div class="forgot-passwort-text">Don't worry! We will send you an email with the instructions to reset your passwort.</div>
     <form onsubmit="onSubmit(event)" method="post" id="formPasswort">
     <div class="input-cont"><input requiered type="email" placeholder="Email" id="resetEmail" name="email"><img src="./Img/icon_mail.svg"></div>
-    <div class="button-cont"><button class="blue-btn passwort-btn emailBtn" id="resetEmailBtn" onclick="resetAccount(); return false" type="submit">Send me the email</button></div>
+    <div class="button-cont"><button class="blue-btn passwort-btn emailBtn" id="resetEmailBtn" return false" type="submit">Send me the email</button></div>
     </form> 
     `;
 }
@@ -673,10 +614,10 @@ function resetPasswortTemplate() {
  * function is showing the html template of email succesfully sent
  */
 
-function templateEmailSucces(i) {
+function templateEmailSucces() {
     document.getElementById('header').innerHTML = 'Email sent!';
     document.getElementById('formContainer').innerHTML = `
-    <div class="forgot-passwort-text">An Email with a Link has been successfully sent to ${users[i]['email']}.</div>
+    <div class="forgot-passwort-text">An Email with a Link has been successfully sent to you.</div>
     `;
 
 }

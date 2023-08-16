@@ -125,17 +125,10 @@ function showContact(k) {
 
 function setTheRightScreen(){
 if (window.innerWidth > 1048) {
-    document.getElementById('mobileEditBtn').classList.add('d-none');// Butttons(edit/delete), die nur bei responsive Contacts erscheint
-    document.getElementById('adressBook').classList.remove('d-none'); // das Section mit Namen und Initialen wird wieder voll angezeigt
-    document.getElementById('mobileEditBtn').classList.add('d-none');
-    document.getElementById('contactSection').style = "display: inline";
+    greatherThan1048p();
 }
 if (window.innerWidth < 1048) {
-    document.getElementById('adressBook').classList.add('d-none');
-    document.getElementById('contactSection').style = "display: block";
-    document.getElementById('contactSection').classList.remove('d-none');
-    document.getElementById('contactBtnResponsiveCont').classList.add('d-none');
-    document.getElementById('mobileEditBtn').classList.remove('d-none');
+    smallerThan1048p();
 }
 
 if (window.innerWidth < 900) {
@@ -145,6 +138,29 @@ if (window.innerWidth < 900) {
 
 }
 
+/**
+ * adjusting the content bigger than the given width
+ */
+
+function greatherThan1048p() {
+    document.getElementById('mobileEditBtn').classList.add('d-none');
+    document.getElementById('adressBook').classList.remove('d-none'); 
+    document.getElementById('mobileEditBtn').classList.add('d-none');
+    document.getElementById('contactSection').style = "display: inline";
+}
+
+
+/**
+ * adjusting the content smaller than the given width
+ */
+
+function smallerThan1048p(){
+    document.getElementById('adressBook').classList.add('d-none');
+    document.getElementById('contactSection').style = "display: block";
+    document.getElementById('contactSection').classList.remove('d-none');
+    document.getElementById('contactBtnResponsiveCont').classList.add('d-none');
+    document.getElementById('mobileEditBtn').classList.remove('d-none');
+}
 
 /**
  * depending on a width of a screen, sertain html elements will be shown or hidden 
@@ -252,7 +268,7 @@ function registerContactCheck() {
     let contactEmail = document.getElementById('contactEmail');
     let contactPhone = document.getElementById('contactPhone');
     let color = pickAcolor();
-    
+
     if (!contacts.includes(contactName && contactEmail && contactPhone)) {
         contacts.push({
             name: contactName.value,
