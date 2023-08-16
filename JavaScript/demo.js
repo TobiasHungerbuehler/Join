@@ -2,7 +2,13 @@
 /* Demo Data */
 /*********************************************************************/
 
-// ladet einen neuen satz demo task
+/**
+ * Loads a new set of demo tasks to the server.
+ *
+ * @async
+ * @function demoTaskToServer
+ * @returns {Promise<void>} Promise object represents the completion of the task upload.
+ */
 async function demoTaskToServer() {
     const userDataSet = appData.find(user => user.userId === userId);
     userDataSet.data.tasks = testTasks;
@@ -11,7 +17,14 @@ async function demoTaskToServer() {
     await setItem(key, value);
 }
 
-/// provisorische test task für aktuelle USer wieder auf server speichern 
+
+/**
+ * Saves provisional test contacts for the current user to the server.
+ *
+ * @async
+ * @function demoContactsToServer
+ * @returns {Promise<void>} Promise object represents the completion of the contact upload.
+ */
 async function demoContactsToServer() {
     const userDataSet = appData.find(user => user.userId === userId);
     userDataSet.data.contacts = testContacts;
@@ -21,6 +34,13 @@ async function demoContactsToServer() {
 }
 
 
+/**
+ * Sets the AppData structure on the server.
+ *
+ * @async
+ * @function newAppData
+ * @returns {Promise<void>} Promise object represents the completion of the data structure update.
+ */
 async function newAppData() {
     let key = "appData";
     let value = basicAppData;
@@ -28,7 +48,11 @@ async function newAppData() {
 }
 
 
-
+/**
+ * Example tasks used in demo.
+ *
+ * @type {Array<Object>}
+ */
 let testTasks = [
   {
     "title": "Phone prospecting for new customers",
@@ -74,6 +98,12 @@ let testTasks = [
   }
 ]
 
+
+/**
+ * Example contacts used in demo.
+ *
+ * @type {Array<Object>}
+ */
 let testContacts = [
     {
       'name': 'Jonas Jonasson',
@@ -126,7 +156,11 @@ let testContacts = [
   ];
 
 
-  
+/**
+ * Basic AppData structure for demo.
+ *
+ * @type {Array<Object>}
+ */
 basicAppData = [
   {
     "userId": 11111,
