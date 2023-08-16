@@ -138,14 +138,21 @@ form {
     justify-content: center;
     align-items: center;
     margin-left: 12px;
+    transition: all 225ms ease-in-out;
+    border: none;
 }
 
 /* To Do */
 
 .blue-btn:hover {
-    transition: myAnimation 1s ease-in-out;
+
+    /* transition: myAnimation 1s ease-in-out; */
+    transition: all 225ms ease-in-out;
     background-color: #29ABE2;
     border-color: #29ABE2;
+
+
+
     /* -webkit-box-shadow: 2px 4px 6px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 2px 4px 6px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 2px 4px 6px 0px rgba(0, 0, 0, 0.75); */
@@ -203,6 +210,12 @@ form {
     align-items: center;
     border: 1px solid #2A3647;
     cursor: pointer;
+    transition: all 225ms ease-in-out;
+}
+
+.white-btn:hover {
+    border: 2px solid #2A3647;
+    transition: all 225ms ease-in-out;
 }
 
 .info-box-right {

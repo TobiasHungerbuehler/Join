@@ -93,7 +93,9 @@
     align-items: center;
     cursor: pointer;
     transition: transform 1s ease-in-out;
-    ;
+
+    transition: all 225ms ease-in-out;
+
 
 }
 
@@ -102,6 +104,8 @@
     color: #FFFFFF;
     transform: scale(1.1);
     transform-origin: center;
+
+    transition: all 225ms ease-in-out;
 }
 
 .summary-task-box-numm {
@@ -198,6 +202,8 @@
     align-items: center;
     cursor: pointer;
     transition: transform 1s ease-in-out;
+
+    transition: all 225ms ease-in-out;
 }
 
 .summary-task-box-big:hover {
@@ -205,6 +211,8 @@
     color: #FFFFFF;
     transform: scale(1.1);
     transform-origin: center;
+
+    transition: all 225ms ease-in-out;
 
 }
 

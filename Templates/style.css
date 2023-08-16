@@ -120,10 +120,12 @@ p {
     padding: 10px;
     cursor: pointer;
     color: #FFFFFF;
+    transition: all 225ms ease-in-out;
 }
 
 .links-cont-elements:hover {
     background-color: #091931;
+    transition: all 225ms ease-in-out;
 }
 
 .links-cont-elements img {
