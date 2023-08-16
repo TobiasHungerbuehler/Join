@@ -50,7 +50,21 @@ function showTimeOfTheDay() {
     let afternoon = 18;
     let evening = 21;
     let midnight = 24;
+    showTimeOnStart(hour, sunrise, noon, afternoon, evening, midnight);
 
+}
+
+/**
+ * 
+ * @param {string} hour - value of the current hour
+ * @param {string} sunrise - value of the given time of the day
+ * @param {string} noon - value of the given time of the day
+ * @param {string} afternoon - value of the given time of the day
+ * @param {string} evening - value of the given time of the day
+ * @param {string} midnight - value of the given time of the day
+ */
+
+function showTimeOnStart(hour, sunrise, noon, afternoon, evening, midnight){
 
     if (hour < noon && hour > sunrise) {
         document.getElementById('greet').innerHTML = 'Good Morning,';
@@ -68,7 +82,6 @@ function showTimeOfTheDay() {
         document.getElementById('greet').innerHTML = 'Good night,';
         document.getElementById('greetMobile').innerHTML = 'Good night,';
     }
-
 }
 
 /**

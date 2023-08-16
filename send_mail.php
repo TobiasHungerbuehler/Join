@@ -44,7 +44,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         $message - "Dear Guest,
         \n You can now reset your password for your " . $email . " account by following the link bellow \n
-        \n https://aleksandar-miler.developerakademie.net/index.html?email=" . $email . "\n
+        \n https://gruppe-558.developerakademie.net/index.html?email=" . $email . "\n
         \n In case you got this email by misstake, please ignore this email. \n
         \nThank You,\n
         \nYour Join Team\n";

@@ -14,7 +14,6 @@ header {
     display: flex;
     align-items: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-    /*  changed */
     position: fixed;
     top: 0;
     left: 0;
@@ -69,6 +68,7 @@ p {
 .avatar-header:hover {
     border: 3px solid #eef0f3;
 }
+
 /* Section with Links */
 
 .container-left {
@@ -84,8 +84,6 @@ p {
     align-items: center;
     z-index: 3;
 }
-
-
 
 .upper-cont {
     height: 60%;
@@ -151,7 +149,6 @@ p {
 
 .log-out-pop-out-web {
     width: 130px;
-    /* height: 55px; */
     background-color: #2A3647;
     color: #FFFFFF;
     position: fixed;

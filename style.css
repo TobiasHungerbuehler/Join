@@ -7,6 +7,7 @@
 
 body {
     background: rgb(246, 247, 248);
+    overflow-y: hidden;
 
 }
 
@@ -79,7 +80,6 @@ form {
     height: 50px;
     display: flex;
     justify-content: space-evenly;
-    /* padding: 0px; */
     align-items: center;
     color: #D1D1D1;
     box-sizing: border-box;
@@ -145,27 +145,15 @@ form {
 /* To Do */
 
 .blue-btn:hover {
-
-    /* transition: myAnimation 1s ease-in-out; */
     transition: all 225ms ease-in-out;
     background-color: #29ABE2;
     border-color: #29ABE2;
-
-
-
-    /* -webkit-box-shadow: 2px 4px 6px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 2px 4px 6px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: 2px 4px 6px 0px rgba(0, 0, 0, 0.75); */
 }
 
 .emailBtn {
     min-width: 245px !important;
 }
-/* 
-.adjusting-header {
-    width: 59vw;
-    margin-left: calc(32%);
-} */
+
 
 .policy-legal-links-cont {
     position: absolute;
@@ -200,6 +188,7 @@ form {
 }
 
 /* white */
+
 .white-btn {
     width: 160px;
     height: 50px;
@@ -224,7 +213,6 @@ form {
     right: 24px;
     display: flex;
     justify-content: space-between;
-    /* width: 270px; */
 }
 
 .info-box-right span {
@@ -295,7 +283,6 @@ form {
     width: 100vw;
     height: 100vh;
     background-color: #F5F5F5;
-    /* background-color: #2A3647;  */
     animation-name: animation-web-bg;
     animation-delay: 1s;
     animation-duration: 1.7s;
@@ -354,7 +341,7 @@ form {
     }
 }
 
-/***********************************************/
+
 
 
 /*******Animation for Mobile Version *********************************/
@@ -367,7 +354,6 @@ form {
     bottom: 0;
     width: 100vw;
     height: 100vh;
-    /* background-color: #F5F5F5; */
     background-color: #2A3647;
     animation-name: animation-mobile-bg;
     animation-delay: 1s;
@@ -431,10 +417,6 @@ form {
     }
 
     100% {
-        /* opacity: 100%;
-        background-color: #F5F5F5;
-        z-index: 0; */
-
         position: unset;
         opacity: 100%;
         background-color: #F5F5F5;
@@ -442,6 +424,55 @@ form {
         height: unset;
     }
 }
+
+/* **************Animation succesfully registered *******************/
+
+
+/* Succses-button Section */
+
+.success-info-box {
+    width: 320px;
+    height: 50px;
+    background: #2A3647;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    position: absolute;
+    bottom: calc(10%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 21px;
+    transform: translateY(250px);
+
+}
+
+.show-success-info {
+    animation: myAnim 3s ease-in-out;
+}
+
+
+@keyframes myAnim {
+    0% {
+        transform: translateY(250px);
+    }
+
+    25% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(250px);
+    }
+}
+
 
 /**************Mobile Version only *********************************/
 
@@ -497,13 +528,6 @@ form {
 }
 
 @media (max-width: 550px) {
-    /* .web-logo {
-        left: calc(17%);
-        top: calc(9%);
-        width: 64px;
-        height: 100px;
-    } */
-
     .dialog {
         height: 65vh;
     }
@@ -659,6 +683,7 @@ form {
 }
 
 /* ***********responsive Height *****************/
+
 
 @media(max-height: 650px) and (max-width: 1450px) {
     .blue-btn {

@@ -114,26 +114,35 @@ function showContact(k) {
     document.getElementById(`contactInfoContainer`).classList.add('show-info-dialog');
     document.getElementById(`contactInfo${k}`).classList.add('contact-bg');
     document.getElementById(`contactInfoContainer`).innerHTML = showContactDetails(k);
+    setTheRightScreen();
+}
 
 
-    if (window.innerWidth > 1048) {
-        document.getElementById('mobileEditBtn').classList.add('d-none');// Butttons(edit/delete), die nur bei responsive Contacts erscheint
-        document.getElementById('adressBook').classList.remove('d-none'); // das Section mit Namen und Initialen wird wieder voll angezeigt
-        document.getElementById('mobileEditBtn').classList.add('d-none');
-        document.getElementById('contactSection').style = "display: inline";
-    }
-    if (window.innerWidth < 1048) {
-        document.getElementById('adressBook').classList.add('d-none');
-        document.getElementById('contactSection').style = "display: block";
-        document.getElementById('contactSection').classList.remove('d-none');
-        document.getElementById('contactBtnResponsiveCont').classList.add('d-none');
-        document.getElementById('mobileEditBtn').classList.remove('d-none');
-    }
+/**
+ * adjusting the content depending on the width of the screen
+ */
 
-    if (window.innerWidth < 900) {
-        document.getElementById('editContactBtn').classList.add('d-none');
-        document.getElementById('adressBook').classList.add('d-none');
-    }
+
+function setTheRightScreen(){
+if (window.innerWidth > 1048) {
+    document.getElementById('mobileEditBtn').classList.add('d-none');// Butttons(edit/delete), die nur bei responsive Contacts erscheint
+    document.getElementById('adressBook').classList.remove('d-none'); // das Section mit Namen und Initialen wird wieder voll angezeigt
+    document.getElementById('mobileEditBtn').classList.add('d-none');
+    document.getElementById('contactSection').style = "display: inline";
+}
+if (window.innerWidth < 1048) {
+    document.getElementById('adressBook').classList.add('d-none');
+    document.getElementById('contactSection').style = "display: block";
+    document.getElementById('contactSection').classList.remove('d-none');
+    document.getElementById('contactBtnResponsiveCont').classList.add('d-none');
+    document.getElementById('mobileEditBtn').classList.remove('d-none');
+}
+
+if (window.innerWidth < 900) {
+    document.getElementById('editContactBtn').classList.add('d-none');
+    document.getElementById('adressBook').classList.add('d-none');
+}
+
 }
 
 
@@ -151,7 +160,6 @@ function adjustElements() {
     if (innerWidth > 600) {
         document.getElementById('newContactResponsiveBtn').innerHTML = "New Contact";
     }
-
     if (innerWidth > 900) {
         document.getElementById('contactSection').style = "display: inline";
         document.getElementById('contactSection').classList.remove('d-none');
@@ -225,21 +233,7 @@ function closeContactDIalog() {
 
 
 function registerContact() {
-    let contactName = document.getElementById('contactName');
-    let contactEmail = document.getElementById('contactEmail');
-    let contactPhone = document.getElementById('contactPhone');
-
-    let color = pickAcolor();
-    if (!contacts.includes(contactName && contactEmail && contactPhone)) {
-        contacts.push({
-            name: contactName.value,
-            email: contactEmail.value,
-            phone: contactPhone.value,
-            avatarColor: color
-
-        });
-    }
-
+    registerContactCheck();
     saveContactsOnServer();
     resetFields();
     closeContactDIalog();
@@ -249,6 +243,25 @@ function registerContact() {
 }
 
 
+/**
+ * saves the contact under the condition that it doesent already exists
+ */
+
+function registerContactCheck() {
+    let contactName = document.getElementById('contactName');
+    let contactEmail = document.getElementById('contactEmail');
+    let contactPhone = document.getElementById('contactPhone');
+    let color = pickAcolor();
+    
+    if (!contacts.includes(contactName && contactEmail && contactPhone)) {
+        contacts.push({
+            name: contactName.value,
+            email: contactEmail.value,
+            phone: contactPhone.value,
+            avatarColor: color
+        });
+    }
+}
 
 
 /**
@@ -317,9 +330,8 @@ function showContactEditedInfo() {
 function editContact(k) {
     document.getElementById('formContainer').innerHTML = renderEditTemplate(k);
     document.getElementById('addContactHeader').innerHTML = "Edit Contact";
+
     document.getElementById('addContactText').innerHTML = " ";
-    // document.getElementById('cancelBtn').innerHTML = "Delete";
-    // document.getElementById('createContactBtn').innerHTML = "Save";
     document.getElementById('dialogContainer').classList.remove('d-none');
 
     document.getElementById('contactName').value = `${contacts[k]['name']}`;

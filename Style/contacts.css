@@ -7,7 +7,6 @@ body {
     position: absolute;
     left: 232px;
     top: 94px;
-    /* background-color: aquamarine; */
     width: calc(100% - 232px);
     height: calc(100% - 95px);
     display: flex;
@@ -18,8 +17,6 @@ body {
 
 .adress-book {
     width: calc(32%);
-    /* height: 100vh; */
-    /* background-color: bisque; */
     box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.08);
     overflow-x: hidden;
     overflow-y: auto;
@@ -34,7 +31,6 @@ body {
 
 .letter {
     height: 80px;
-    /* width: 350px; */
     border-bottom: 1px solid #D1D1D1;
     margin-bottom: 16px;
     font-size: 21px;
@@ -48,8 +44,6 @@ body {
 
 .contact-info {
     height: 80px;
-    /* width: 350px; */
-    /* background-color: chartreuse; */
     display: flex;
     padding-left: 20px;
     justify-content: flex-start;
@@ -150,7 +144,6 @@ body {
     top: 75px;
     right: calc(8%);
     display: none;
-    /* changed */
 }
 
 
@@ -225,14 +218,8 @@ body {
 }
 
 .contact-info-container {
-    /* width: 350px; */
-    /* height: 100vh; */
-    /* background-color: burlywood; */
     margin-left: 60px;
     transform: translateX(1200px);
-    /* transform: translateX(560px); schaue dir das noch mal an
-    
-    border-radius: 8px; */
     transition: all 1s ease-in-out;
 }
 
@@ -319,7 +306,6 @@ body {
 .mobile-edit-btn-link {
     width: 42px;
     height: 42px;
-    /* background-color: #2A3647; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -345,13 +331,13 @@ body {
 }
 
 /* Section Dialog Box add new Contact */
+
 .dialog-container {
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-    /* opacity: 0.25; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -359,13 +345,11 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.15);
-    /* backdrop-filter: blur(1px); */
 }
 
 .dialog-box {
     width: 80vw;
     height: 60vh;
-    /* background-color: #2A3647; */
     display: flex;
 }
 
@@ -438,7 +422,6 @@ body {
     height: 50px;
     display: flex;
     justify-content: space-evenly;
-    /* padding: 0px; */
     align-items: center;
     color: #D1D1D1;
     box-sizing: border-box;
@@ -446,13 +429,6 @@ body {
     gap: 48px;
 }
 
-/* 
-.input-field-name{
-    background-image: url(/Img/icon_user.svg);
-    width: 7px;
-    height: 7px;
-    background-repeat: no-repeat;
-} */
 
 .section-right input {
     outline: none;
@@ -559,6 +535,7 @@ body {
     background-color: tomato;
 }
 
+
 /* Succses-button Section */
 
 .success-info-box {
@@ -580,7 +557,6 @@ body {
 }
 
 .show-success-info {
-    /* transform: translateY(0); */
     animation: myAnim 3s ease-in-out;
 }
 
@@ -655,9 +631,6 @@ body {
         display: none;
     }
 
-    /* .new-contact-btn {
-        top: 120px;
-    } */
 
     .contact-btn-responsive-cont {
         display: flex;
@@ -754,7 +727,6 @@ body {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        /* padding-left: 50px; */
         border-top-right-radius: 55px;
         position: relative;
     }
@@ -763,18 +735,6 @@ body {
         display: none;
     }
 
-    /* 
-    .dialog-text1 {
-        margin-left: calc(22%);
-    }
-
-    .dialog-text2 {
-        margin-left: calc(22%);
-    }
-
-    .underline {
-        margin-left: calc(22%);
-    } */
 
     .section-right {
         width: 100%;

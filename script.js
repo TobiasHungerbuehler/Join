@@ -213,6 +213,7 @@ function createNewUser(name, email, passwort) {
     saveUsersOnServer();
     resetFields();
     showLoginDialog();
+    showSuccessBox();
 }
 
 
@@ -249,6 +250,17 @@ function getRandomNumber() {
     result = Math.floor(Math.random() * (max - min + 1)) + min;
     return result
 }
+
+
+
+/**
+ * after the user has been created, info box will be shown
+ */
+
+function showSuccessBox() {
+    document.getElementById('successInfo').classList.add('show-success-info');
+}
+
 
 
 /**
@@ -305,9 +317,9 @@ function saveToLocalStorage(email, password) {
 
 function loadFromLocalStorage() {
     if (!localStorage.getItem('email') && localStorage.getItem('password') == null) {
-        // console.log('You have not saved anything yet');
+        document.getElementById('email').value = '';
+        document.getElementById('passwort').value = '';
     } else {
-
         let inputEmail = localStorage.getItem('email');
         let inputPassword = localStorage.getItem('password');
         document.getElementById('email').value = `${inputEmail}`;
@@ -386,12 +398,13 @@ function searchForEmail(checkEmail) {
     for (let i = 0; i < users.length; i++) {
         if (checkEmail == users[i]['email']) {
             //to do redirect to page 'E mail mit Link wurde erfolgreich auf {checkEmail} geschickt
-            console.log('we have a match', users[i]['userId']);
             templateEmailSucces(i);
             checkEmail.value = '';
         } else {
-            console.log('Email not Found, please sign up');
             // alert('It seems that User with the following email has not been found! Please sign up.');
+            //to do reminding of incorrect input
+            showForgotMyPasswort();
+
         }
     }
 }
