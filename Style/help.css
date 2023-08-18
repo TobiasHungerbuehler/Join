@@ -29,14 +29,33 @@
 }
 
 .blue-arrow {
-    position: absolute;
-    top: 12px;
+    position: fixed;
+    top: 125px;
     right: 46px;
     cursor: pointer;
 }
 
 .dev-akademie {
     color: red;
+}
+
+/******* Daten Schutz *******/
+
+.daten-schutz-p {
+    font-size: 16px;
+    margin-left: 0 !important;
+}
+
+.daten-schutz-h1 {
+    padding-bottom: 32px;
+}
+
+.daten-schutz-h2 {
+    padding-bottom: 28px;
+}
+
+daten-schutz-h3 {
+    padding-bottom: 24px;
 }
 
 /*********** Responsive Version only **********/

@@ -166,6 +166,10 @@ p {
     
 }
 
+.log-out-pop-out-web a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
 .log-out-pop-out-web div {
     padding: 10px;
     margin-left: 8px;
