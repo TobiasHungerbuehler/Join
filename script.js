@@ -12,7 +12,7 @@ async function init() {
     await getAllAppData();
     await getUsers();
     showLoginDialog();
-    // loadFromLocalStorage();
+    //loadFromLocalStorage();
     checkLogoResponsiveHeightDelay();
 }
 

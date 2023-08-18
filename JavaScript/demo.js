@@ -3,52 +3,6 @@
 /*********************************************************************/
 
 /**
- * Loads a new set of demo tasks to the server.
- *
- * @async
- * @function demoTaskToServer
- * @returns {Promise<void>} Promise object represents the completion of the task upload.
- */
-async function demoTaskToServer() {
-    const userDataSet = appData.find(user => user.userId === userId);
-    userDataSet.data.tasks = testTasks;
-    let key = "appData";
-    let value = appData;
-    await setItem(key, value);
-}
-
-
-/**
- * Saves provisional test contacts for the current user to the server.
- *
- * @async
- * @function demoContactsToServer
- * @returns {Promise<void>} Promise object represents the completion of the contact upload.
- */
-async function demoContactsToServer() {
-    const userDataSet = appData.find(user => user.userId === userId);
-    userDataSet.data.contacts = testContacts;
-    let key = "appData";
-    let value = appData;
-    await setItem(key, value);
-}
-
-
-/**
- * Sets the AppData structure on the server.
- *
- * @async
- * @function newAppData
- * @returns {Promise<void>} Promise object represents the completion of the data structure update.
- */
-async function newAppData() {
-    let key = "appData";
-    let value = basicAppData;
-    await setItem(key, value);
-}
-
-
-/**
  * Example tasks used in demo.
  *
  * @type {Array<Object>}
@@ -154,6 +108,54 @@ let testContacts = [
       'avatarColor': 'orange'
     }
   ];
+
+/**
+ * Loads a new set of demo tasks to the server.
+ *
+ * @async
+ * @function demoTaskToServer
+ * @returns {Promise<void>} Promise object represents the completion of the task upload.
+ */
+async function demoTaskToServer() {
+    console.log(appData)
+    const userDataSet = appData.find(user => user.userId === userId);
+    userDataSet.data.tasks = testTasks;
+    let key = "appData";
+    let value = appData;
+    await setItem(key, value);
+}
+
+
+/**
+ * Saves provisional test contacts for the current user to the server.
+ *
+ * @async
+ * @function demoContactsToServer
+ * @returns {Promise<void>} Promise object represents the completion of the contact upload.
+ */
+async function demoContactsToServer() {
+    const userDataSet = appData.find(user => user.userId === userId);
+    userDataSet.data.contacts = testContacts;
+    let key = "appData";
+    let value = appData;
+    await setItem(key, value);
+}
+
+
+
+/**
+ * Sets the AppData structure on the server.
+ *
+ * @async
+ * @function newAppData
+ * @returns {Promise<void>} Promise object represents the completion of the data structure update.
+ */
+async function newAppData() {
+    let key = "appData";
+    let value = basicAppData;
+    await setItem(key, value);
+}
+
 
 
 /**
