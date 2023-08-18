@@ -117,7 +117,6 @@ let testContacts = [
  * @returns {Promise<void>} Promise object represents the completion of the task upload.
  */
 async function demoTaskToServer() {
-    console.log(appData)
     const userDataSet = appData.find(user => user.userId === userId);
     userDataSet.data.tasks = testTasks;
     let key = "appData";
