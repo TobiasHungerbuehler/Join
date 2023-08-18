@@ -117,11 +117,13 @@ let testContacts = [
  * @returns {Promise<void>} Promise object represents the completion of the task upload.
  */
 async function demoTaskToServer() {
-    const userDataSet = appData.find(user => user.userId === userId);
-    userDataSet.data.tasks = testTasks;
-    let key = "appData";
-    let value = appData;
-    await setItem(key, value);
+  const userDataSet = appData.find(user => user.userId === userId);
+  if (userDataSet) {
+      userDataSet.data.tasks = testTasks;
+      let key = "appData";
+      let value = appData;
+      await setItem(key, value);
+  } 
 }
 
 
@@ -133,11 +135,13 @@ async function demoTaskToServer() {
  * @returns {Promise<void>} Promise object represents the completion of the contact upload.
  */
 async function demoContactsToServer() {
-    const userDataSet = appData.find(user => user.userId === userId);
-    userDataSet.data.contacts = testContacts;
-    let key = "appData";
-    let value = appData;
-    await setItem(key, value);
+  const userDataSet = appData.find(user => user.userId === userId);
+  if (userDataSet) {
+      userDataSet.data.contacts = testContacts;
+      let key = "appData";
+      let value = appData;
+      await setItem(key, value);
+  } 
 }
 
 
