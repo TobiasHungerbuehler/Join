@@ -3,12 +3,6 @@
 }
 
 .summary-cont {
-    overflow-y: scroll;
-}
-
-
-
-.summary-cont {
     position: absolute;
     left: 232px;
     top: 94px;
@@ -16,7 +10,7 @@
     height: calc(100% - 95px);
     display: flex;
     flex-direction: column;
-
+    overflow-y: scroll;
 }
 
 .header-cont {
@@ -398,7 +392,7 @@
 
 @media(max-width: 550px) {
     body {
-        overflow-x: hidden;
+        /* overflow-x: hidden; */
     }
 
     .log-out-pop-out-web {
