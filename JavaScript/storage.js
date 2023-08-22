@@ -14,7 +14,7 @@ let userId = +localStorage.getItem('userId');
  * @type {string}
  * @const
  */
-const STORAGE_TOKEN = 'VME58G2KX9RYXPBTN6UKEQ0E5HVP3P7Q5CR6TE8W';
+const STORAGE_TOKEN = 'WDG6PZ9OMOMSSE7SYE2AA14UT7O9C11RXO6NWAI9';
 
 
 /**
@@ -66,6 +66,7 @@ async function getAllAppData() {
     let replacedData = fullAppData.replace(/'/g, '"'); // Replace ""
     let parsedData = await JSON.parse(replacedData);
     appData = parsedData;
+    console.log(appData)
   } catch (error) {
     console.log(error)
   }
